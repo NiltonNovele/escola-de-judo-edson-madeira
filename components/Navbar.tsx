@@ -61,7 +61,6 @@ export default function Navbar() {
               { href: "#", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
               { href: "/parceiros", label: "Parceiros" },
-              { href: "#", label: "Reconhecimento" },
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "#", label: "Reação Escola Faixa-Preta" },

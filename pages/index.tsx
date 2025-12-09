@@ -17,10 +17,11 @@ export default function Home() {
       <Navbar />
 
       <main className="pt-24">
+
         {/* HERO PRINCIPAL */}
         <section className="bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* TEXT */}
             <div className="lg:col-span-7">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900">
@@ -55,7 +56,7 @@ export default function Home() {
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/hero-kids.jpg"
+                  src="/hero.jpg"
                   alt="Crianças praticando judo"
                   width={1200}
                   height={900}
@@ -70,7 +71,7 @@ export default function Home() {
         {/* SOBRE */}
         <section id="sobre" className="bg-gray-50 py-20 border-t">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* IMAGE */}
             <div className="lg:col-span-5">
               <div className="w-full rounded-xl overflow-hidden shadow-md">
@@ -134,12 +135,7 @@ export default function Home() {
                   className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-2xl transition cursor-pointer"
                 >
                   <div className="relative w-full h-56">
-                    <Image
-                      src={`/event-${id}.jpg`}
-                      alt={`Evento ${id}`}
-                      fill
-                      className="object-cover"
-                    />
+                    <Image src={`/event-${id}.jpg`} alt={`Evento ${id}`} fill className="object-cover" />
                   </div>
 
                   <div className="p-5">
@@ -175,7 +171,81 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SOBRE O FUNDADOR — NOVA SECÇÃO */}
+        {/* ---------------------------------------------------- */}
+        {/* CASOS DE SUCESSO — NEW SECTION */}
+        {/* ---------------------------------------------------- */}
+
+        <section id="casos" className="bg-white py-24 border-t">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-14">
+              Casos de Sucesso
+            </h2>
+
+            {/* MOBILE SWIPE CONTAINER */}
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
+              {[1, 2, 3].map((id) => (
+                <div
+                  key={id}
+                  className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center"
+                >
+                  <div className="w-full h-60 rounded-xl overflow-hidden mb-6">
+                    <Image
+                      src={`/sucesso${id}.jpg`}
+                      alt={`História de sucesso ${id}`}
+                      width={1200}
+                      height={900}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-blue-900">
+                    {id === 1 ? "Raquel Silva" : id === 2 ? "Rodrigo Borges" : "Adriele Ribeiro"}
+                  </h3>
+
+                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">
+                    {id === 1
+                      ? "A maior contribuição que o Judo trouxe para minha vida foram as perspectivas de futuro e disciplina."
+                      : id === 2
+                      ? "Entrei na faculdade graças ao projeto, que me deu motivação e uma visão totalmente nova sobre o meu futuro."
+                      : "Os projetos extracurriculares ajudaram no meu crescimento académico e pessoal, abrindo portas internacionais."}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* DESKTOP GRID */}
+            <div className="hidden lg:grid grid-cols-3 gap-10">
+              {[1, 2, 3].map((id) => (
+                <div key={id} className="bg-white rounded-2xl shadow-lg p-6">
+                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+                    <Image
+                      src={`/sucesso${id}.jpg`}
+                      alt={`História de sucesso ${id}`}
+                      width={1200}
+                      height={900}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-blue-900">
+                    {id === 1 ? "Raquel Silva" : id === 2 ? "Rodrigo Borges" : "Adriele Ribeiro"}
+                  </h3>
+
+                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">
+                    {id === 1
+                      ? "A maior contribuição que o Judo trouxe para minha vida foram as perspectivas de futuro e disciplina."
+                      : id === 2
+                      ? "Entrei na faculdade graças ao projeto, que me deu motivação e uma visão totalmente nova sobre o meu futuro."
+                      : "Os projetos extracurriculares ajudaram no meu crescimento académico e pessoal, abrindo portas internacionais."}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SOBRE O FUNDADOR */}
         <section id="fundador" className="bg-white py-24 border-t">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
@@ -183,7 +253,7 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="w-full rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/founder.jpg"
+                  src="/edson.jpg"
                   alt="Fundador da Escola de Judo"
                   width={1200}
                   height={900}
@@ -216,7 +286,7 @@ export default function Home() {
                   href="#sobre"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
                 >
-                  Saber mais sobre o projeto
+                  Mais sobre o Edson
                 </a>
               </div>
             </div>
@@ -224,57 +294,130 @@ export default function Home() {
         </section>
 
         {/* NEWSLETTER */}
-        <section id="newsletter" className="bg-gradient-to-r from-blue-50 to-white border-t">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-            <div className="rounded-xl bg-white shadow-lg p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div>
-                <h4 className="text-2xl font-extrabold text-blue-900">Receba novidades</h4>
-                <p className="mt-3 text-gray-700">
-                  Inscreva-se e fique a par de notícias, eventos e oportunidades de apoiar.
+        <section
+          id="newsletter"
+          className="bg-gradient-to-r from-blue-50/60 to-white border-t py-20 mt-10"
+        >
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div
+              className="
+                rounded-2xl bg-white shadow-xl
+                p-8 lg:p-14
+                grid grid-cols-1 md:grid-cols-2 gap-10
+                items-center relative overflow-hidden
+              "
+            >
+              <div className="absolute -right-10 -top-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-40" />
+
+              <div className="relative">
+                <h4 className="text-3xl lg:text-4xl font-extrabold text-blue-900 leading-snug">
+                  Receba Novidades & Atualizações
+                </h4>
+                <p className="mt-4 text-gray-700 text-lg leading-relaxed">
+                  Junte-se à nossa comunidade e receba notícias, eventos, conquistas e
+                  oportunidades de apoiar o desenvolvimento dos nossos atletas.
                 </p>
+
+                <ul className="mt-6 space-y-2 text-gray-600 text-sm">
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
+                    Conteúdos exclusivos e relevantes
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
+                    Eventos e competições
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
+                    Oportunidades de apoio e participação
+                  </li>
+                </ul>
               </div>
 
-              <form
-                className="flex flex-col sm:flex-row gap-3 items-start sm:items-center"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <input
-                  type="email"
-                  placeholder="O seu email"
-                  required
-                  className="w-full sm:flex-1 rounded-full border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                />
-                <button
-                  type="submit"
-                  className="rounded-full bg-blue-900 px-6 py-3 text-white font-semibold hover:bg-blue-950 transition"
-                >
-                  Subscrever
-                </button>
+              {/* Newsletter form */}
+              <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <input
+                    type="email"
+                    placeholder="O seu email"
+                    required
+                    className="
+                      w-full rounded-full border border-gray-300
+                      px-5 py-3.5 text-gray-800
+                      focus:outline-none focus:ring-2 focus:ring-blue-400
+                      shadow-sm
+                    "
+                  />
+                  <button
+                    type="submit"
+                    className="
+                      rounded-full bg-blue-900
+                      px-8 py-3.5 text-white font-semibold
+                      hover:bg-blue-950 transition
+                      shadow-md
+                    "
+                  >
+                    Subscrever
+                  </button>
+                </div>
+
+                <p className="text-xs text-gray-500 pl-2">
+                  Garantimos a sua privacidade. Sem spam.
+                </p>
               </form>
             </div>
           </div>
         </section>
 
         {/* PARCEIROS */}
-        <section className="bg-gray-50 py-20 mt-24">
+        <section className="bg-gray-50 py-24 mt-24">
           <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="text-4xl font-extrabold text-blue-900 mb-6">Os Nossos Parceiros</h2>
-            <p className="text-gray-700 max-w-2xl mx-auto text-lg mb-12">
-              A Escola de Judo Edson Madeira conta com o apoio de instituições e marcas que acreditam 
-              no desenvolvimento desportivo, educativo e social.
+
+            <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
+              Os Nossos Parceiros
+            </h2>
+
+            <p className="text-gray-700 max-w-2xl mx-auto text-lg mb-14 leading-relaxed">
+              A Escola de Judo Edson Madeira conta com o apoio de instituições e marcas
+              que acreditam no desenvolvimento desportivo, educativo e social.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 items-center">
-              {[1, 2, 3, 4].map((id) => (
-                <div key={id} className="flex justify-center">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 items-center justify-center">
+              {[1, 2, 3, 4, 5].map((id) => (
+                <div
+                  key={id}
+                  className="
+                    bg-white
+                    rounded-2xl
+                    shadow-sm
+                    p-6
+                    border border-gray-100
+                    hover:shadow-lg
+                    transition-all
+                    duration-300
+                    flex items-center justify-center group
+                  "
+                >
                   <img
-                    src={`/partners/partner${id}.png`}
-                    className="w-32 opacity-70 hover:opacity-100 transition"
+                    src={`/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
+                    className="
+                      w-32
+                      opacity-70
+                      group-hover:opacity-100
+                      group-hover:scale-110
+                      transition-all
+                      duration-300
+                      object-contain
+                    "
                   />
                 </div>
               ))}
             </div>
+
+            <p className="text-gray-600 mt-14 text-sm">
+              Agradecemos cada parceiro que acredita na nossa missão.
+            </p>
           </div>
         </section>
       </main>
