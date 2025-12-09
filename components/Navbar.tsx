@@ -143,6 +143,10 @@ export default function Navbar() {
               { href:"#", label:"Publicações Contábeis"},
               { href:"#", label:"Edital de Convocação"},
             ]} closeMenu={() => setMobileOpen(false)}/>
+            <MobileDropdown title="Extras" items={[
+              { href:"/eventos", label:"Eventos"},
+              { href:"/actividades", label:"Actividades"},
+            ]} closeMenu={() => setMobileOpen(false)}/>
             <Link href="/loja" onClick={() => setMobileOpen(false)} className="block">LOJA DE JUDO</Link>
             <Link href="/contacto" onClick={() => setMobileOpen(false)} className="block">CONTACTE-NOS</Link>
             <Link href="#" onClick={() => setMobileOpen(false)} className="block w-full text-center px-5 py-3 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-xl shadow-lg hover:opacity-90 transition">
