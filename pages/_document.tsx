@@ -25,7 +25,7 @@ export default function Document() {
         <meta property="og:title" content="EJEM" />
         <meta property="og:description"
               content="Transformamos vidas através do judo, educação e desenvolvimento humano." />
-        <meta property="og:image" content="/images/social-banner.jpg" />
+        <meta property="og:image" content="/logo.png" />
         <meta property="og:url" content="https://www.ejem.org.mz" />
         <meta property="og:type" content="website" />
 
@@ -34,7 +34,7 @@ export default function Document() {
         <meta name="twitter:title" content="EJEM" />
         <meta name="twitter:description"
               content="Esporte, educação e desenvolvimento humano através do judo." />
-        <meta name="twitter:image" content="/images/social-banner.jpg" />
+        <meta name="twitter:image" content="/logo.png" />
 
         {/* ----------- FONTS (se quiseres) ----------- */}
         {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
