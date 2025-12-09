@@ -60,9 +60,8 @@ export default function Navbar() {
               { href: "/onde-estamos", label: "Onde estamos" },
               { href: "#", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
-              { href: "#", label: "Parceiros" },
+              { href: "/parceiros", label: "Parceiros" },
               { href: "#", label: "Reconhecimento" },
-              { href: "#", label: "Blog" },
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "#", label: "Reação Escola Faixa-Preta" },
@@ -119,7 +118,7 @@ export default function Navbar() {
               { href: "/onde-estamos", label:"Onde estamos"},
               { href: "#", label:"Manifesto"},
               { href: "/equipe", label:"Equipe"},
-              { href: "#", label:"Parceiros"},
+              { href: "/parceiros", label:"Parceiros"},
               { href: "#", label:"Reconhecimento"},
               { href: "#", label:"Blog"},
             ]} closeMenu={() => setMobileOpen(false)}/>

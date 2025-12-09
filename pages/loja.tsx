@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/footer";
 import Image from "next/image";
 import { Construction, MessageSquare, Eye, X } from "lucide-react";
 
@@ -21,8 +22,8 @@ export default function LojaPage() {
     {
       name: "Kimono Branco Infantil",
       price: "3.500 MT",
-      image: "/mock-kimono1.jpg",
-      preview: "/previews/kimono-white-kid.jpg", // real model preview placeholder
+      image: "/loja/kimono-de-judo-adidas-infantil.webp",
+      preview: "/loja/kimono-infantil-prev.jpg", // real model preview placeholder
       sizes: ["110cm", "130cm", "150cm"],
       colors: ["Branco"],
       quantity: "Disponível",
@@ -30,8 +31,8 @@ export default function LojaPage() {
     {
       name: "Kimono Azul Adulto",
       price: "5.800 MT",
-      image: "/mock-kimono2.jpg",
-      preview: "/previews/kimono-blue-adult.jpg",
+      image: "/loja/kimono-adulto-azul.jpeg",
+      preview: "/loja/kimono-adulto-prev.jpg",
       sizes: ["A1", "A2", "A3"],
       colors: ["Azul"],
       quantity: "Disponível",
@@ -39,8 +40,8 @@ export default function LojaPage() {
     {
       name: "Faixa Preta Profissional",
       price: "1.900 MT",
-      image: "/mock-belt-black.jpg",
-      preview: "/previews/black-belt.jpg",
+      image: "/loja/faixa-preta.jpeg",
+      preview: "/loja/faixa-preta-prev.jpg",
       sizes: ["260cm", "280cm", "300cm"],
       colors: ["Preta"],
       quantity: "Poucas Unidades",
@@ -48,8 +49,8 @@ export default function LojaPage() {
     {
       name: "Faixa Colorida (Amarela, Laranja, Verde)",
       price: "900 MT",
-      image: "/mock-belt-color.jpg",
-      preview: "/previews/color-belts.jpg",
+      image: "/loja/faixas.webp",
+      preview: "/loja/faixa-prev.jpg",
       sizes: ["Infantil & Adulto"],
       colors: ["Amarela", "Laranja", "Verde"],
       quantity: "Disponível",
@@ -57,8 +58,8 @@ export default function LojaPage() {
     {
       name: "Saco de Desporto",
       price: "2.700 MT",
-      image: "/mock-bag.jpg",
-      preview: "/previews/sports-bag.jpg",
+      image: "/loja/saco.jpg",
+      preview: "/loja/saco.jpg",
       sizes: ["Único"],
       colors: ["Azul / Preto"],
       quantity: "Disponível",
@@ -66,8 +67,8 @@ export default function LojaPage() {
     {
       name: "Protetor Bucal",
       price: "350 MT",
-      image: "/mock-mouthguard.jpg",
-      preview: "/previews/mouthguard.jpg",
+      image: "/loja/protetor-bucal.webp",
+      preview: "/loja/protetor-bucal.webp",
       sizes: ["Único"],
       colors: ["Transparente / Preto"],
       quantity: "Disponível",
@@ -92,7 +93,8 @@ export default function LojaPage() {
       <div className="max-w-6xl mx-auto px-6 mb-12 bg-red-50 border border-red-200 text-red-700 rounded-xl p-6 flex items-center gap-3">
         <Construction size={32} />
         <p className="text-lg font-medium">
-          ⚠️ Esta é apenas uma demonstração da loja — em breve estará totalmente funcional!
+          ⚠️ Nossa loja de Judô está passando pelos toques finais! Aqui está uma prévia
+          dos produtos que estarão disponíveis em breve.
         </p>
       </div>
 
@@ -228,6 +230,7 @@ export default function LojaPage() {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 }
