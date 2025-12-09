@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
+import StatsSection from "../components/StatsSection";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,54 +21,64 @@ export default function Home() {
       <main className="pt-24">
 
         {/* HERO PRINCIPAL */}
-        <section className="bg-white">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section
+  className="relative w-full bg-cover bg-center"
+  style={{ backgroundImage: "url('/hero.jpg')" }}
+>
+  {/* GRADIENT + BLUR LEFT SIDE */}
+  <div className="
+    absolute inset-0 
+    bg-gradient-to-r from-white/70 via-white/40 to-transparent
+    
+  " />
 
-            {/* TEXT */}
-            <div className="lg:col-span-7">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900">
-                Construir,
-                <br />
-                Conquistar e
-                <br />
-                Compartilhar
-              </h1>
-              <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-700 font-medium leading-relaxed">
-                Sonhamos com um futuro onde cada criança tenha a oportunidade de crescer através
-                do desporto. O Judo é a nossa ferramenta de transformação social.
-              </p>
+  <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href="#sobre"
-                  className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
-                >
-                  CONHEÇA A NOSSA CAUSA
-                </a>
-                <a
-                  href="#apoio"
-                  className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
-                >
-                  QUERO DOAR
-                </a>
-              </div>
-            </div>
+    {/* TEXT */}
+    <div className="lg:col-span-7">
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900 drop-shadow-xl">
+        Construir,
+        <br />
+        Conquistar e
+        <br />
+        Compartilhar
+      </h1>
 
-            {/* IMAGE */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/hero.jpg"
-                  alt="Crianças praticando judo"
-                  width={1200}
-                  height={900}
-                  className="object-cover w-full h-72 sm:h-96 lg:h-[420px]"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+      <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-700 font-medium leading-relaxed drop-shadow">
+        Sonhamos com um futuro onde cada criança tenha a oportunidade de crescer através
+        do desporto. O Judo é a nossa ferramenta de transformação social.
+      </p>
+
+      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+        <a
+          href="#sobre"
+          className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
+        >
+          CONHEÇA A NOSSA CAUSA
+        </a>
+        <a
+          href="#apoio"
+          className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
+        >
+          QUERO FAZER PARTE
+        </a>
+      </div>
+    </div>
+
+    {/* RIGHT-SIDE IMAGE STILL EXISTS ON LARGE SCREENS */}
+    <div className="hidden lg:flex lg:col-span-5 justify-end">
+      <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl border border-white/20">
+        {/* <Image
+          src="/hero.jpg"
+          alt="Crianças praticando judo"
+          width={1200}
+          height={900}
+          className="object-cover w-full h-96"
+        /> */}
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* SOBRE */}
         <section id="sobre" className="bg-gray-50 py-20 border-t">
@@ -76,7 +88,7 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="w-full rounded-xl overflow-hidden shadow-md">
                 <Image
-                  src="/hero-group.jpg"
+                  src="/causa.avif"
                   alt="Grupo de crianças e professores"
                   width={1200}
                   height={900}
@@ -100,23 +112,7 @@ export default function Home() {
         </section>
 
         {/* CONQUISTAS */}
-        <section className="bg-white py-16 border-t">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
-              {[
-                { num: "+2.000", txt: "alunos formados" },
-                { num: "+20", txt: "anos de experiência" },
-                { num: "+400", txt: "bolsas atribuídas" },
-                { num: "+1.500", txt: "medalhas conquistadas" },
-              ].map((item, index) => (
-                <div key={index} className="p-4">
-                  <div className="text-4xl sm:text-5xl font-extrabold text-blue-900">{item.num}</div>
-                  <div className="mt-2 text-base font-medium text-gray-700">{item.txt}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <StatsSection />
 
         {/* EVENTOS */}
         <section id="eventos" className="bg-gray-50 py-20 border-t">
@@ -145,7 +141,7 @@ export default function Home() {
 
                     <h4 className="mt-2 font-semibold text-lg text-blue-900">
                       {id === 1
-                        ? "Torneio Solidário"
+                        ? "Martial Fest"
                         : id === 2
                         ? "Aula Aberta"
                         : "Campeonato Local"}
