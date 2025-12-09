@@ -56,7 +56,7 @@ export default function Navbar() {
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center space-x-8 text-gray-700 text-sm font-medium">
             <DesktopDropdown title="EJEM" items={[
-              { href: "#", label: "Quem somos" },
+              { href: "/quem-somos", label: "Quem somos" },
               { href: "#", label: "Onde estamos" },
               { href: "#", label: "Manifesto" },
               { href: "#", label: "Equipe" },
@@ -115,7 +115,7 @@ export default function Navbar() {
         {mobileOpen && (
           <div className="md:hidden bg-white border-t shadow-lg p-6 space-y-6 text-gray-800 text-sm animate-fadeIn">
             <MobileDropdown title="EJEM" items={[
-              { href: "#", label:"Quem somos"},
+              { href: "/quem-somos", label:"Quem somos"},
               { href: "#", label:"Onde estamos"},
               { href: "#", label:"Manifesto"},
               { href: "#", label:"Equipe"},
