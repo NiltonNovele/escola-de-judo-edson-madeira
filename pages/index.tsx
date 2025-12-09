@@ -176,74 +176,109 @@ export default function Home() {
         {/* ---------------------------------------------------- */}
 
         <section id="casos" className="bg-white py-24 border-t">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+  <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-14">
+      Casos de Sucesso
+    </h2>
 
-            <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-14">
-              Casos de Sucesso
-            </h2>
-
-            {/* MOBILE SWIPE CONTAINER */}
-            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
-              {[1, 2, 3].map((id) => (
-                <div
-                  key={id}
-                  className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center"
-                >
-                  <div className="w-full h-60 rounded-xl overflow-hidden mb-6">
-                    <Image
-                      src={`/sucesso${id}.jpg`}
-                      alt={`História de sucesso ${id}`}
-                      width={1200}
-                      height={900}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-blue-900">
-                    {id === 1 ? "Raquel Silva" : id === 2 ? "Rodrigo Borges" : "Adriele Ribeiro"}
-                  </h3>
-
-                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">
-                    {id === 1
-                      ? "A maior contribuição que o Judo trouxe para minha vida foram as perspectivas de futuro e disciplina."
-                      : id === 2
-                      ? "Entrei na faculdade graças ao projeto, que me deu motivação e uma visão totalmente nova sobre o meu futuro."
-                      : "Os projetos extracurriculares ajudaram no meu crescimento académico e pessoal, abrindo portas internacionais."}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* DESKTOP GRID */}
-            <div className="hidden lg:grid grid-cols-3 gap-10">
-              {[1, 2, 3].map((id) => (
-                <div key={id} className="bg-white rounded-2xl shadow-lg p-6">
-                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
-                    <Image
-                      src={`/sucesso${id}.jpg`}
-                      alt={`História de sucesso ${id}`}
-                      width={1200}
-                      height={900}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-blue-900">
-                    {id === 1 ? "Raquel Silva" : id === 2 ? "Rodrigo Borges" : "Adriele Ribeiro"}
-                  </h3>
-
-                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">
-                    {id === 1
-                      ? "A maior contribuição que o Judo trouxe para minha vida foram as perspectivas de futuro e disciplina."
-                      : id === 2
-                      ? "Entrei na faculdade graças ao projeto, que me deu motivação e uma visão totalmente nova sobre o meu futuro."
-                      : "Os projetos extracurriculares ajudaram no meu crescimento académico e pessoal, abrindo portas internacionais."}
-                  </p>
-                </div>
-              ))}
-            </div>
+    {/* MOBILE SWIPE CAROUSEL */}
+    <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
+      {[
+        {
+          name: "Edson Madeira",
+          img: "/success/edson.jpg",
+          text:
+            "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
+        },
+        {
+          name: "Kevin Loforte",
+          img: "/success/kevin.jpg",
+          text:
+            "Conhecido como 'Mozambican Monster'. Judoca -66kg, Olímpico em Tóquio 2020, medalhista africano e um dos atletas mais dominantes do país.",
+        },
+        {
+          name: "Jacira Ferreira",
+          img: "/success/jacira.jpg",
+          text:
+            "Judoca olímpica em Paris 2024. Conquistou 5º lugar no African Championship Seniores. Exemplo de determinação e disciplina.",
+        },
+        {
+          name: "Shenidy Tsemane",
+          img: "/success/shenidy.jpg",
+          text:
+            "Primeira atleta moçambicana a conquistar ouro nos Jogos Africanos de Judo. Um marco histórico para o desporto nacional.",
+        },
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center border hover:shadow-xl transition"
+        >
+          <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+            <Image
+              src={item.img}
+              alt={item.name}
+              width={1200}
+              height={900}
+              className="object-cover w-full h-full"
+            />
           </div>
-        </section>
+
+          <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
+          <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* DESKTOP GRID (3 per row) */}
+    <div className="hidden lg:grid grid-cols-3 gap-10">
+      {[
+        {
+          name: "Edson Madeira",
+          img: "/edson.jpg",
+          text:
+            "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
+        },
+        {
+          name: "Kevin Loforte",
+          img: "/sucesso/kevin.jpg",
+          text:
+            "O 'Mozambican Monster'. Judoca olímpico (-66kg), medalhista africano e uma inspiração para jovens atletas.",
+        },
+        {
+          name: "Jacira Ferreira",
+          img: "/sucesso/jacira.jpg",
+          text:
+            "Representou Moçambique nos Jogos Olímpicos Paris 2024. Exemplo de coragem, dedicação e superação.",
+        },
+        {
+          name: "Shenidy Tsemane",
+          img: "/sucesso/shneidy.jpg",
+          text:
+            "Primeira medalha de ouro de Moçambique nos Jogos Africanos de Judo — um marco histórico para o país.",
+        },
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="bg-white rounded-2xl shadow-lg p-6 border hover:shadow-xl transition"
+        >
+          <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+            <Image
+              src={item.img}
+              alt={item.name}
+              width={1200}
+              height={900}
+              className="object-cover w-full h-full"
+            />
+          </div>
+
+          <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
+          <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
         {/* SOBRE O FUNDADOR */}
         <section id="fundador" className="bg-white py-24 border-t">
@@ -291,7 +326,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section>``
 
         {/* NEWSLETTER */}
         <section
