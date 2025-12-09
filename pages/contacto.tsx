@@ -53,7 +53,6 @@ export default function ContactPage() {
             Fale Conosco
           </h1>
 
-          {/* Brush Stroke Background */}
           <div
             className="absolute inset-0 -z-10 opacity-90"
             style={{
@@ -72,25 +71,25 @@ export default function ContactPage() {
           diretamente com nossa equipe.
         </p>
 
-        {/* CONTACT INFO BADGE */}
-        <div className="max-w-2xl mx-auto mt-8 bg-blue-50 rounded-xl p-6 shadow-md border border-blue-100">
-          <p className="text-neutral-800 leading-relaxed flex items-center gap-2">
+        {/* CONTACT INFO BADGE – (UPDATED INFO) */}
+        <div className="max-w-2xl mx-auto mt-8 bg-blue-50 rounded-xl p-6 shadow-md border border-blue-100 space-y-3">
+          <p className="text-neutral-800 flex items-center gap-2">
             <Mail size={20} className="text-blue-700" />
             Email:
             <a
-              href="mailto:ajuda@ejem.org.mz"
+              href="mailto:contacto@ejem.org.mz"
               className="text-blue-800 font-semibold underline ml-1"
             >
-              ajuda@ejem.org.mz
+              contacto@ejem.org.mz
             </a>
           </p>
 
-          <p className="mt-2 text-neutral-800 flex items-center gap-2">
+          <p className="text-neutral-800 flex items-center gap-2">
             <Phone size={20} className="text-blue-700" />
-            Telefone: +258 84 XXX XXX
+            Telefone: +258 84 400 2050
           </p>
 
-          <p className="mt-2 text-neutral-800 flex items-center gap-2">
+          <p className="text-neutral-800 flex items-center gap-2">
             <HelpCircle size={20} className="text-blue-700" />
             Veja também nosso FAQ abaixo.
           </p>
@@ -99,15 +98,56 @@ export default function ContactPage() {
 
       {/* GRID CONTENT */}
       <div className="max-w-6xl mx-auto px-6 mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* LEFT IMAGE */}
-        <div className="rounded-2xl overflow-hidden shadow-xl border border-neutral-200">
-          <Image
-            src="/contact.jpg"
-            width={900}
-            height={600}
-            alt="Contato"
-            className="object-cover"
-          />
+        {/* LEFT SIDE – IMAGE + ADDRESS BLOCK */}
+        <div className="space-y-6">
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-neutral-200">
+            <Image
+              src="/contact.jpg"
+              width={900}
+              height={600}
+              alt="Contato"
+              className="object-cover"
+            />
+          </div>
+
+          {/* CONTACT DETAILS PANEL (NEW) */}
+          <div className="bg-neutral-50 rounded-2xl p-6 shadow-md border border-neutral-200 space-y-5">
+            <h3 className="text-2xl font-bold text-blue-900">Informações</h3>
+
+            <div className="space-y-3">
+              <p className="flex items-start gap-3 text-neutral-800">
+                <MapPin className="text-blue-700 flex-shrink-0" />
+                <span>
+                  Rua de Mukumbura 367 R/c <br /> Maputo, Moçambique
+                </span>
+              </p>
+
+              <p className="flex items-center gap-3 text-neutral-800">
+                <Phone className="text-blue-700" />
+                +258 84 400 2050
+              </p>
+
+              <p className="flex items-center gap-3 text-neutral-800">
+                <Mail className="text-blue-700" />
+                contacto@ejem.org.mz
+              </p>
+
+              <div className="flex items-start gap-3 text-neutral-800">
+                <Clock className="text-blue-700 flex-shrink-0" />
+                <div>
+                  <p>
+                    <strong>Seg – Sex:</strong> 9:00 – 18:00
+                  </p>
+                  <p>
+                    <strong>Sábado:</strong> 10:00 – 16:00
+                  </p>
+                  <p>
+                    <strong>Domingo:</strong> Fechado
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* RIGHT FORM */}

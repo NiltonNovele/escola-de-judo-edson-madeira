@@ -27,7 +27,7 @@ const eventsData: EventType[] = [
     description: "Competição anual de Judo para atletas de todos os níveis.",
     details:
       "O Campeonato de Judo 2025 contará com várias categorias de peso e idade. Haverá premiações especiais e atividades para toda a família.",
-    images: ["/events/event1-1.jpg", "/events/event1-2.jpg", "/events/event1-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const eventsData: EventType[] = [
     description: "Treino especial aberto para a comunidade local.",
     details:
       "Treino aberto com orientação de nossos professores, focado em crianças e jovens iniciantes. Trazer kimono e boa energia!",
-    images: ["/events/event2-1.jpg", "/events/event2-2.jpg", "/events/event2-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const eventsData: EventType[] = [
     description: "Workshop avançado de Judo para atletas experientes.",
     details:
       "Infelizmente este evento foi cancelado devido a imprevistos. Fique atento às próximas datas!",
-    images: ["/events/event3-1.jpg", "/events/event3-2.jpg", "/events/event3-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 4,
@@ -60,7 +60,7 @@ const eventsData: EventType[] = [
     description: "Exibição das crianças em atividades de Judo.",
     details:
       "Venha prestigiar as crianças em uma demonstração das técnicas aprendidas ao longo do ano.",
-    images: ["/events/event4-1.jpg", "/events/event4-2.jpg", "/events/event4-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 5,
@@ -71,7 +71,7 @@ const eventsData: EventType[] = [
     description: "Treino exclusivo para atletas avançados.",
     details:
       "Treino intensivo com foco em técnicas avançadas e preparação para competições futuras.",
-    images: ["/events/event5-1.jpg", "/events/event5-2.jpg", "/events/event5-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 6,
@@ -82,7 +82,7 @@ const eventsData: EventType[] = [
     description: "Seminário sobre ética, disciplina e Judo.",
     details:
       "Seminário aberto a todos os membros e interessados para aprender sobre a filosofia do Judo e sua aplicação no dia a dia.",
-    images: ["/events/event6-1.jpg", "/events/event6-2.jpg", "/events/event6-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
 ];
 

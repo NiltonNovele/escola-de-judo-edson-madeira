@@ -27,7 +27,7 @@ const activitiesData: ActivityType[] = [
     description: "Marcha para promoção da solidariedade e união comunitária.",
     details:
       "Participe da Marcha Solidária com membros da comunidade e voluntários, promovendo a inclusão e apoio social.",
-    images: ["/activities/activity1-1.jpg", "/activities/activity1-2.jpg", "/activities/activity1-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const activitiesData: ActivityType[] = [
     description: "Atividade de preservação ambiental e limpeza de espaços verdes.",
     details:
       "Voluntários ajudarão a recolher lixo, plantar árvores e promover a educação ambiental local.",
-    images: ["/activities/activity2-1.jpg", "/activities/activity2-2.jpg", "/activities/activity2-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const activitiesData: ActivityType[] = [
     description: "Atividades de apoio à comunidade local.",
     details:
       "Atividade cancelada devido a imprevistos. Próximas oportunidades serão anunciadas em breve.",
-    images: ["/activities/activity3-1.jpg", "/activities/activity3-2.jpg", "/activities/activity3-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 4,
@@ -60,7 +60,7 @@ const activitiesData: ActivityType[] = [
     description: "Jogo e treino de Judo em ambiente externo.",
     details:
       "Atividades lúdicas e treino de Judo para crianças e jovens, aproveitando a natureza para aprendizagem e diversão.",
-    images: ["/activities/activity4-1.jpg", "/activities/activity4-2.jpg", "/activities/activity4-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 5,
@@ -71,7 +71,7 @@ const activitiesData: ActivityType[] = [
     description: "Evento de voluntariado para doação de sangue.",
     details:
       "Participe da campanha, ajude a salvar vidas e aprenda sobre a importância do voluntariado na comunidade.",
-    images: ["/activities/activity5-1.jpg", "/activities/activity5-2.jpg", "/activities/activity5-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
   {
     id: 6,
@@ -82,7 +82,7 @@ const activitiesData: ActivityType[] = [
     description: "Oficinas de formação e capacitação para jovens.",
     details:
       "Workshops educativos sobre cidadania, ética e habilidades sociais para a comunidade jovem.",
-    images: ["/activities/activity6-1.jpg", "/activities/activity6-2.jpg", "/activities/activity6-3.jpg"],
+    images: ["/logo.png", "/logo.png", "/logo.png"],
   },
 ];
 

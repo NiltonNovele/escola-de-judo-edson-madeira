@@ -28,10 +28,10 @@ export default function Navbar() {
 
       {/* 🌈 TOP SOCIAL BAR WITH GRADIENT */}
       <div className="w-full bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 text-white flex justify-end px-6 py-2 space-x-6 text-lg shadow">
-        <SocialIcon href="#" Icon={FaInstagram} />
-        <SocialIcon href="#" Icon={FaFacebookF} />
-        <SocialIcon href="#" Icon={FaLinkedinIn} />
-        <SocialIcon href="#" Icon={FaTiktok} />
+        <SocialIcon href="https://www.instagram.com/escoladejudoedsonmadeira/" Icon={FaInstagram} />
+        <SocialIcon href="https://web.facebook.com/profile.php?id=100064625562311" Icon={FaFacebookF} />
+        <SocialIcon href="https://www.linkedin.com/in/edson-madeira-oly-0858b8a0/" Icon={FaLinkedinIn} />
+        <SocialIcon href="https://www.tiktok.com/@escoladejudoedsonmadeira?lang=en" Icon={FaTiktok} />
         <button>
           <FaSearch className="hover:text-blue-200 transition" />
         </button>

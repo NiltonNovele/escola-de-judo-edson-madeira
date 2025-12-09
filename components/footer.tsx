@@ -9,6 +9,7 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -69,9 +70,10 @@ export default function Footer() {
         <div>
           <h4 className="text-black font-semibold mb-4 text-lg">Redes Sociais</h4>
           <div className="flex gap-4">
-            <SocialIcon href="https://instagram.com" Icon={Instagram} />
-            <SocialIcon href="https://facebook.com" Icon={Facebook} />
-            <SocialIcon href="https://linkedin.com" Icon={Linkedin} />
+            <SocialIcon href="https://www.instagram.com/escoladejudoedsonmadeira/" Icon={Instagram} />
+            <SocialIcon href="https://web.facebook.com/profile.php?id=100064625562311" Icon={Facebook} />
+            <SocialIcon href="https://www.linkedin.com/in/edson-madeira-oly-0858b8a0/" Icon={Linkedin} />
+            <SocialIcon href="https://www.tiktok.com/@escoladejudoedsonmadeira?lang=en" Icon={FaTiktok} />
           </div>
         </div>
       </div>
