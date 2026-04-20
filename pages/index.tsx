@@ -228,12 +228,12 @@ export default function Home() {
     {/* DESKTOP GRID (3 per row) */}
     <div className="hidden lg:grid grid-cols-3 gap-10">
       {[
-        {
-          name: "Edson Madeira",
-          img: "/edson.jpg",
-          text:
-            "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
-        },
+        // {
+        //   name: "Edson Madeira",
+        //   img: "/edson.jpg",
+        //   text:
+        //     "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
+        // },
         {
           name: "Kevin Loforte",
           img: "/sucesso/kevin.jpg",

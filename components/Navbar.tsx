@@ -93,7 +93,7 @@ export default function Navbar() {
           {/* DESKTOP BUTTON */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
-              href="#"
+              href="/donate"
               className="px-4 py-2 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-xl shadow-lg hover:opacity-90 transition text-sm"
             >
               QUERO APOIAR / DOAR
@@ -147,7 +147,7 @@ export default function Navbar() {
             ]} closeMenu={() => setMobileOpen(false)}/>
             <Link href="/loja" onClick={() => setMobileOpen(false)} className="block">LOJA DE JUDO</Link>
             <Link href="/contacto" onClick={() => setMobileOpen(false)} className="block">CONTACTE-NOS</Link>
-            <Link href="#" onClick={() => setMobileOpen(false)} className="block w-full text-center px-5 py-3 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-xl shadow-lg hover:opacity-90 transition">
+            <Link href="/donate" onClick={() => setMobileOpen(false)} className="block w-full text-center px-5 py-3 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-xl shadow-lg hover:opacity-90 transition">
               QUERO APOIAR / DOAR
             </Link>
           </div>

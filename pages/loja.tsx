@@ -4,232 +4,281 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Image from "next/image";
-import { Construction, MessageSquare, Eye, X } from "lucide-react";
+import { ShoppingCart, X, Minus, Plus } from "lucide-react";
 
 export default function LojaPage() {
-  const [phone, setPhone] = useState("");
+  const [cart, setCart] = useState<any[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
-  // Modal state
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [customer, setCustomer] = useState({
+    name: "",
+    phone: "",
+    payment: "MPESA",
+  });
 
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    alert("Obrigado! Vamos avisar pelo WhatsApp assim que a loja estiver pronta!");
-  }
-
-  // MOCK PRODUCTS ------------------
   const products = [
     {
+      id: 1,
       name: "Kimono Branco Infantil",
-      price: "3.500 MT",
+      price: 3500,
       image: "/loja/kimono-de-judo-adidas-infantil.webp",
-      preview: "/loja/kimono-infantil-prev.jpg", // real model preview placeholder
       sizes: ["110cm", "130cm", "150cm"],
       colors: ["Branco"],
-      quantity: "Disponível",
     },
     {
+      id: 2,
       name: "Kimono Azul Adulto",
-      price: "5.800 MT",
+      price: 5800,
       image: "/loja/kimono-adulto-azul.jpeg",
-      preview: "/loja/kimono-adulto-prev.jpg",
       sizes: ["A1", "A2", "A3"],
       colors: ["Azul"],
-      quantity: "Disponível",
     },
     {
+      id: 3,
       name: "Faixa Preta Profissional",
-      price: "1.900 MT",
+      price: 1900,
       image: "/loja/faixa-preta.jpeg",
-      preview: "/loja/faixa-preta-prev.jpg",
       sizes: ["260cm", "280cm", "300cm"],
       colors: ["Preta"],
-      quantity: "Poucas Unidades",
     },
     {
-      name: "Faixa Colorida (Amarela, Laranja, Verde)",
-      price: "900 MT",
+      id: 4,
+      name: "Faixa Colorida",
+      price: 900,
       image: "/loja/faixas.webp",
-      preview: "/loja/faixa-prev.jpg",
       sizes: ["Infantil & Adulto"],
       colors: ["Amarela", "Laranja", "Verde"],
-      quantity: "Disponível",
     },
     {
+      id: 5,
       name: "Saco de Desporto",
-      price: "2.700 MT",
+      price: 2700,
       image: "/loja/saco.jpg",
-      preview: "/loja/saco.jpg",
       sizes: ["Único"],
       colors: ["Azul / Preto"],
-      quantity: "Disponível",
     },
     {
+      id: 6,
       name: "Protetor Bucal",
-      price: "350 MT",
+      price: 350,
       image: "/loja/protetor-bucal.webp",
-      preview: "/loja/protetor-bucal.webp",
       sizes: ["Único"],
       colors: ["Transparente / Preto"],
-      quantity: "Disponível",
     },
   ];
 
+  const addToCart = (product: any) => {
+    const exists = cart.find((item) => item.id === product.id);
+
+    if (exists) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, qty: item.qty + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...product, qty: 1 }]);
+    }
+  };
+
+  const updateQty = (id: number, type: "inc" | "dec") => {
+    setCart((prev) =>
+      prev
+        .map((item) => {
+          if (item.id === id) {
+            const newQty = type === "inc" ? item.qty + 1 : item.qty - 1;
+            return { ...item, qty: newQty };
+          }
+          return item;
+        })
+        .filter((item) => item.qty > 0)
+    );
+  };
+
+  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+  const handleCheckout = () => {
+    alert(
+      `Pedido realizado!\n\nNome: ${customer.name}\nTelefone: ${customer.phone}\nPagamento: ${customer.payment}\n\nLevantamento: Clube Naval Maputo`
+    );
+
+    setCart([]);
+    setCheckoutOpen(false);
+    setIsCartOpen(false);
+  };
+
   return (
-    <div className="w-full min-h-screen bg-white relative">
+    <div className="w-full min-h-screen bg-white text-black">
       <Navbar />
 
       {/* HEADER */}
-      <section className="pt-32 pb-12 text-center px-4">
+      <section className="pt-32 pb-16 text-center px-4">
         <h1 className="text-5xl font-extrabold text-blue-900">Loja Oficial</h1>
-
-        <p className="max-w-2xl mx-auto mt-4 text-neutral-700 text-lg leading-relaxed">
-          Nossa loja de Judô está passando pelos toques finais! Aqui está uma prévia
-          dos produtos que estarão disponíveis em breve.
+        <p className="max-w-2xl mx-auto mt-4 text-neutral-600 text-lg">
+          Equipamentos oficiais de Judô com qualidade profissional.
         </p>
       </section>
 
-      {/* UNDER CONSTRUCTION NOTICE */}
-      <div className="max-w-6xl mx-auto px-6 mb-12 bg-red-50 border border-red-200 text-red-700 rounded-xl p-6 flex items-center gap-3">
-        <Construction size={32} />
-        <p className="text-lg font-medium">
-          ⚠️ Nossa loja de Judô está passando pelos toques finais! Aqui está uma prévia
-          dos produtos que estarão disponíveis em breve.
-        </p>
-      </div>
+      {/* FLOATING CART BUTTON */}
+      <button
+        onClick={() => setIsCartOpen(true)}
+        className="fixed bottom-6 right-6 bg-blue-900 text-white p-4 rounded-full shadow-xl z-50 hover:scale-105 transition"
+      >
+        <ShoppingCart />
+        {cart.length > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+            {cart.length}
+          </span>
+        )}
+      </button>
 
-      {/* PRODUCT GRID (MOCK ITEMS) */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-
-        {products.map((item, index) => (
+      {/* PRODUCTS */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products.map((item) => (
           <div
-            key={index}
-            className="relative group border rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition bg-white"
+            key={item.id}
+            className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300"
           >
-            {/* IMAGE */}
-            <div className="relative w-full h-64 overflow-hidden">
+            <div className="relative w-full h-64 bg-neutral-100">
               <Image
                 src={item.image}
                 alt={item.name}
-                width={600}
-                height={400}
-                className="w-full h-full object-cover blur-[2px] group-hover:blur-none transition"
+                fill
+                className="object-cover"
               />
-
-              {/* Over Construction Overlay */}
-              <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-sm flex items-center justify-center opacity-100 group-hover:opacity-0 transition">
-                <p className="text-white text-lg font-semibold">Em Breve</p>
-              </div>
             </div>
 
-            {/* DETAILS */}
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
+            <div className="p-5 space-y-2">
+              <h3 className="text-lg font-semibold text-black">
+                {item.name}
+              </h3>
 
-              <p className="text-red-600 text-lg font-semibold mt-1">{item.price}</p>
-
-              <p className="text-neutral-700 text-sm mt-2">
-                <strong>Tamanhos:</strong> {item.sizes.join(", ")}
+              <p className="text-blue-900 font-bold text-lg">
+                {item.price.toLocaleString()} MT
               </p>
 
-              <p className="text-neutral-700 text-sm">
-                <strong>Cores:</strong> {item.colors.join(", ")}
+              <p className="text-sm text-neutral-500">
+                {item.sizes.join(", ")} • {item.colors.join(", ")}
               </p>
 
-              <p className="text-neutral-700 text-sm mb-3">
-                <strong>Stock:</strong> {item.quantity}
-              </p>
-
-              {/* PREVIEW BUTTON */}
               <button
-                onClick={() => setSelectedProduct(item)}
-                className="w-full py-2 mt-2 bg-blue-900 text-white rounded-xl hover:bg-blue-950 transition flex items-center justify-center gap-2"
+                onClick={() => addToCart(item)}
+                className="w-full mt-3 py-2 bg-blue-900 text-white rounded-xl hover:bg-blue-800 transition"
               >
-                <Eye size={18} /> Ver Prévia
+                Adicionar ao Carrinho
               </button>
             </div>
           </div>
         ))}
       </div>
 
-      {/* WHATSAPP SIGNUP */}
-      <div className="max-w-xl mx-auto bg-white border rounded-2xl shadow-lg p-10 mt-20 text-center">
-        <h3 className="text-2xl font-bold text-blue-900 mb-3 flex items-center justify-center gap-2">
-          <MessageSquare size={26} />
-          Seja Notificado
-        </h3>
-
-        <p className="text-neutral-700 mb-6">
-          Informe seu WhatsApp e avisaremos assim que a loja estiver disponível.
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-5  placeholder-black" >
-          <input
-            type="tel"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Seu WhatsApp — ex: +258 84 000 0000"
-            className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none  placeholder-black"
-          />
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-900 text-white font-semibold rounded-xl shadow-md hover:bg-blue-950 transition"
-          >
-            Enviar
-          </button>
-        </form>
-      </div>
-
-      <div className="h-24"></div>
-
-      {/* === PREVIEW MODAL === */}
-      {selectedProduct && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl p-6 relative animate-fade-in">
-            
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 text-neutral-600 hover:text-black"
-            >
-              <X size={28} />
-            </button>
-
-            <h2 className="text-2xl font-extrabold text-blue-900 mb-4">
-              {selectedProduct.name}
-            </h2>
-
-            {/* Image Preview */}
-            <div className="w-full h-80 relative rounded-xl overflow-hidden shadow-lg mb-6">
-              <Image
-                src={selectedProduct.preview}
-                alt="Preview"
-                fill
-                className="object-cover"
-              />
+      {/* CART SIDEBAR */}
+      {isCartOpen && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex justify-end">
+          <div className="w-full max-w-md bg-white h-full p-6 shadow-xl overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Carrinho</h2>
+              <button onClick={() => setIsCartOpen(false)}>
+                <X />
+              </button>
             </div>
 
-            {/* Product Info */}
-            <p className="text-neutral-700 mb-2">
-              <strong>Preço:</strong> {selectedProduct.price}
-            </p>
+            {cart.length === 0 ? (
+              <p className="text-neutral-500">Carrinho vazio</p>
+            ) : (
+              <>
+                {cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center mb-5"
+                  >
+                    <div>
+                      <p className="font-medium">{item.name}</p>
+                      <p className="text-sm text-neutral-500">
+                        {item.price} MT
+                      </p>
+                    </div>
 
-            <p className="text-neutral-700 mb-2">
-              <strong>Tamanhos:</strong> {selectedProduct.sizes.join(", ")}
-            </p>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => updateQty(item.id, "dec")}> 
+                        <Minus size={16} />
+                      </button>
+                      <span>{item.qty}</span>
+                      <button onClick={() => updateQty(item.id, "inc")}> 
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
 
-            <p className="text-neutral-700 mb-2">
-              <strong>Cores:</strong> {selectedProduct.colors.join(", ")}
-            </p>
+                <div className="mt-6 border-t pt-4 font-bold text-lg">
+                  Total: {total.toLocaleString()} MT
+                </div>
 
-            <p className="text-neutral-700">
-              <strong>Stock:</strong> {selectedProduct.quantity}
-            </p>
+                <button
+                  onClick={() => setCheckoutOpen(true)}
+                  className="w-full mt-6 py-3 bg-blue-900 text-white rounded-xl hover:bg-blue-800"
+                >
+                  Finalizar Compra
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
+
+      {/* CHECKOUT */}
+      {checkoutOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-2xl w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4">Finalizar Compra</h2>
+
+            <input
+              type="text"
+              placeholder="Nome"
+              className="w-full mb-3 p-3 border rounded-lg"
+              onChange={(e) =>
+                setCustomer({ ...customer, name: e.target.value })
+              }
+            />
+
+            <input
+              type="tel"
+              placeholder="Telefone"
+              className="w-full mb-3 p-3 border rounded-lg"
+              onChange={(e) =>
+                setCustomer({ ...customer, phone: e.target.value })
+              }
+            />
+
+            <select
+              className="w-full mb-4 p-3 border rounded-lg"
+              onChange={(e) =>
+                setCustomer({ ...customer, payment: e.target.value })
+              }
+            >
+              <option>MPESA</option>
+              <option>MKESH</option>
+              <option>EMOLA</option>
+            </select>
+
+            <p className="text-sm mb-4 text-neutral-500">
+              Levantamento no Clube Naval Maputo
+            </p>
+
+            <button
+              onClick={handleCheckout}
+              className="w-full py-3 bg-green-600 text-white rounded-xl hover:bg-green-700"
+            >
+              Confirmar Pedido
+            </button>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

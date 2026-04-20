@@ -169,7 +169,7 @@ export default function ContactPage() {
             <input
               name="email"
               type="email"
-              placeholder="Seu Email"
+              placeholder="Seu Email (opcional)"
               value={form.email}
               onChange={handleChange}
               className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none placeholder-neutral-600"
@@ -179,7 +179,7 @@ export default function ContactPage() {
             <input
               name="phone"
               type="tel"
-              placeholder="Telefone (opcional)"
+              placeholder="Telefone"
               value={form.phone}
               onChange={handleChange}
               className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-600 outline-none placeholder-neutral-600"
