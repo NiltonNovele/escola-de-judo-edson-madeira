@@ -200,77 +200,7 @@ export default function DonatePage() {
           className="bg-white py-16 lg:py-20 scroll-mt-28"
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* LEFT INFO */}
-            {/* <div className="lg:col-span-4 space-y-6">
-              <div className="rounded-2xl bg-blue-50 border border-blue-100 p-6 shadow-sm">
-                <h2 className="text-2xl font-extrabold text-blue-900">
-                  {type === "donate" ? "Apoio rápido e flexível" : "Parcerias com impacto"}
-                </h2>
-
-                <p className="mt-4 text-gray-700 leading-relaxed">
-                  {type === "donate"
-                    ? "Escolha a forma de apoio mais conveniente. Quer doar em dinheiro, bens ou serviços? Pode fazê-lo de forma simples e direta."
-                    : "Queremos construir relações duradouras com pessoas, empresas e organizações que acreditam no poder do desporto para transformar vidas."}
-                </p>
-
-                <div className="mt-6 space-y-4">
-                  {[
-                    "Doações em dinheiro com valor livre",
-                    "Possibilidade de doação anónima",
-                    "Apoio com bens, transporte e serviços",
-                    "Parcerias simples, relevantes e com propósito",
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle2
-                        className="text-red-500 mt-0.5 flex-shrink-0"
-                        size={18}
-                      />
-                      <span className="text-gray-700 text-sm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
-                <div className="bg-blue-900 px-6 py-4">
-                  <h3 className="text-white font-bold text-lg">
-                    O seu apoio faz diferença
-                  </h3>
-                </div>
-
-                <div className="p-6 space-y-4">
-                  <div>
-                    <p className="font-semibold text-blue-900">
-                      Formação de atletas
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Treinos, participação em eventos, competições e apoio
-                      contínuo.
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="font-semibold text-blue-900">
-                      Desenvolvimento social
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Mais oportunidades para crianças e jovens crescerem com
-                      disciplina, respeito e propósito.
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="font-semibold text-blue-900">
-                      Estrutura e logística
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Transporte, equipamentos, alimentação e operação dos
-                      programas.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+            
 
             {/* FORM */}
             <div className="lg:col-span-8">

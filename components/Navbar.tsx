@@ -63,15 +63,13 @@ export default function Navbar() {
               { href: "/parceiros", label: "Parceiros" },
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
-              { href: "#", label: "Reação Escola Faixa-Preta" },
-              { href: "#", label: "Reação Educação" },
-              { href: "#", label: "Reação Alto Rendimento" },
-              { href: "#", label: "Reação Bolsas de Estudo" },
-              { href: "#", label: "Reação com Elas" },
-              { href: "#", label: "Reação Conecta" },
-              { href: "#", label: "Reação Jiu-Jitsu" },
+              { href: "#", label: "Aulas de Judo" },
+              { href: "#", label: "Team Building" },
+              { href: "#", label: "Acividades de Ferias" },
+              { href: "#", label: "Treino Personalizado" },
+              { href: "#", label: "Social" },
             ]}/>
-            <DesktopDropdown title="TRANSPARÊNCIA" items={[
+            {/* <DesktopDropdown title="TRANSPARÊNCIA" items={[
               { href: "#", label: "Perguntas Frequentes" },
               { href: "#", label: "Termos de Compromisso" },
               { href: "#", label: "Organograma" },
@@ -81,7 +79,7 @@ export default function Navbar() {
               { href: "#", label: "Política de Compliance" },
               { href: "#", label: "Publicações Contábeis" },
               { href: "#", label: "Edital de Convocação" },
-            ]}/>
+            ]}/> */}
             <DesktopDropdown title="EXTRAS" items={[
               { href: "/eventos", label: "Eventos" },
               { href: "/actividades", label: "Actividades" },
@@ -122,15 +120,13 @@ export default function Navbar() {
               { href: "#", label:"Blog"},
             ]} closeMenu={() => setMobileOpen(false)}/>
             <MobileDropdown title="PROGRAMAS" items={[
-              { href:"#", label:"Reação Escola Faixa-Preta"},
-              { href:"#", label:"Reação Educação"},
-              { href:"#", label:"Reação Alto Rendimento"},
-              { href:"#", label:"Reação Bolsas de Estudo"},
-              { href:"#", label:"Reação com Elas"},
-              { href:"#", label:"Reação Conecta"},
-              { href:"#", label:"Reação Jiu-Jitsu"},
+              { href: "#", label: "Aulas de Judo" },
+              { href: "#", label: "Team Building" },
+              { href: "#", label: "Acividades de Ferias" },
+              { href: "#", label: "Treino Personalizado" },
+              { href: "#", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)}/>
-            <MobileDropdown title="TRANSPARÊNCIA" items={[
+            {/* <MobileDropdown title="TRANSPARÊNCIA" items={[
               { href:"#", label:"Perguntas Frequentes"},
               { href:"#", label:"Termos de Compromisso"},
               { href:"#", label:"Organograma"},
@@ -140,7 +136,7 @@ export default function Navbar() {
               { href:"#", label:"Política de Compliance"},
               { href:"#", label:"Publicações Contábeis"},
               { href:"#", label:"Edital de Convocação"},
-            ]} closeMenu={() => setMobileOpen(false)}/>
+            ]} closeMenu={() => setMobileOpen(false)}/> */}
             <MobileDropdown title="Extras" items={[
               { href:"/eventos", label:"Eventos"},
               { href:"/actividades", label:"Actividades"},
