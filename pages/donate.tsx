@@ -318,7 +318,7 @@ export default function DonatePage() {
     }
 
     if (showGoodsSection && !showMoneySection) {
-      const res = await fetch(`${API_BASE}/api/donations/non-money`, {
+      const res = await fetch(`https://ejem-donations.onrender.com/api/donations/non-money`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
