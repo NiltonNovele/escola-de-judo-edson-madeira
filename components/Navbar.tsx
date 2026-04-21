@@ -63,7 +63,7 @@ export default function Navbar() {
               { href: "/parceiros", label: "Parceiros" },
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
-              { href: "#", label: "Aulas de Judo" },
+              { href: "/aulas", label: "Aulas de Judo" },
               { href: "#", label: "Team Building" },
               { href: "#", label: "Acividades de Ferias" },
               { href: "#", label: "Treino Personalizado" },
@@ -120,7 +120,7 @@ export default function Navbar() {
               { href: "#", label:"Blog"},
             ]} closeMenu={() => setMobileOpen(false)}/>
             <MobileDropdown title="PROGRAMAS" items={[
-              { href: "#", label: "Aulas de Judo" },
+              { href: "/aulas", label: "Aulas de Judo" },
               { href: "#", label: "Team Building" },
               { href: "#", label: "Acividades de Ferias" },
               { href: "#", label: "Treino Personalizado" },
