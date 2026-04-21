@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations.onrender.com/";
 
 type BankDetails = {
   bankName: string;
@@ -318,7 +318,7 @@ export default function DonatePage() {
     }
 
     if (showGoodsSection && !showMoneySection) {
-      const res = await fetch(`https://ejem-donations.onrender.com/api/donations/non-money`, {
+      const res = await fetch(`${API_BASE}/api/donations/non-money`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
