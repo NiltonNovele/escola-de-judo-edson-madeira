@@ -120,30 +120,10 @@ const timetable = [
   },
 ];
 
-const faqs = [
-  {
-    q: "Preciso de experiência para começar?",
-    a: "Não. As aulas acolhem iniciantes e cada aluno é integrado de acordo com o seu nível e idade.",
-  },
-  {
-    q: "É necessário ter kimono logo no início?",
-    a: "Não obrigatoriamente. No início, pode começar com roupa confortável enquanto recebe orientação sobre o equipamento adequado.",
-  },
-  {
-    q: "Há aulas para crianças e adultos?",
-    a: "Sim. Temos grupos organizados por faixa etária e nível de desenvolvimento.",
-  },
-  {
-    q: "Posso fazer uma aula experimental?",
-    a: "Sim. Entre em contacto com a equipa EJEM para saber a disponibilidade de aula experimental.",
-  },
-];
-
 export default function AulasPage() {
   return (
     <div className="min-h-screen bg-white text-black">
       <Navbar />
-
       {/* HERO */}
       <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -197,7 +177,7 @@ export default function AulasPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/causa.avif"
+                src="/aj.png"
                 alt="Aulas de Judo EJEM"
                 fill
                 className="object-cover"
@@ -490,34 +470,6 @@ export default function AulasPage() {
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      <section className="py-16 sm:py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <HelpCircle size={16} />
-              Perguntas frequentes
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
-              Dúvidas comuns
-            </h2>
-          </div>
-
-          <div className="mt-10 space-y-4">
-            {faqs.map((item) => (
-              <div
-                key={item.q}
-                className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-bold text-blue-900">{item.q}</h3>
-                <p className="mt-2 text-neutral-600 leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );

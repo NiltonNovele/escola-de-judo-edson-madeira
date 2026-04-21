@@ -45,7 +45,7 @@ export default function LojaPage() {
   });
 
   // Substitui por teu número de WhatsApp no formato internacional sem "+"
-  const whatsappNumber = "258847529665";
+  const whatsappNumber = "258844002050";
 
   const products: Product[] = [
     {

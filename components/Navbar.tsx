@@ -64,10 +64,10 @@ export default function Navbar() {
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
-              { href: "#", label: "Team Building" },
-              { href: "#", label: "Acividades de Ferias" },
-              { href: "#", label: "Treino Personalizado" },
-              { href: "#", label: "Social" },
+              { href: "/teambuilding", label: "Team Building" },
+              { href: "/ferias", label: "Acividades de Ferias" },
+              // { href: "#", label: "Treino Personalizado" },
+              { href: "/social", label: "Social" },
             ]}/>
             {/* <DesktopDropdown title="TRANSPARÊNCIA" items={[
               { href: "#", label: "Perguntas Frequentes" },
@@ -121,10 +121,10 @@ export default function Navbar() {
             ]} closeMenu={() => setMobileOpen(false)}/>
             <MobileDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
-              { href: "#", label: "Team Building" },
-              { href: "#", label: "Acividades de Ferias" },
-              { href: "#", label: "Treino Personalizado" },
-              { href: "#", label: "Social" },
+              { href: "/teambuilding", label: "Team Building" },
+              { href: "/ferias", label: "Acividades de Ferias" },
+              // { href: "#", label: "Treino Personalizado" },
+              { href: "/social", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)}/>
             {/* <MobileDropdown title="TRANSPARÊNCIA" items={[
               { href:"#", label:"Perguntas Frequentes"},
