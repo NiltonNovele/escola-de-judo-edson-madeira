@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Heart,
   HeartHandshake,
@@ -20,7 +20,22 @@ import {
   HelpingHand,
   Wallet,
   ShieldCheck,
+  Loader2,
+  Landmark,
 } from "lucide-react";
+
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+
+type BankDetails = {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  iban?: string;
+  swift?: string;
+  branch?: string;
+  note?: string;
+};
 
 export default function DonatePage() {
   const formRef = useRef<HTMLElement | null>(null);
@@ -32,6 +47,16 @@ export default function DonatePage() {
   );
   const [goods, setGoods] = useState<string[]>([]);
   const [anonymousDonation, setAnonymousDonation] = useState(false);
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alertState, setAlertState] = useState<{
+    type: "" | "success" | "error";
+    message: string;
+  }>({
+    type: "",
+    message: "",
+  });
 
   const [form, setForm] = useState({
     name: "",
@@ -58,6 +83,33 @@ export default function DonatePage() {
     { label: "Alimentação", icon: Utensils },
     { label: "Uniformes / roupa", icon: Shirt },
   ];
+
+  const showMoneySection =
+    donationMode === "money" || donationMode === "both";
+  const showGoodsSection =
+    donationMode === "goods" || donationMode === "both";
+  const isBankTransfer =
+    showMoneySection && form.paymentMethod === "Transferência Bancária";
+
+  useEffect(() => {
+    async function loadBankDetails() {
+      if (!isBankTransfer) return;
+      if (bankDetails) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/bank-details`);
+        const data = await res.json();
+
+        if (res.ok && data?.status === "success") {
+          setBankDetails(data.data);
+        }
+      } catch (_error) {
+        // silent fail; user can still use other payment methods
+      }
+    }
+
+    loadBankDetails();
+  }, [isBankTransfer, bankDetails]);
 
   function goToForm(selectedType: "donate" | "partner") {
     setType(selectedType);
@@ -87,20 +139,214 @@ export default function DonatePage() {
     );
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function resetAlert() {
+    setAlertState({ type: "", message: "" });
+  }
 
+  function setSuccess(message: string) {
+    setAlertState({ type: "success", message });
+  }
+
+  function setError(message: string) {
+    setAlertState({ type: "error", message });
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    resetAlert();
+    setIsSubmitting(true);
+
+    try {
+      if (type === "partner") {
+        await submitPartnership();
+      } else {
+        await submitDonation();
+      }
+    } catch (error: any) {
+      setError(error?.message || "Ocorreu um erro ao enviar o formulário.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function submitPartnership() {
     const payload = {
-      mode: type,
-      anonymousDonation,
       profile: isCompany ? "Empresa / Organização" : "Indivíduo",
-      donationMode,
-      selectedGoods: goods,
-      ...form,
+      isCompany,
+      name: isCompany ? "" : form.name,
+      companyName: isCompany ? form.companyName : "",
+      contactPerson: isCompany ? form.contactPerson : "",
+      emailOrPhone: form.email || form.phone,
+      email: form.email,
+      phone: form.phone,
+      website: isCompany ? form.website : "",
+      sector: isCompany ? form.sector : "",
+      partnershipType: form.partnershipType,
+      partnershipObjective: form.partnershipObjective,
+      benefitsInterest: form.benefitsInterest,
+      message: form.message,
     };
 
-    console.log("Submitted data:", payload);
-    alert("Formulário enviado com sucesso! Ligue este formulário à sua API.");
+    const res = await fetch(`${API_BASE}/api/partnerships`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data?.message || "Falha ao enviar parceria.");
+    }
+
+    setSuccess("Pedido de parceria enviado com sucesso.");
+  }
+
+  async function submitDonation() {
+    const donorName = anonymousDonation ? "" : form.name;
+    const donorContact = anonymousDonation ? "" : form.email || form.phone;
+
+    if (showMoneySection) {
+      if (!form.amount || Number(form.amount) <= 0) {
+        throw new Error("Indique um valor válido para a doação.");
+      }
+
+      if (form.paymentMethod === "Transferência Bancária") {
+        if (!proofFile) {
+          throw new Error("Anexe o comprovativo da transferência.");
+        }
+
+        const multipart = new FormData();
+        multipart.append("donorName", donorName);
+        multipart.append("donorContact", donorContact);
+        multipart.append("anonymousDonation", String(anonymousDonation));
+        multipart.append("amount", form.amount);
+        multipart.append("message", form.message);
+        multipart.append("donationMode", donationMode);
+        multipart.append("selectedGoods", JSON.stringify(goods));
+        multipart.append("otherDonation", form.otherDonation);
+        multipart.append("deliveryMethod", form.deliveryMethod);
+        multipart.append("proof", proofFile);
+
+        const res = await fetch(`${API_BASE}/api/donations/bank-transfer`, {
+          method: "POST",
+          body: multipart,
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(
+            data?.message || "Falha ao enviar comprovativo da transferência."
+          );
+        }
+
+        setSuccess(
+          "Comprovativo enviado com sucesso. A sua transferência será validada em breve."
+        );
+        return;
+      }
+
+      if (
+        form.paymentMethod === "M-Pesa" ||
+        form.paymentMethod === "e-Mola" ||
+        form.paymentMethod === "Cartão"
+      ) {
+        const res = await fetch(`${API_BASE}/api/donations/create-payment`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            donorName,
+            donorContact,
+            anonymousDonation,
+            amount: form.amount,
+            paymentMethod: form.paymentMethod,
+            message: form.message,
+            donationMode,
+            selectedGoods: goods,
+            otherDonation: form.otherDonation,
+            deliveryMethod: form.deliveryMethod,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data?.message || "Falha ao iniciar pagamento.");
+        }
+
+        if (data?.data?.checkoutUrl) {
+          window.location.href = data.data.checkoutUrl;
+          return;
+        }
+
+        throw new Error("Link de checkout não foi devolvido.");
+      }
+
+      if (form.paymentMethod === "Dinheiro") {
+        const res = await fetch(`${API_BASE}/api/donations/non-money`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            donorName,
+            donorContact,
+            message:
+              form.message ||
+              `Doação em dinheiro presencial. Valor indicado: ${form.amount} MZN`,
+            donationMode,
+            selectedGoods: goods,
+            otherDonation: form.otherDonation,
+            deliveryMethod: form.deliveryMethod,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data?.message || "Falha ao registar doação.");
+        }
+
+        setSuccess("Doação registada com sucesso.");
+        return;
+      }
+    }
+
+    if (showGoodsSection && !showMoneySection) {
+      const res = await fetch(`${API_BASE}/api/donations/non-money`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          donorName,
+          donorContact,
+          message: form.message,
+          donationMode,
+          selectedGoods: goods,
+          otherDonation: form.otherDonation,
+          deliveryMethod: form.deliveryMethod,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Falha ao enviar apoio.");
+      }
+
+      setSuccess("Apoio enviado com sucesso. Obrigado!");
+      return;
+    }
+
+    if (showMoneySection && showGoodsSection && form.paymentMethod === "Transferência Bancária") {
+      return;
+    }
   }
 
   return (
@@ -200,8 +446,6 @@ export default function DonatePage() {
           className="bg-white py-16 lg:py-20 scroll-mt-28"
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            
-
             {/* FORM */}
             <div className="lg:col-span-8">
               <div className="rounded-3xl bg-white border border-gray-200 shadow-xl overflow-hidden">
@@ -244,6 +488,18 @@ export default function DonatePage() {
                 </div>
 
                 <div className="p-6 sm:p-8">
+                  {alertState.message && (
+                    <div
+                      className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
+                        alertState.type === "success"
+                          ? "border-green-200 bg-green-50 text-green-700"
+                          : "border-red-200 bg-red-50 text-red-700"
+                      }`}
+                    >
+                      {alertState.message}
+                    </div>
+                  )}
+
                   {type === "donate" ? (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       {/* DONATION MODE */}
@@ -292,13 +548,15 @@ export default function DonatePage() {
                       </div>
 
                       {/* ANONYMOUS */}
-                      {(donationMode === "money" || donationMode === "both") && (
+                      {showMoneySection && (
                         <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                           <label className="flex items-start gap-3 cursor-pointer">
                             <input
                               type="checkbox"
                               checked={anonymousDonation}
-                              onChange={() => setAnonymousDonation((prev) => !prev)}
+                              onChange={() =>
+                                setAnonymousDonation((prev) => !prev)
+                              }
                               className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-900 focus:ring-blue-500"
                             />
                             <div>
@@ -349,7 +607,7 @@ export default function DonatePage() {
                       )}
 
                       {/* MONEY DONATION */}
-                      {(donationMode === "money" || donationMode === "both") && (
+                      {showMoneySection && (
                         <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5 space-y-5">
                           <div className="flex items-center gap-2 text-blue-900 font-bold">
                             <HandCoins size={18} />
@@ -385,16 +643,101 @@ export default function DonatePage() {
                                 <option>M-Pesa</option>
                                 <option>e-Mola</option>
                                 <option>Transferência Bancária</option>
-                                <option>Dinheiro</option>
-                                <option>Cartão</option>
+                                {/* <option>Dinheiro</option>
+                                <option>Cartão</option> */}
                               </select>
                             </div>
                           </div>
+
+                          {isBankTransfer && (
+                            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 space-y-4">
+                              <div className="flex items-center gap-2 text-amber-800 font-semibold">
+                                <Landmark size={18} />
+                                Dados bancários
+                              </div>
+
+                              {bankDetails ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+                                  <div>
+                                    <p className="font-semibold text-gray-900">
+                                      Banco
+                                    </p>
+                                    <p>{bankDetails.bankName}</p>
+                                  </div>
+
+                                  <div>
+                                    <p className="font-semibold text-gray-900">
+                                      Titular
+                                    </p>
+                                    <p>{bankDetails.accountName}</p>
+                                  </div>
+
+                                  <div>
+                                    <p className="font-semibold text-gray-900">
+                                      Nº da conta
+                                    </p>
+                                    <p>{bankDetails.accountNumber}</p>
+                                  </div>
+
+                                  {bankDetails.branch && (
+                                    <div>
+                                      <p className="font-semibold text-gray-900">
+                                        Balcão
+                                      </p>
+                                      <p>{bankDetails.branch}</p>
+                                    </div>
+                                  )}
+
+                                  {bankDetails.iban && (
+                                    <div>
+                                      <p className="font-semibold text-gray-900">
+                                        IBAN
+                                      </p>
+                                      <p>{bankDetails.iban}</p>
+                                    </div>
+                                  )}
+
+                                  {bankDetails.swift && (
+                                    <div>
+                                      <p className="font-semibold text-gray-900">
+                                        SWIFT
+                                      </p>
+                                      <p>{bankDetails.swift}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              ) : (
+                                <p className="text-sm text-gray-700">
+                                  A carregar dados bancários...
+                                </p>
+                              )}
+
+                              {bankDetails?.note && (
+                                <p className="text-sm text-gray-700">
+                                  {bankDetails.note}
+                                </p>
+                              )}
+
+                              <div>
+                                <label className="block text-sm font-medium mb-2 text-gray-800">
+                                  Comprovativo da transferência
+                                </label>
+                                <input
+                                  type="file"
+                                  accept=".jpg,.jpeg,.png,.webp,.pdf"
+                                  onChange={(e) =>
+                                    setProofFile(e.target.files?.[0] || null)
+                                  }
+                                  className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white"
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
 
                       {/* GOODS / SERVICES */}
-                      {(donationMode === "goods" || donationMode === "both") && (
+                      {showGoodsSection && (
                         <div className="rounded-2xl border border-red-100 bg-red-50/50 p-5 space-y-5">
                           <div className="flex items-center gap-2 text-red-700 font-bold">
                             <Gift size={18} />
@@ -483,10 +826,15 @@ export default function DonatePage() {
 
                       <button
                         type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg"
+                        disabled={isSubmitting}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg disabled:opacity-70"
                       >
-                        <MessageSquare size={18} />
-                        Enviar
+                        {isSubmitting ? (
+                          <Loader2 size={18} className="animate-spin" />
+                        ) : (
+                          <MessageSquare size={18} />
+                        )}
+                        {isSubmitting ? "A processar..." : "Enviar"}
                       </button>
                     </form>
                   ) : (
@@ -728,10 +1076,15 @@ export default function DonatePage() {
 
                       <button
                         type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg"
+                        disabled={isSubmitting}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg disabled:opacity-70"
                       >
-                        <MessageSquare size={18} />
-                        Enviar
+                        {isSubmitting ? (
+                          <Loader2 size={18} className="animate-spin" />
+                        ) : (
+                          <MessageSquare size={18} />
+                        )}
+                        {isSubmitting ? "A enviar..." : "Enviar"}
                       </button>
                     </form>
                   )}
