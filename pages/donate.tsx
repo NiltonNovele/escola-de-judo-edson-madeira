@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations.onrender.com/";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations.onrender.com";
 
 type BankDetails = {
   bankName: string;
