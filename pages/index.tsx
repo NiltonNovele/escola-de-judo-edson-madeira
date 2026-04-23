@@ -181,26 +181,20 @@ export default function Home() {
     <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
       {[
         {
-          name: "Edson Madeira",
-          img: "/success/edson.jpg",
-          text:
-            "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
-        },
-        {
           name: "Kevin Loforte",
-          img: "/success/kevin.jpg",
+          img: "/sucesso/kevin.jpg",
           text:
             "Conhecido como 'Mozambican Monster'. Judoca -66kg, Olímpico em Tóquio 2020, medalhista africano e um dos atletas mais dominantes do país.",
         },
         {
           name: "Jacira Ferreira",
-          img: "/success/jacira.jpg",
+          img: "/sucesso/jacira.jpg",
           text:
             "Judoca olímpica em Paris 2024. Conquistou 5º lugar no African Championship Seniores. Exemplo de determinação e disciplina.",
         },
         {
           name: "Shenidy Tsemane",
-          img: "/success/shenidy.jpg",
+          img: "/sucesso/shneidy.jpg",
           text:
             "Primeira atleta moçambicana a conquistar ouro nos Jogos Africanos de Judo. Um marco histórico para o desporto nacional.",
         },
@@ -228,12 +222,6 @@ export default function Home() {
     {/* DESKTOP GRID (3 per row) */}
     <div className="hidden lg:grid grid-cols-3 gap-10">
       {[
-        // {
-        //   name: "Edson Madeira",
-        //   img: "/edson.jpg",
-        //   text:
-        //     "Figura lendária do judo moçambicano, atleta olímpico e treinador olímpico (Tóquio 2020, Paris 2024). Fundador da EJEM e referência nacional.",
-        // },
         {
           name: "Kevin Loforte",
           img: "/sucesso/kevin.jpg",
@@ -274,7 +262,6 @@ export default function Home() {
     </div>
   </div>
 </section>
-
 
         {/* SOBRE O FUNDADOR */}
         <section id="fundador" className="bg-white py-24 border-t">
