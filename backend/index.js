@@ -27,13 +27,22 @@ for (const file of [DONATIONS_FILE, PARTNERSHIPS_FILE, WEBHOOK_LOG_FILE]) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, "[]", "utf8");
 }
 
-const allowedOrigins = [
-  "https://www.ejem.org.mz",
+const allowedReturnOrigins = [
   "http://localhost:3000",
   "https://loja.sale",
   "https://www.loja.sale",
   "https://loja-sale.vercel.app",
+  "https://www.ejem.org.mz",
 ];
+
+function isValidReturnUrl(url) {
+  try {
+    const parsed = new URL(url);
+    return allowedReturnOrigins.includes(parsed.origin);
+  } catch {
+    return false;
+  }
+}
 
 app.use(
   cors({
@@ -184,18 +193,19 @@ app.get("/api/bank-details", (_req, res) => {
 
 app.post("/api/donations/create-payment", async (req, res) => {
   try {
-    const {
-      donorName,
-      donorContact,
-      anonymousDonation,
-      amount,
-      paymentMethod,
-      message,
-      donationMode,
-      selectedGoods,
-      otherDonation,
-      deliveryMethod,
-    } = req.body;
+  const {
+  donorName,
+  donorContact,
+  anonymousDonation,
+  amount,
+  paymentMethod,
+  message,
+  donationMode,
+  selectedGoods,
+  otherDonation,
+  deliveryMethod,
+  returnUrl,
+} = req.body;
 
     if (!amount || Number(amount) <= 0) {
       return res.status(400).json({
@@ -224,18 +234,22 @@ app.post("/api/donations/create-payment", async (req, res) => {
       125
     );
 
-    const payload = {
-      amount: Number(amount),
-      method: mappedMethod,
-      reference,
-      description,
-      return_url:
-        process.env.PAYSUITE_RETURN_URL ||
-        `${process.env.FRONTEND_URL || "http://localhost:3000"}/donate?payment=return`,
-      callback_url:
-        process.env.PAYSUITE_CALLBACK_URL ||
-        `${process.env.PUBLIC_BACKEND_URL || `http://localhost:${PORT}`}/api/paysuite/webhook`,
-    };
+    const finalReturnUrl =
+  returnUrl && isValidReturnUrl(returnUrl)
+    ? returnUrl
+    : process.env.PAYSUITE_RETURN_URL ||
+      `${process.env.FRONTEND_URL || "http://localhost:3000"}/donate?payment=success`;
+
+const payload = {
+  amount: Number(amount),
+  method: mappedMethod,
+  reference,
+  description,
+  return_url: finalReturnUrl,
+  callback_url:
+    process.env.PAYSUITE_CALLBACK_URL ||
+    `${process.env.PUBLIC_BACKEND_URL || `http://localhost:${PORT}`}/api/paysuite/webhook`,
+};
 
     const response = await fetch(
       `${process.env.PAYSUITE_BASE_URL || "https://paysuite.tech"}/api/v1/payments`,
