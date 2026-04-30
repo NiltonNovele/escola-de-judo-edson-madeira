@@ -27,16 +27,27 @@ for (const file of [DONATIONS_FILE, PARTNERSHIPS_FILE, WEBHOOK_LOG_FILE]) {
   if (!fs.existsSync(file)) fs.writeFileSync(file, "[]", "utf8");
 }
 
-const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:3000")
-  .split(",")
-  .map((v) => v.trim());
+const allowedOrigins = [
+  "https://www.ejem.org.mz",
+  "http://localhost:3000",
+  "https://loja.sale",
+  "https://www.loja.sale",
+  "https://loja-sale.vercel.app",
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
       return callback(new Error("Not allowed by CORS"));
     },
+    credentials: true,
   })
 );
 
@@ -209,7 +220,7 @@ app.post("/api/donations/create-payment", async (req, res) => {
 
     const reference = buildReference("DON");
     const description = truncate(
-      `Doação EJEM${message ? ` - ${message}` : ""}`,
+      `${message ? ` - ${message}` : ""}`,
       125
     );
 

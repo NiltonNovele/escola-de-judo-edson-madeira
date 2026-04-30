@@ -270,6 +270,7 @@ export default function DonatePage() {
             selectedGoods: goods,
             otherDonation: form.otherDonation,
             deliveryMethod: form.deliveryMethod,
+            returnUrl: `${window.location.origin}/form?payment=success`,
           }),
         });
 
