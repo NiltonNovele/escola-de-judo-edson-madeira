@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Target, HeartHandshake, Trophy, Calendar } from "lucide-react";
 
@@ -139,7 +139,7 @@ export default function QuemSomos() {
           {
             title: "Visão",
             icon: Trophy,
-            img: "/logo.jpg",
+            img: "/images/logo.jpg",
             text:
               "Tornar-nos uma referência nacional e internacional, usando o Judo como ferramenta de transformação.",
           },

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { useEffect, useRef, useState } from "react";
 import {
   Heart,
@@ -430,7 +430,7 @@ export default function DonatePage() {
             <div className="lg:col-span-5">
               <div className="rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
                 <Image
-                  src="/causa.avif"
+                  src="/images/causa.avif"
                   alt="Equipa de Judo"
                   width={900}
                   height={700}

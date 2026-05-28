@@ -45,7 +45,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-3">
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 rounded-full overflow-hidden shadow">
-                <img src="/logo.jpg" alt="Logo" className="w-full h-full object-cover" />
+                <img src="/images/logo.jpg" alt="Logo" className="w-full h-full object-cover" />
               </div>
               <span className="text-sm font-medium text-gray-700 mt-2 text-center">
                 Escola de Judo Edson Madeira

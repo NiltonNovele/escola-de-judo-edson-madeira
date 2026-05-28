@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import {
   Calendar,
   MapPin,

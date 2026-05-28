@@ -13,7 +13,7 @@ import {
   Clock,
   Users,
 } from "lucide-react";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -102,7 +102,7 @@ export default function ContactPage() {
         <div className="space-y-6">
           <div className="rounded-2xl overflow-hidden shadow-xl border border-neutral-200">
             <Image
-              src="/contact.jpg"
+              src="/images/contact.jpg"
               width={900}
               height={600}
               alt="Contato"

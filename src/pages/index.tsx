@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import StatsSection from "../components/StatsSection";
 
 
@@ -23,7 +23,7 @@ export default function Home() {
         {/* HERO PRINCIPAL */}
         <section
   className="relative w-full bg-cover bg-center"
-  style={{ backgroundImage: "url('/hero.jpg')" }}
+  style={{ backgroundImage: "url('/images/hero.jpg')" }}
 >
   {/* GRADIENT + BLUR LEFT SIDE */}
   <div className="
@@ -69,7 +69,7 @@ export default function Home() {
     <div className="hidden lg:flex lg:col-span-5 justify-end">
       <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl border border-white/20">
         {/* <Image
-          src="/hero.jpg"
+          src="/images/hero.jpg"
           alt="Crianças praticando judo"
           width={1200}
           height={900}
@@ -88,7 +88,7 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="w-full rounded-xl overflow-hidden shadow-md">
                 <Image
-                  src="/causa.avif"
+                  src="/images/causa.avif"
                   alt="Grupo de crianças e professores"
                   width={1200}
                   height={900}
@@ -271,7 +271,7 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="w-full rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/edson.jpg"
+                  src="/images/edson.jpg"
                   alt="Fundador da Escola de Judo"
                   width={1200}
                   height={900}

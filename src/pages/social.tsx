@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import Image from "next/image";
 import {
   HeartHandshake,
@@ -186,7 +186,7 @@ export default function SocialPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/soc.png"
+                src="/images/soc.png"
                 alt="EJEM e comunidade"
                 fill
                 className="object-cover"

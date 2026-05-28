@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { useState } from "react";

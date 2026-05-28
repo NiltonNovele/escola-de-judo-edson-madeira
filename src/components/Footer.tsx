@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="flex flex-col items-start">
           <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg mb-4 ring-2 ring-gray-200">
             <img
-              src="/logo.jpg"
+              src="/images/logo.jpg"
               alt="Logo"
               className="w-full h-full object-cover"
             />

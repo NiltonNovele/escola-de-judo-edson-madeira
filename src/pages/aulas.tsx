@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import Image from "next/image";
 import {
   Clock3,
@@ -177,7 +177,7 @@ export default function AulasPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/aj.png"
+                src="/images/aj.png"
                 alt="Aulas de Judo EJEM"
                 fill
                 className="object-cover"

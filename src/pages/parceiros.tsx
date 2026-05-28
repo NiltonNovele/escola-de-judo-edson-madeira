@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 
 // Dynamic colors for each section

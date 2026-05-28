@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import Image from "next/image";
 import {
   CalendarDays,
@@ -195,7 +195,7 @@ export default function FeriasPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[340px] sm:h-[440px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/fe1.png"
+                src="/images/fe1.png"
                 alt="Actividades de Férias EJEM"
                 fill
                 className="object-cover"
@@ -296,7 +296,7 @@ export default function FeriasPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-xl border border-white/70 bg-white">
               <Image
-                src="/fe.png"
+                src="/images/fe.png"
                 alt="Horário das Actividades de Férias"
                 fill
                 className="object-cover"
