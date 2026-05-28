@@ -23,7 +23,7 @@ export default function Equipe() {
     {
       name: "Kevin Loforte",
       role: "Professor de Judo",
-      image: "/team/kevin.jpg",
+      image: "/sucesso/kevin.jpg",
       description:
         "Especialista em ensino técnico e preparação de jovens atletas.",
       email: "kevin@instituto.com",
@@ -32,7 +32,7 @@ export default function Equipe() {
     {
       name: "Jacira Ferreira",
       role: "Professora de Judo",
-      image: "/team/jacira.jpg",
+      image: "/sucesso/jacira.jpg",
       description:
         "Focada no desenvolvimento de atletas femininas e inclusão social.",
       email: "jacira@instituto.com",
@@ -41,7 +41,7 @@ export default function Equipe() {
     {
       name: "Edson Madeira",
       role: "Treinador Olímpico",
-      image: "/team/edson.jpg",
+      image: "/images/edson.jpg",
       description:
         "Treinador com experiência internacional e formação de atletas de alto rendimento.",
       email: "edson@instituto.com",
