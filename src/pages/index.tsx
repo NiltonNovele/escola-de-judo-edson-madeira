@@ -22,63 +22,63 @@ export default function Home() {
 
         {/* HERO PRINCIPAL */}
         <section
-  className="relative w-full bg-cover bg-center"
-  style={{ backgroundImage: "url('/images/hero.jpg')" }}
->
-  {/* GRADIENT + BLUR LEFT SIDE */}
-  <div className="
+          className="relative w-full bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/hero.jpg')" }}
+        >
+          {/* GRADIENT + BLUR LEFT SIDE */}
+          <div className="
     absolute inset-0 
     bg-gradient-to-r from-white/70 via-white/40 to-transparent
     
   " />
 
-  <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-    {/* TEXT */}
-    <div className="lg:col-span-7">
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900 drop-shadow-xl">
-        Construir,
-        <br />
-        Conquistar e
-        <br />
-        Compartilhar
-      </h1>
+            {/* TEXT */}
+            <div className="lg:col-span-7">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900 drop-shadow-xl">
+                Construir,
+                <br />
+                Conquistar e
+                <br />
+                Compartilhar
+              </h1>
 
-      <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-700 font-medium leading-relaxed drop-shadow">
-        Sonhamos com um futuro onde cada criança tenha a oportunidade de crescer através
-        do desporto. O Judo é a nossa ferramenta de transformação social.
-      </p>
+              <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-700 font-medium leading-relaxed drop-shadow">
+                Sonhamos com um futuro onde cada criança tenha a oportunidade de crescer através
+                do desporto. O Judo é a nossa ferramenta de transformação social.
+              </p>
 
-      <div className="mt-8 flex flex-col sm:flex-row gap-3">
-        <a
-          href="#sobre"
-          className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
-        >
-          CONHEÇA A NOSSA CAUSA
-        </a>
-        <a
-          href="#apoio"
-          className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
-        >
-          QUERO FAZER PARTE
-        </a>
-      </div>
-    </div>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="#sobre"
+                  className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
+                >
+                  CONHEÇA A NOSSA CAUSA
+                </a>
+                <a
+                  href="#apoio"
+                  className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
+                >
+                  QUERO FAZER PARTE
+                </a>
+              </div>
+            </div>
 
-    {/* RIGHT-SIDE IMAGE STILL EXISTS ON LARGE SCREENS */}
-    <div className="hidden lg:flex lg:col-span-5 justify-end">
-      <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl border border-white/20">
-        {/* <Image
+            {/* RIGHT-SIDE IMAGE STILL EXISTS ON LARGE SCREENS */}
+            <div className="hidden lg:flex lg:col-span-5 justify-end">
+              <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl border border-white/20">
+                {/* <Image
           src="/images/hero.jpg"
           alt="Crianças praticando judo"
           width={1200}
           height={900}
           className="object-cover w-full h-96"
         /> */}
-      </div>
-    </div>
-  </div>
-</section>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* SOBRE */}
         <section id="sobre" className="bg-gray-50 py-20 border-t">
@@ -131,7 +131,18 @@ export default function Home() {
                   className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-2xl transition cursor-pointer"
                 >
                   <div className="relative w-full h-56">
-                    <Image src={`/event-${id}.jpg`} alt={`Evento ${id}`} fill className="object-cover" />
+                    <Image
+                      src={
+                        id === 1
+                          ? "/images/home/martial-fest.jpg"
+                          : id === 2
+                            ? "/images/home/aula-aberta.jpeg"
+                            : "/images/home/campeonato-local.jpg"
+                      }
+                      alt={`Evento ${id}`}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
 
                   <div className="p-5">
@@ -143,16 +154,16 @@ export default function Home() {
                       {id === 1
                         ? "Martial Fest"
                         : id === 2
-                        ? "Aula Aberta"
-                        : "Campeonato Local"}
+                          ? "Aula Aberta"
+                          : "Campeonato Local"}
                     </h4>
 
                     <p className="mt-2 text-sm text-gray-600 line-clamp-3">
                       {id === 1
                         ? "Competição que reúne alunos e jovens com bolsas de formação."
                         : id === 2
-                        ? "Sessão especial aberta à comunidade para experimentar Judo gratuitamente."
-                        : "Campeonato com atletas de diversas regiões para promover o Judo."}
+                          ? "Sessão especial aberta à comunidade para experimentar Judo gratuitamente."
+                          : "Campeonato com atletas de diversas regiões para promover o Judo."}
                     </p>
 
                     <div className="mt-4">
@@ -172,96 +183,96 @@ export default function Home() {
         {/* ---------------------------------------------------- */}
 
         <section id="casos" className="bg-white py-24 border-t">
-  <div className="max-w-7xl mx-auto px-6 lg:px-8">
-    <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-14">
-      Casos de Sucesso
-    </h2>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-14">
+              Casos de Sucesso
+            </h2>
 
-    {/* MOBILE SWIPE CAROUSEL */}
-    <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
-      {[
-        {
-          name: "Kevin Loforte",
-          img: "/sucesso/kevin.jpg",
-          text:
-            "Conhecido como 'Mozambican Monster'. Judoca -66kg, Olímpico em Tóquio 2020, medalhista africano e um dos atletas mais dominantes do país.",
-        },
-        {
-          name: "Jacira Ferreira",
-          img: "/sucesso/jacira.jpg",
-          text:
-            "Judoca olímpica em Paris 2024. Conquistou 5º lugar no African Championship Seniores. Exemplo de determinação e disciplina.",
-        },
-        {
-          name: "Shenidy Tsemane",
-          img: "/sucesso/shneidy.jpg",
-          text:
-            "Primeira atleta moçambicana a conquistar ouro nos Jogos Africanos de Judo. Um marco histórico para o desporto nacional.",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center border hover:shadow-xl transition"
-        >
-          <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
-            <Image
-              src={item.img}
-              alt={item.name}
-              width={1200}
-              height={900}
-              className="object-cover w-full h-full"
-            />
+            {/* MOBILE SWIPE CAROUSEL */}
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 lg:hidden">
+              {[
+                {
+                  name: "Kevin Loforte",
+                  img: "/sucesso/kevin.jpg",
+                  text:
+                    "Conhecido como 'Mozambican Monster'. Judoca -66kg, Olímpico em Tóquio 2020, medalhista africano e um dos atletas mais dominantes do país.",
+                },
+                {
+                  name: "Jacira Ferreira",
+                  img: "/sucesso/jacira.jpg",
+                  text:
+                    "Judoca olímpica em Paris 2024. Conquistou 5º lugar no African Championship Seniores. Exemplo de determinação e disciplina.",
+                },
+                {
+                  name: "Shenidy Tsemane",
+                  img: "/sucesso/shneidy.jpg",
+                  text:
+                    "Primeira atleta moçambicana a conquistar ouro nos Jogos Africanos de Judo. Um marco histórico para o desporto nacional.",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center border hover:shadow-xl transition"
+                >
+                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      width={1200}
+                      height={900}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
+                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* DESKTOP GRID (3 per row) */}
+            <div className="hidden lg:grid grid-cols-3 gap-10">
+              {[
+                {
+                  name: "Kevin Loforte",
+                  img: "/sucesso/kevin.jpg",
+                  text:
+                    "O 'Mozambican Monster'. Judoca olímpico (-66kg), medalhista africano e uma inspiração para jovens atletas.",
+                },
+                {
+                  name: "Jacira Ferreira",
+                  img: "/sucesso/jacira.jpg",
+                  text:
+                    "Representou Moçambique nos Jogos Olímpicos Paris 2024. Exemplo de coragem, dedicação e superação.",
+                },
+                {
+                  name: "Shenidy Tsemane",
+                  img: "/sucesso/shneidy.jpg",
+                  text:
+                    "Primeira medalha de ouro de Moçambique nos Jogos Africanos de Judo — um marco histórico para o país.",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg p-6 border hover:shadow-xl transition"
+                >
+                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      width={1200}
+                      height={900}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
+                  <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
-          <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
-        </div>
-      ))}
-    </div>
-
-    {/* DESKTOP GRID (3 per row) */}
-    <div className="hidden lg:grid grid-cols-3 gap-10">
-      {[
-        {
-          name: "Kevin Loforte",
-          img: "/sucesso/kevin.jpg",
-          text:
-            "O 'Mozambican Monster'. Judoca olímpico (-66kg), medalhista africano e uma inspiração para jovens atletas.",
-        },
-        {
-          name: "Jacira Ferreira",
-          img: "/sucesso/jacira.jpg",
-          text:
-            "Representou Moçambique nos Jogos Olímpicos Paris 2024. Exemplo de coragem, dedicação e superação.",
-        },
-        {
-          name: "Shenidy Tsemane",
-          img: "/sucesso/shneidy.jpg",
-          text:
-            "Primeira medalha de ouro de Moçambique nos Jogos Africanos de Judo — um marco histórico para o país.",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className="bg-white rounded-2xl shadow-lg p-6 border hover:shadow-xl transition"
-        >
-          <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
-            <Image
-              src={item.img}
-              alt={item.name}
-              width={1200}
-              height={900}
-              className="object-cover w-full h-full"
-            />
-          </div>
-
-          <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
-          <p className="mt-4 text-gray-700 leading-relaxed text-sm">{item.text}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+        </section>
 
         {/* SOBRE O FUNDADOR */}
         <section id="fundador" className="bg-white py-24 border-t">
