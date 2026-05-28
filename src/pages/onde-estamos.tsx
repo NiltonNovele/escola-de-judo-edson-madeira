@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Clock } from "lucide-react";
 
-type Dojo = {
+type Location = {
   name: string;
   description: string;
   address: string;
@@ -17,32 +17,18 @@ type Dojo = {
 };
 
 export default function WhereWeAre() {
-  const dojos: Dojo[] = [
+  const locations: Location[] = [
     {
-      name: "Clube Naval",
+      name: "Escola de Judo Edson Madeira",
       description:
-        "Sede administrativa do Instituto Reação. Localizado em São Conrado, o Polo Rocinha atende mais de 500 crianças e jovens. É uma das unidades mais avançadas no desenvolvimento das atividades do Programa Reação Educação.",
-      address: "Rua Bertha Lutz, 84 – São Conrado, Rio de Janeiro – RJ, Brasil",
-      phone: "+55 (21) 22450-290",
-      hours: "2ª a 6ª feira – 08h às 12h e 13h às 18h",
-      image: "/dojos/rocinha.jpg",
+        "Nosso tatami em Maputo, onde oferecemos aulas regulares de Judo para crianças, jovens e adultos com foco em disciplina, respeito e transformação social.",
+      address: "Rua de Mukumbura 367 R/c – Maputo, Moçambique",
+      phone: "+258 84 400 2050",
+      hours: "Seg a Sex – 09h00 às 18h00 | Sáb – 10h00 às 16h00",
+      image: "/images/onde-estamos/tatami.jpeg",
       mapsUrl:
-        "https://www.google.com/maps/search/?api=1&query=Rua+Bertha+Lutz,+84+São+Conrado+Rio+de+Janeiro",
+        "https://www.google.com/maps/place/Escola+de+Judo+Edson+Madeira/@-25.9696599,32.5732252,15z/data=!3m1!4b1!4m6!3m5!1s0x1ee69b6b37dcfea7:0x679540bcd88d7048!8m2!3d-25.9696611!4d32.5916792!16s%2Fg%2F11swv9ywgk?entry=ttu&g_ep=EgoyMDI2MDUyNi4wIKXMDSoASAFQAw%3D%3D",
     },
-    {
-      name: "Clube Naval",
-      description:
-        "Localizado no campus R9 da Universidade Estácio, o Polo CDD–Taquara atende mais de 400 jovens e crianças. É referência em treinamentos de alto rendimento do Programa Reação Olímpico.",
-      address:
-        "Universidade Estácio R9 – R. André Rocha, 838 – Taquara, Rio de Janeiro – RJ",
-      phone: "+55 (21) 2234-8900",
-      hours: "2ª a 6ª feira – 09h às 18h",
-      image: "/dojos/taquara.jpg",
-      mapsUrl:
-        "https://www.google.com/maps/search/?api=1&query=R.+André+Rocha,+838+Taquara+Rio+de+Janeiro",
-    },
-
-    // ➕ add more dojos here following the same structure
   ];
 
   return (
@@ -60,22 +46,21 @@ export default function WhereWeAre() {
           Onde Estamos
         </h1>
         <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          Conheça todos os nossos polos, espalhados pelo Rio de Janeiro, que
-          promovem esporte, educação e desenvolvimento humano através do Judo.
+          Conheça a localização da Escola de Judo Edson Madeira em Maputo e saiba
+          como chegar ao nosso tatami para treinos regulares e programas de Judo.
         </p>
       </motion.div>
 
       {/* DOJO LIST */}
       <section className="max-w-6xl mx-auto px-6 mt-20 flex flex-col gap-20">
-        {dojos.map((dojo, idx) => (
+        {locations.map((dojo, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, x: idx % 2 === 0 ? -80 : 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className={`grid md:grid-cols-2 gap-10 items-center ${
-              idx % 2 !== 0 ? "md:flex-row-reverse" : ""
-            }`}
+            className={`grid md:grid-cols-2 gap-10 items-center ${idx % 2 !== 0 ? "md:flex-row-reverse" : ""
+              }`}
           >
             {/* IMAGE */}
             <div className="relative h-72 rounded-xl overflow-hidden shadow-md">
