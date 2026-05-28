@@ -17,48 +17,6 @@ import {
   HeartHandshake,
 } from "lucide-react";
 
-const pricingPlans = [
-  {
-    title: "Essencial",
-    price: "15.000 MT",
-    description:
-      "Ideal para equipas pequenas que procuram uma experiência introdutória de Team Building.",
-    features: [
-      "Sessão de 2 horas",
-      "Até 15 participantes",
-      "Dinâmicas de integração",
-      "Facilitação pela equipa EJEM",
-    ],
-    highlight: false,
-  },
-  {
-    title: "Profissional",
-    price: "25.000 MT",
-    description:
-      "Plano recomendado para equipas que querem fortalecer colaboração, confiança e liderança.",
-    features: [
-      "Sessão de 3 a 4 horas",
-      "Até 30 participantes",
-      "Atividades práticas e reflexivas",
-      "Plano personalizado por objetivos",
-    ],
-    highlight: true,
-  },
-  {
-    title: "Corporate Plus",
-    price: "Sob Consulta",
-    description:
-      "Experiência completa para empresas que procuram um programa mais profundo e adaptado.",
-    features: [
-      "Formato personalizado",
-      "Equipas grandes",
-      "Dinâmicas por departamentos",
-      "Possibilidade de programa recorrente",
-    ],
-    highlight: false,
-  },
-];
-
 const objectives = [
   {
     icon: Users,
@@ -193,7 +151,7 @@ export default function TeamBuildingPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/images/tb.png"
+                src="/images/team-building/team-building.webp"
                 alt="Team Building EJEM"
                 fill
                 className="object-cover"
