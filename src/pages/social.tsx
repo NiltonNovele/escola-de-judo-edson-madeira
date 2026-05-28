@@ -186,7 +186,7 @@ export default function SocialPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/images/soc.png"
+                src="/images/social/social.jpeg"
                 alt="EJEM e comunidade"
                 fill
                 className="object-cover"
