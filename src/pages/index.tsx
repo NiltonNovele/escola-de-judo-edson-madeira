@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StatsSection from "../components/StatsSection";
@@ -14,6 +15,43 @@ const inter = Inter({
 });
 
 export default function Home() {
+  const partnersRef = useRef<HTMLDivElement | null>(null);
+  const pausedRef = useRef(false);
+  const partners = [1, 2, 3, 4, 5, 6, 7];
+
+  useEffect(() => {
+    const container = partnersRef.current;
+    if (!container) return;
+
+    let rafId: number;
+    const speed = 1.0;
+    let totalScroll = container.scrollWidth / 2;
+
+    const updateTotalScroll = () => {
+      totalScroll = container.scrollWidth / 2;
+    };
+
+    const animate = () => {
+      if (!container) return;
+      if (!pausedRef.current) {
+        container.scrollLeft += speed;
+        if (container.scrollLeft >= totalScroll) {
+          container.scrollLeft -= totalScroll;
+        }
+      }
+      rafId = window.requestAnimationFrame(animate);
+    };
+
+    updateTotalScroll();
+    rafId = window.requestAnimationFrame(animate);
+    window.addEventListener("resize", updateTotalScroll);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", updateTotalScroll);
+    };
+  }, []);
+
   return (
     <div className={`${inter.className} bg-white text-gray-900 antialiased`}>
       <Navbar />
@@ -51,13 +89,13 @@ export default function Home() {
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
-                  href="#sobre"
+                  href="/manifesto"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
                 >
                   CONHEÇA A NOSSA CAUSA
                 </a>
                 <a
-                  href="#apoio"
+                  href="/donate"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
                 >
                   QUERO FAZER PARTE
@@ -146,9 +184,9 @@ export default function Home() {
                   </div>
 
                   <div className="p-5">
-                    <time className="text-sm text-gray-500">
+                    {/*<time className="text-sm text-gray-500">
                       {id === 1 ? "12 Maio 2025" : id === 2 ? "08 Junho 2025" : "15 Julho 2025"}
-                    </time>
+                    </time>*/}
 
                     <h4 className="mt-2 font-semibold text-lg text-blue-900">
                       {id === 1
@@ -167,9 +205,9 @@ export default function Home() {
                     </p>
 
                     <div className="mt-4">
-                      <a href="/eventos" className="text-blue-900 font-medium hover:underline">
+                      {/*<a href="/eventos" className="text-blue-900 font-medium hover:underline">
                         Saber mais
-                      </a>
+                      </a>*/}
                     </div>
                   </div>
                 </article>
@@ -286,14 +324,14 @@ export default function Home() {
                   alt="Fundador da Escola de Judo"
                   width={1200}
                   height={900}
-                  className="object-cover w-full h-80 sm:h-96 lg:h-[440px]"
+                  className="object-cover w-full h-80 sm:h-[460px] lg:h-[480px]"
                 />
               </div>
             </div>
 
             {/* TEXT */}
             <div className="lg:col-span-7">
-              <h2 className="text-4xl font-extrabold text-blue-900">Edson Madeira — Fundador</h2>
+              <h2 className="text-4xl font-extrabold text-blue-900">Edson Madeira - Fundador</h2>
 
               <p className="mt-6 text-lg text-gray-700 leading-relaxed">
                 Edson Madeira é um dos nomes mais influentes do Judo moçambicano, atleta olímpico,
@@ -302,17 +340,34 @@ export default function Home() {
               </p>
 
               <h3 className="text-xl font-bold text-blue-900 mt-8">Conquistas</h3>
-              <ul className="mt-4 space-y-3 text-gray-700">
-                <li>• Participação nos Jogos Olímpicos de Pequim 2008</li>
-                <li>• Múltiplas medalhas internacionais em competições de Judo</li>
-                <li>• Treinador certificado e referência nacional</li>
-                <li>• Fundador da Escola de Judo Edson Madeira</li>
-                <li>• Mentor de centenas de jovens atletas</li>
+              <ul className="mt-4 grid gap-3 text-gray-700 text-sm pl-4">
+                <li className="flex items-center gap-3">
+                  <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                  <span>Participação nos Jogos Olímpicos de Pequim 2008</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                  <span>Múltiplas medalhas internacionais em competições de Judo</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                  <span>Treinador certificado e referência nacional</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                  <span>Fundador da Escola de Judo Edson Madeira</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                  <span>Mentor de centenas de jovens atletas</span>
+                </li>
               </ul>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-end">
                 <a
-                  href="#sobre"
+                  href="https://www.linkedin.com/in/edson-madeira-oly-0858b8a0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
                 >
                   Mais sobre o Edson
@@ -340,25 +395,25 @@ export default function Home() {
 
               <div className="relative">
                 <h4 className="text-3xl lg:text-4xl font-extrabold text-blue-900 leading-snug">
-                  Receba Novidades & Atualizações
+                  Receba Novidades & Actualizações
                 </h4>
                 <p className="mt-4 text-gray-700 text-lg leading-relaxed">
                   Junte-se à nossa comunidade e receba notícias, eventos, conquistas e
                   oportunidades de apoiar o desenvolvimento dos nossos atletas.
                 </p>
 
-                <ul className="mt-6 space-y-2 text-gray-600 text-sm">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
-                    Conteúdos exclusivos e relevantes
+                <ul className="mt-4 grid gap-3 text-gray-700 text-sm pl-4">
+                  <li className="flex items-center gap-3">
+                    <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                    <span>Conteúdos exclusivos e relevantes</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
-                    Eventos e competições
+                  <li className="flex items-center gap-3">
+                    <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                    <span>Eventos e competições</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-900 rounded-full" />
-                    Oportunidades de apoio e participação
+                  <li className="flex items-center gap-3">
+                    <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-blue-900" />
+                    <span>Oportunidades de apoio e participação</span>
                   </li>
                 </ul>
               </div>
@@ -411,34 +466,21 @@ export default function Home() {
               que acreditam no desenvolvimento desportivo, educativo e social.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 items-center justify-center">
-              {[1, 2, 3, 4, 5].map((id) => (
+            <div
+              ref={partnersRef}
+              onMouseEnter={() => (pausedRef.current = true)}
+              onMouseLeave={() => (pausedRef.current = false)}
+              className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
+            >
+              {[...partners, ...partners].map((id, index) => (
                 <div
-                  key={id}
-                  className="
-                    bg-white
-                    rounded-2xl
-                    shadow-sm
-                    p-6
-                    border border-gray-100
-                    hover:shadow-lg
-                    transition-all
-                    duration-300
-                    flex items-center justify-center group
-                  "
+                  key={`${id}-${index}`}
+                  className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
                   <img
                     src={`/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
-                    className="
-                      w-32
-                      opacity-70
-                      group-hover:opacity-100
-                      group-hover:scale-110
-                      transition-all
-                      duration-300
-                      object-contain
-                    "
+                    className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />
                 </div>
               ))}

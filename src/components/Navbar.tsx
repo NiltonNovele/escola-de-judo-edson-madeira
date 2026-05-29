@@ -58,14 +58,14 @@ export default function Navbar() {
             <DesktopDropdown title="EJEM" items={[
               { href: "/quem-somos", label: "Quem somos" },
               { href: "/onde-estamos", label: "Onde estamos" },
-              { href: "#", label: "Manifesto" },
+              { href: "/manifesto", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
               { href: "/parceiros", label: "Parceiros" },
             ]}/>
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
-              { href: "/ferias", label: "Acividades de Ferias" },
+              { href: "/ferias", label: "Actividades de Férias" },
               // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
             ]}/>
