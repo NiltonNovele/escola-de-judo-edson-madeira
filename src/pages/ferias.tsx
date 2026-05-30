@@ -138,11 +138,8 @@ export default function FeriasPage() {
 
       {/* HERO */}
       <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="mt-7 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-5">
-              Escola de Judo Edson Madeira
-            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
               Actividades de Férias
@@ -267,16 +264,12 @@ export default function FeriasPage() {
       <section className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <Gamepad2 size={16} />
-              Actividades incluídas
-            </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Movimento, jogo e aprendizagem
             </h2>
 
-            <p className="mt-4 text-neutral-600 text-base sm:text-lg leading-relaxed">
+            <p className="mt-8 text-neutral-600 text-base sm:text-lg leading-relaxed">
               O programa inclui actividades desportivas, recreativas e lúdicas
               para garantir manhãs cheias de energia e boa disposição.
             </p>
@@ -310,10 +303,7 @@ export default function FeriasPage() {
       <section id="horarios" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CalendarDays size={16} />
-              Programa semanal
-            </div>
+
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Horário das actividades
             </h2>
@@ -335,10 +325,6 @@ export default function FeriasPage() {
                     <p className="text-sm text-neutral-500 mt-1">Das 8h às 12h</p>
                   </div>
 
-                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-900 px-3 py-2 text-sm font-medium">
-                    <Clock3 size={16} />
-                    Manhã activa
-                  </div>
                 </div>
 
                 <div className="mt-6 space-y-3">
@@ -367,13 +353,9 @@ export default function FeriasPage() {
       >
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CreditCard size={16} />
-              Inscrições
-            </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
-              Preço e informações principais
+              Inscrições
             </h2>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -457,12 +439,8 @@ export default function FeriasPage() {
       <section className="py-16 sm:py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <HelpCircle size={16} />
-              Perguntas frequentes
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
-              Dúvidas comuns
+              Perguntas frequentes
             </h2>
           </div>
 
