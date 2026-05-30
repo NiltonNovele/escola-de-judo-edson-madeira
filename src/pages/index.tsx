@@ -363,7 +363,7 @@ export default function Home() {
                 </li>
               </ul>
 
-              <div className="mt-8 flex justify-end">
+              <div className="mt-8 flex justify-start lg:justify-end">
                 <a
                   href="https://www.linkedin.com/in/edson-madeira-oly-0858b8a0/"
                   target="_blank"

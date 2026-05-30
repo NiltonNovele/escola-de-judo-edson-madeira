@@ -61,14 +61,14 @@ export default function Navbar() {
               { href: "/manifesto", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
               { href: "/parceiros", label: "Parceiros" },
-            ]}/>
+            ]} />
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
               { href: "/ferias", label: "Actividades de Férias" },
               // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
-            ]}/>
+            ]} />
             {/* <DesktopDropdown title="TRANSPARÊNCIA" items={[
               { href: "#", label: "Perguntas Frequentes" },
               { href: "#", label: "Termos de Compromisso" },
@@ -83,7 +83,7 @@ export default function Navbar() {
             <DesktopDropdown title="EXTRAS" items={[
               { href: "/eventos", label: "Eventos" },
               { href: "/actividades", label: "Actividades" },
-            ]}/>
+            ]} />
             <Link href="/loja" className="hover:text-blue-800 transition">LOJA DE JUDO</Link>
             <Link href="/contacto" className="hover:text-blue-800 transition">CONTACTE-NOS</Link>
           </div>
@@ -111,21 +111,21 @@ export default function Navbar() {
         {mobileOpen && (
           <div className="md:hidden bg-white border-t shadow-lg p-6 space-y-6 text-gray-800 text-sm animate-fadeIn">
             <MobileDropdown title="EJEM" items={[
-              { href: "/quem-somos", label:"Quem somos"},
-              { href: "/onde-estamos", label:"Onde estamos"},
-              { href: "#", label:"Manifesto"},
-              { href: "/equipe", label:"Equipe"},
-              { href: "/parceiros", label:"Parceiros"},
-              { href: "#", label:"Reconhecimento"},
-              { href: "#", label:"Blog"},
-            ]} closeMenu={() => setMobileOpen(false)}/>
+              { href: "/quem-somos", label: "Quem somos" },
+              { href: "/onde-estamos", label: "Onde estamos" },
+              { href: "/manifesto", label: "Manifesto" },
+              { href: "/equipe", label: "Equipe" },
+              { href: "/parceiros", label: "Parceiros" },
+              { href: "#", label: "Reconhecimento" },
+              { href: "#", label: "Blog" },
+            ]} closeMenu={() => setMobileOpen(false)} />
             <MobileDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
               { href: "/ferias", label: "Acividades de Ferias" },
               // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
-            ]} closeMenu={() => setMobileOpen(false)}/>
+            ]} closeMenu={() => setMobileOpen(false)} />
             {/* <MobileDropdown title="TRANSPARÊNCIA" items={[
               { href:"#", label:"Perguntas Frequentes"},
               { href:"#", label:"Termos de Compromisso"},
@@ -138,9 +138,9 @@ export default function Navbar() {
               { href:"#", label:"Edital de Convocação"},
             ]} closeMenu={() => setMobileOpen(false)}/> */}
             <MobileDropdown title="Extras" items={[
-              { href:"/eventos", label:"Eventos"},
-              { href:"/actividades", label:"Actividades"},
-            ]} closeMenu={() => setMobileOpen(false)}/>
+              { href: "/eventos", label: "Eventos" },
+              { href: "/actividades", label: "Actividades" },
+            ]} closeMenu={() => setMobileOpen(false)} />
             <Link href="/loja" onClick={() => setMobileOpen(false)} className="block">LOJA DE JUDO</Link>
             <Link href="/contacto" onClick={() => setMobileOpen(false)} className="block">CONTACTE-NOS</Link>
             <Link href="/donate" onClick={() => setMobileOpen(false)} className="block w-full text-center px-5 py-3 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-xl shadow-lg hover:opacity-90 transition">
@@ -166,7 +166,7 @@ function SocialIcon({ href, Icon }: { href: string; Icon: any }) {
 }
 
 // Desktop dropdown opens on click, closes if clicked outside
-function DesktopDropdown({ title, items }: { title: string, items: {href:string,label:string}[] }) {
+function DesktopDropdown({ title, items }: { title: string, items: { href: string, label: string }[] }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -197,7 +197,7 @@ function DesktopDropdown({ title, items }: { title: string, items: {href:string,
   );
 }
 
-function MobileDropdown({ title, items, closeMenu }: { title: string, items: {href:string,label:string}[], closeMenu: () => void }) {
+function MobileDropdown({ title, items, closeMenu }: { title: string, items: { href: string, label: string }[], closeMenu: () => void }) {
   const [open, setOpen] = useState(false);
 
   return (
