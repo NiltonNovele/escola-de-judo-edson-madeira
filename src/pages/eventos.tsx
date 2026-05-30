@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,92 +20,227 @@ type EventType = {
   status: "Passado" | "Em Breve" | "Cancelado";
   description: string;
   details: string;
-  images: string[];
+
+  video?: string;
+  images?: string[];
 };
 
 const eventsData: EventType[] = [
   {
     id: 1,
-    name: "Campeonato de Judo 2025",
-    date: "2025-12-20",
-    location: "Maputo Arena",
-    status: "Em Breve",
-    description: "Competição anual de Judo para atletas de todos os níveis.",
-    details:
-      "O Campeonato de Judo 2025 contará com várias categorias de peso e idade. Haverá premiações especiais e atividades para toda a família.",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
+    name: "Martial Fest 2017",
+    date: "2017-10-07",
+    location: "Maputo",
+    status: "Passado",
+    description: "Participação da escola na 1ª Edição do Martial Fest.",
+    details: "Evento dedicado às artes marciais com demonstrações, competições e actividades para o público.",
+    video: "/videos/martial-fest.mp4"
   },
   {
     id: 2,
-    name: "Treino Comunitário",
-    date: "2025-11-10",
-    location: "Centro Comunitário Bairro A",
+    name: "Dia Mundial do Judo",
+    date: "2023-10-28",
+    location: "Maputo",
     status: "Passado",
-    description: "Treino especial aberto para a comunidade local.",
+    description: "Maior aula de Judo de Moçambique.",
     details:
-      "Treino aberto com orientação de nossos professores, focado em crianças e jovens iniciantes. Trazer kimono e boa energia!",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
+      "Actividades comemorativas, demonstrações e participação dos atletas da escola.",
+    video: "/videos/dia-mundial-do-judo.mp4",
   },
   {
     id: 3,
-    name: "Workshop de Técnicas Avançadas",
-    date: "2025-12-05",
-    location: "Dojo EJEM",
-    status: "Cancelado",
-    description: "Workshop avançado de Judo para atletas experientes.",
-    details:
-      "Infelizmente este evento foi cancelado devido a imprevistos. Fique atento às próximas datas!",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
-  },
-  {
-    id: 4,
-    name: "Exibição de Judo Infantil",
-    date: "2025-12-12",
-    location: "Ginásio Municipal",
-    status: "Em Breve",
-    description: "Exibição das crianças em atividades de Judo.",
-    details:
-      "Venha prestigiar as crianças em uma demonstração das técnicas aprendidas ao longo do ano.",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
-  },
-  {
-    id: 5,
-    name: "Treino Intensivo de Faixa-Preta",
-    date: "2025-11-25",
-    location: "Dojo EJEM",
+    name: "Martial Fest 2022",
+    date: "2022-12-20",
+    location: "Maputo",
     status: "Passado",
-    description: "Treino exclusivo para atletas avançados.",
+    description: "Participação da escola na 3ª Edição do Martial Fest.",
     details:
-      "Treino intensivo com foco em técnicas avançadas e preparação para competições futuras.",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
-  },
-  {
-    id: 6,
-    name: "Seminário de Judo e Disciplina",
-    date: "2025-12-18",
-    location: "Auditório Central",
-    status: "Em Breve",
-    description: "Seminário sobre ética, disciplina e Judo.",
-    details:
-      "Seminário aberto a todos os membros e interessados para aprender sobre a filosofia do Judo e sua aplicação no dia a dia.",
-    images: ["/images/logo.png", "/images/logo.png", "/images/logo.png"],
+      "Evento dedicado às artes marciais com demonstrações, competições e actividades para o público.",
+    images: [
+      "/images/martial-fest-2022/image00004.jpeg",
+      "/images/martial-fest-2022/image00005.jpeg",
+      "/images/martial-fest-2022/image00006.jpeg",
+      "/images/martial-fest-2022/image00007.jpeg",
+      "/images/martial-fest-2022/image00008.jpeg",
+      "/images/martial-fest-2022/image00009.jpeg",
+      "/images/martial-fest-2022/image00009.jpg",
+      "/images/martial-fest-2022/image00010.jpeg",
+      "/images/martial-fest-2022/image00010.jpg",
+      "/images/martial-fest-2022/image00011.jpeg",
+      "/images/martial-fest-2022/image00011.jpg",
+      "/images/martial-fest-2022/image00012.jpeg",
+      "/images/martial-fest-2022/image00012.jpg",
+      "/images/martial-fest-2022/image00013.jpeg",
+      "/images/martial-fest-2022/image00013.jpg",
+      "/images/martial-fest-2022/image00014.jpeg",
+      "/images/martial-fest-2022/image00014.jpg",
+      "/images/martial-fest-2022/image00015.jpeg",
+      "/images/martial-fest-2022/image00015.jpg",
+      "/images/martial-fest-2022/image00016.jpeg",
+      "/images/martial-fest-2022/image00016.jpg",
+      "/images/martial-fest-2022/image00017.jpeg",
+      "/images/martial-fest-2022/image00017.jpg",
+      "/images/martial-fest-2022/image00018.jpeg",
+      "/images/martial-fest-2022/image00018.jpg",
+      "/images/martial-fest-2022/image00019.jpeg",
+      "/images/martial-fest-2022/image00019.jpg",
+      "/images/martial-fest-2022/image00020.jpeg",
+      "/images/martial-fest-2022/image00020.jpg",
+      "/images/martial-fest-2022/image00021.jpeg",
+      "/images/martial-fest-2022/image00021.jpg",
+      "/images/martial-fest-2022/image00022.jpeg",
+      "/images/martial-fest-2022/image00022.jpg",
+      "/images/martial-fest-2022/image00023.jpeg",
+      "/images/martial-fest-2022/image00023.jpg",
+      "/images/martial-fest-2022/image00024.jpeg",
+      "/images/martial-fest-2022/image00024.jpg",
+      "/images/martial-fest-2022/image00025.jpg",
+      "/images/martial-fest-2022/image00026.jpg",
+      "/images/martial-fest-2022/image00027.jpg",
+      "/images/martial-fest-2022/image00028.jpg",
+      "/images/martial-fest-2022/image00029.jpg",
+      "/images/martial-fest-2022/image00030.jpg",
+      "/images/martial-fest-2022/image00031.jpg",
+      "/images/martial-fest-2022/image00032.jpg",
+      "/images/martial-fest-2022/image00033.jpg",
+      "/images/martial-fest-2022/image00034.jpg",
+      "/images/martial-fest-2022/image00035.jpg",
+      "/images/martial-fest-2022/image00036.jpg",
+      "/images/martial-fest-2022/image00037.jpg",
+      "/images/martial-fest-2022/image00038.jpg",
+      "/images/martial-fest-2022/image00039.jpg",
+      "/images/martial-fest-2022/image00040.jpg",
+      "/images/martial-fest-2022/image00041.jpg",
+      "/images/martial-fest-2022/image00042.jpg",
+      "/images/martial-fest-2022/image00043.jpg",
+      "/images/martial-fest-2022/image00044.jpg",
+      "/images/martial-fest-2022/image00045.jpg",
+      "/images/martial-fest-2022/image00046.jpg",
+      "/images/martial-fest-2022/image00047.jpg",
+      "/images/martial-fest-2022/image00048.jpg",
+      "/images/martial-fest-2022/image00049.jpg",
+      "/images/martial-fest-2022/image00050.jpg",
+      "/images/martial-fest-2022/image00051.jpg",
+      "/images/martial-fest-2022/image00052.jpg",
+      "/images/martial-fest-2022/image00053.jpg",
+      "/images/martial-fest-2022/image00054.jpg",
+      "/images/martial-fest-2022/image00055.jpg",
+      "/images/martial-fest-2022/image00056.jpg",
+      "/images/martial-fest-2022/image00057.jpg",
+      "/images/martial-fest-2022/image00058.jpg",
+      "/images/martial-fest-2022/image00059.jpg",
+      "/images/martial-fest-2022/image00060.jpg",
+      "/images/martial-fest-2022/image00061.jpg",
+      "/images/martial-fest-2022/image00062.jpg",
+      "/images/martial-fest-2022/image00063.jpg",
+      "/images/martial-fest-2022/image00064.jpg",
+      "/images/martial-fest-2022/image00065.jpg",
+      "/images/martial-fest-2022/image00066.jpg",
+      "/images/martial-fest-2022/image00067.jpg",
+      "/images/martial-fest-2022/image00068.jpg",
+      "/images/martial-fest-2022/image00069.jpg",
+      "/images/martial-fest-2022/image00070.jpg",
+      "/images/martial-fest-2022/image00071.jpg",
+      "/images/martial-fest-2022/image00072.jpg",
+      "/images/martial-fest-2022/image00073.jpg",
+      "/images/martial-fest-2022/image00074.jpg",
+      "/images/martial-fest-2022/image00075.jpg",
+      "/images/martial-fest-2022/image00076.jpg",
+      "/images/martial-fest-2022/image00077.jpg",
+      "/images/martial-fest-2022/image00078.jpg",
+      "/images/martial-fest-2022/image00079.jpg",
+      "/images/martial-fest-2022/image00080.jpg",
+      "/images/martial-fest-2022/image00081.jpg",
+      "/images/martial-fest-2022/image00082.jpg",
+      "/images/martial-fest-2022/image00083.jpg",
+      "/images/martial-fest-2022/image00084.jpg",
+      "/images/martial-fest-2022/image00085.jpg",
+      "/images/martial-fest-2022/image00087.jpg",
+      "/images/martial-fest-2022/image00088.jpg",
+      "/images/martial-fest-2022/image00089.jpg",
+      "/images/martial-fest-2022/image00090.jpg",
+      "/images/martial-fest-2022/image00091.jpg",
+      "/images/martial-fest-2022/image00092.jpg",
+      "/images/martial-fest-2022/image00093.jpg",
+      "/images/martial-fest-2022/image00094.jpg",
+      "/images/martial-fest-2022/image00095.jpg",
+      "/images/martial-fest-2022/image00096.jpg",
+      "/images/martial-fest-2022/image00097.jpg",
+      "/images/martial-fest-2022/image00098.jpg",
+      "/images/martial-fest-2022/image00099.jpg",
+      "/images/martial-fest-2022/image00100.jpg",
+      "/images/martial-fest-2022/image00101.jpg",
+      "/images/martial-fest-2022/image00102.jpg",
+      "/images/martial-fest-2022/image00103.jpg",
+      "/images/martial-fest-2022/image00104.jpg",
+      "/images/martial-fest-2022/image00105.jpg",
+      "/images/martial-fest-2022/image00106.jpg",
+      "/images/martial-fest-2022/image00107.jpg",
+      "/images/martial-fest-2022/image00108.jpg",
+      "/images/martial-fest-2022/image00109.jpg",
+      "/images/martial-fest-2022/image00110.jpg",
+      "/images/martial-fest-2022/image00111.jpg",
+      "/images/martial-fest-2022/image00112.jpg",
+      "/images/martial-fest-2022/image00113.jpg",
+      "/images/martial-fest-2022/image00114.jpg",
+      "/images/martial-fest-2022/image00115.jpg",
+      "/images/martial-fest-2022/image00116.jpg",
+      "/images/martial-fest-2022/image00117.jpg",
+      "/images/martial-fest-2022/image00118.jpg"
+    ],
   },
 ];
 
 export default function EventsPage() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const [cardImages, setCardImages] = useState<Record<number, number>>({});
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCardImages((prev) => {
+        const updated = { ...prev };
+
+        eventsData.forEach((event) => {
+          if (event.images?.length) {
+            updated[event.id] =
+              ((updated[event.id] ?? 0) + 1) % event.images.length;
+          }
+        });
+
+        return updated;
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!selectedEvent?.images?.length) return;
+
+    const interval = setInterval(() => {
+      setCurrentImage((prev) =>
+        (prev + 1) % selectedEvent.images!.length
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [selectedEvent]);
 
   const handleNextImage = () => {
-    if (!selectedEvent) return;
-    setCurrentImage((prev) => (prev + 1) % selectedEvent.images.length);
+    if (!selectedEvent?.images) return;
+
+    setCurrentImage(
+      (prev) => (prev + 1) % selectedEvent.images!.length
+    );
   };
 
   const handlePrevImage = () => {
-    if (!selectedEvent) return;
+    if (!selectedEvent?.images) return;
+
     setCurrentImage(
       (prev) =>
-        (prev - 1 + selectedEvent.images.length) % selectedEvent.images.length
+        (prev - 1 + selectedEvent.images!.length) %
+        selectedEvent.images!.length
     );
   };
 
@@ -147,33 +282,37 @@ export default function EventsPage() {
       {/* EVENTS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {eventsData.map((event, index) => (
+          {eventsData.map((event) => (
             <button
               key={event.id}
               type="button"
-              className="text-left bg-white rounded-3xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition duration-300 group"
+              className="h-full flex flex-col text-left bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition duration-300 group"
               onClick={() => {
                 setSelectedEvent(event);
                 setCurrentImage(0);
               }}
             >
-              <div className="relative w-full h-60 sm:h-64 overflow-hidden">
-                <Image
-                  src={event.images[index % event.images.length]}
-                  alt={event.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-                <span
-                  className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${getStatusClasses(
-                    event.status
-                  )}`}
-                >
-                  {event.status}
-                </span>
+              <div className="relative h-64 overflow-hidden">
+                {event.video ? (
+                  <video
+                    src={event.video}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <Image
+                    src={event.images?.[cardImages[event.id] ?? 0] || "/images/logo.png"}
+                    alt={event.name}
+                    fill
+                    className="object-cover"
+                  />
+                )}
               </div>
-              <div className="p-5 sm:p-6 space-y-3">
+
+              <div className="flex-1 p-5 sm:p-6 space-y-3">
                 <h3 className="text-xl font-bold text-blue-900 leading-snug">
                   {event.name}
                 </h3>
@@ -203,49 +342,62 @@ export default function EventsPage() {
         <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative animate-fadeIn max-h-[95vh] sm:max-h-[90vh] flex flex-col">
             <button
+              type="button"
               className="absolute top-4 right-4 text-white bg-black/35 hover:bg-black/50 transition rounded-full p-2 z-50"
               onClick={closeModal}
             >
               <X size={22} />
             </button>
-            {/* Image Carousel */}
-            <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
-              <Image
-                src={selectedEvent.images[currentImage]}
-                alt={selectedEvent.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              {selectedEvent.images.length > 1 && (
-                <>
-                  <button
-                    className="absolute top-1/2 left-3 sm:left-4 -translate-y-1/2 bg-black/35 rounded-full p-2 hover:bg-black/55 transition"
-                    onClick={handlePrevImage}
-                  >
-                    <ChevronLeft size={22} className="text-white" />
-                  </button>
-                  <button
-                    className="absolute top-1/2 right-3 sm:right-4 -translate-y-1/2 bg-black/35 rounded-full p-2 hover:bg-black/55 transition"
-                    onClick={handleNextImage}
-                  >
-                    <ChevronRight size={22} className="text-white" />
-                  </button>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {selectedEvent.images.map((_, index) => (
-                      <span
-                        key={index}
-                        className={`h-2.5 rounded-full transition-all ${
-                          currentImage === index
-                            ? "w-6 bg-white"
-                            : "w-2.5 bg-white/60"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+            {/* Video/Image Carousel */}
+            {selectedEvent.video ? (
+              <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
+                <video
+                  src={selectedEvent.video}
+                  className="w-full h-full object-cover"
+                  controls
+                  autoPlay
+                  playsInline
+                />
+              </div>
+            ) : (
+              <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
+                <Image
+                  src={selectedEvent.images?.[currentImage] || "/images/logo.png"}
+                  alt={selectedEvent.name}
+                  fill
+                  className="object-cover"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                {selectedEvent.images &&
+                  selectedEvent.images.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/35 rounded-full p-2"
+                        onClick={handlePrevImage}
+                      >
+                        <ChevronLeft size={22} className="text-white" />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/35 rounded-full p-2"
+                        onClick={handleNextImage}
+                      >
+                        <ChevronRight size={22} className="text-white" />
+                      </button>
+                      {selectedEvent.images &&
+                        selectedEvent.images.length > 1 && (
+                          <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                            {currentImage + 1} / {selectedEvent.images.length}
+                          </div>
+                        )}
+                    </>
+                  )}
+              </div>
+            )}
 
             <div className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto">
               <div className="flex flex-wrap items-start justify-between gap-4">

@@ -111,7 +111,7 @@ export default function Parceiros() {
       >
         <h1 className="text-5xl font-extrabold text-blue-900 mb-4">Parceiros</h1>
         <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          Conheça os parceiros que apoiam e fortalecem o Instituto Reação.
+          Conheça os parceiros que apoiam e fortalecem a Escola de Judo Edson Madeira.
         </p>
       </motion.div>
 

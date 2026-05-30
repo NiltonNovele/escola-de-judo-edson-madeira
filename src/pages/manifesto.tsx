@@ -19,9 +19,21 @@ export default function Manifesto() {
                         />
                     </div>
 
+                    {/* MESSAGE */}
+                    <div className="mt-8 max-w-4xl mx-auto text-center">
+                        <h2 className="text-3xl font-bold text-blue-900">
+                            Mais do que um desporto, uma forma de vida
+                        </h2>
+                        <p className="mt-4 text-lg text-gray-700 leading-relaxed">
+                            Na Escola de Judo Edson Madeira, acreditamos que o judo
+                            vai além do tatami. Formamos atletas e cidadãos através
+                            da disciplina, do respeito, da perseverança e da busca
+                            constante pela excelência.
+                        </p>
+                    </div>
                 </section>
             </main>
-            
+
             <Footer />
         </div>
     );

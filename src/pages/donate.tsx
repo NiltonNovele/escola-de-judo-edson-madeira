@@ -350,11 +350,48 @@ export default function DonatePage() {
     }
   }
 
+  const partnersRef = useRef<HTMLDivElement | null>(null);
+  const pausedRef = useRef(false);
+  const partners = [1, 2, 3, 4, 5, 6, 7];
+
+  useEffect(() => {
+    const container = partnersRef.current;
+    if (!container) return;
+
+    let rafId: number;
+    const speed = 1.0;
+    let totalScroll = container.scrollWidth / 2;
+
+    const updateTotalScroll = () => {
+      totalScroll = container.scrollWidth / 2;
+    };
+
+    const animate = () => {
+      if (!container) return;
+      if (!pausedRef.current) {
+        container.scrollLeft += speed;
+        if (container.scrollLeft >= totalScroll) {
+          container.scrollLeft -= totalScroll;
+        }
+      }
+      rafId = window.requestAnimationFrame(animate);
+    };
+
+    updateTotalScroll();
+    rafId = window.requestAnimationFrame(animate);
+    window.addEventListener("resize", updateTotalScroll);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", updateTotalScroll);
+    };
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-white text-gray-900 antialiased">
       <Navbar />
 
-      <main className="pt-24">
+      <main className="pt-16">
         {/* HERO */}
         <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-red-50 border-b border-blue-100">
           <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100/50 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
@@ -446,31 +483,29 @@ export default function DonatePage() {
           ref={formRef}
           className="bg-white py-16 lg:py-20 scroll-mt-28"
         >
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="max-w-4xl mx-auto px-6 lg:px-8">
             {/* FORM */}
-            <div className="lg:col-span-8">
+            <div>
               <div className="rounded-3xl bg-white border border-gray-200 shadow-xl overflow-hidden">
                 <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-8 py-7">
                   <div className="flex flex-wrap gap-3 mb-5">
                     <button
                       type="button"
                       onClick={() => setType("donate")}
-                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                        type === "donate"
-                          ? "bg-white text-blue-900"
-                          : "bg-white/10 text-white hover:bg-white/20"
-                      }`}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${type === "donate"
+                        ? "bg-white text-blue-900"
+                        : "bg-white/10 text-white hover:bg-white/20"
+                        }`}
                     >
                       Quero Doar
                     </button>
                     <button
                       type="button"
                       onClick={() => setType("partner")}
-                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                        type === "partner"
-                          ? "bg-white text-blue-900"
-                          : "bg-white/10 text-white hover:bg-white/20"
-                      }`}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${type === "partner"
+                        ? "bg-white text-blue-900"
+                        : "bg-white/10 text-white hover:bg-white/20"
+                        }`}
                     >
                       Tornar-me Parceiro
                     </button>
@@ -491,11 +526,10 @@ export default function DonatePage() {
                 <div className="p-6 sm:p-8">
                   {alertState.message && (
                     <div
-                      className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
-                        alertState.type === "success"
-                          ? "border-green-200 bg-green-50 text-green-700"
-                          : "border-red-200 bg-red-50 text-red-700"
-                      }`}
+                      className={`mb-6 rounded-xl border px-4 py-3 text-sm ${alertState.type === "success"
+                        ? "border-green-200 bg-green-50 text-green-700"
+                        : "border-red-200 bg-red-50 text-red-700"
+                        }`}
                     >
                       {alertState.message}
                     </div>
@@ -513,11 +547,10 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setDonationMode("money")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${
-                              donationMode === "money"
-                                ? "bg-blue-900 text-white border-blue-900"
-                                : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "money"
+                              ? "bg-blue-900 text-white border-blue-900"
+                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                              }`}
                           >
                             Só dinheiro
                           </button>
@@ -525,11 +558,10 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setDonationMode("goods")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${
-                              donationMode === "goods"
-                                ? "bg-blue-900 text-white border-blue-900"
-                                : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "goods"
+                              ? "bg-blue-900 text-white border-blue-900"
+                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                              }`}
                           >
                             Só bens / serviços
                           </button>
@@ -537,11 +569,10 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setDonationMode("both")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${
-                              donationMode === "both"
-                                ? "bg-blue-900 text-white border-blue-900"
-                                : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "both"
+                              ? "bg-blue-900 text-white border-blue-900"
+                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                              }`}
                           >
                             Ambos
                           </button>
@@ -760,11 +791,10 @@ export default function DonatePage() {
                                     key={item.label}
                                     type="button"
                                     onClick={() => toggleGood(item.label)}
-                                    className={`flex items-center gap-3 text-left rounded-2xl px-4 py-4 border transition ${
-                                      active
-                                        ? "bg-white border-red-500 text-red-700 shadow-sm"
-                                        : "bg-white border-gray-300 text-gray-700 hover:border-red-300"
-                                    }`}
+                                    className={`flex items-center gap-3 text-left rounded-2xl px-4 py-4 border transition ${active
+                                      ? "bg-white border-red-500 text-red-700 shadow-sm"
+                                      : "bg-white border-gray-300 text-gray-700 hover:border-red-300"
+                                      }`}
                                   >
                                     <Icon size={18} />
                                     <span className="font-medium">
@@ -850,11 +880,10 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setIsCompany(false)}
-                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${
-                              !isCompany
-                                ? "bg-blue-900 text-white border-blue-900"
-                                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${!isCompany
+                              ? "bg-blue-900 text-white border-blue-900"
+                              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                              }`}
                           >
                             <User size={17} />
                             Indivíduo
@@ -863,11 +892,10 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setIsCompany(true)}
-                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${
-                              isCompany
-                                ? "bg-blue-900 text-white border-blue-900"
-                                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
+                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${isCompany
+                              ? "bg-blue-900 text-white border-blue-900"
+                              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                              }`}
                           >
                             <Building2 size={17} />
                             Empresa / Organização
@@ -1145,8 +1173,9 @@ export default function DonatePage() {
         </section>
 
         {/* PARTNERS */}
-        <section className="bg-white py-20 border-t">
+        <section className="bg-gray-50 py-24">
           <div className="max-w-7xl mx-auto px-6 text-center">
+
             <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
               Parceiros & Apoiantes
             </h2>
@@ -1156,20 +1185,29 @@ export default function DonatePage() {
               tornar possível o crescimento da Escola de Judo Edson Madeira.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 items-center justify-center">
-              {[1, 2, 3, 4].map((id) => (
+            <div
+              ref={partnersRef}
+              onMouseEnter={() => (pausedRef.current = true)}
+              onMouseLeave={() => (pausedRef.current = false)}
+              className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
+            >
+              {[...partners, ...partners].map((id, index) => (
                 <div
-                  key={id}
-                  className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 flex items-center justify-center group"
+                  key={`${id}-${index}`}
+                  className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
                   <img
                     src={`/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
-                    className="w-28 opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 object-contain"
+                    className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />
                 </div>
               ))}
             </div>
+
+            <p className="text-gray-600 mt-14 text-sm">
+              Agradecemos cada parceiro que acredita na nossa missão.
+            </p>
           </div>
         </section>
       </main>
