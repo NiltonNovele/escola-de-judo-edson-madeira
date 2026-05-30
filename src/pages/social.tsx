@@ -134,11 +134,8 @@ export default function SocialPage() {
 
       {/* HERO */}
       <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="mt-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-5">
-              Escola de Judo Edson Madeira
-            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
               Social
@@ -258,10 +255,7 @@ export default function SocialPage() {
       <section id="iniciativas" className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <Sparkles size={16} />
-              Iniciativas sociais
-            </div>
+
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Formas de presença e impacto
             </h2>
@@ -297,10 +291,7 @@ export default function SocialPage() {
       <section id="envolvimento" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CalendarDays size={16} />
-              Envolvimento comunitário
-            </div>
+
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               O que a EJEM desenvolve
             </h2>
@@ -320,11 +311,6 @@ export default function SocialPage() {
                   <div>
                     <h3 className="text-2xl font-bold text-blue-900">{area.title}</h3>
                     <p className="text-sm text-neutral-500 mt-1">{area.subtitle}</p>
-                  </div>
-
-                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-900 px-3 py-2 text-sm font-medium">
-                    <HeartHandshake size={16} />
-                    EJEM Social
                   </div>
                 </div>
 
