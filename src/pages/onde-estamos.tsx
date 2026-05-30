@@ -39,7 +39,7 @@ export default function WhereWeAre() {
       image: "/images/onde-estamos/escola-fsm.jpg",
       mapsUrl:
         "https://www.google.com/maps/place/Escola+Prim%C3%A1ria+7+de+Setembro+Felipe+Samuel+Magaia,+Av.+Marien+Ngouabi,+Maputo/@-25.959035,32.5781723,18.61z/data=!4m9!1m2!2m1!1sEscola+Prim%C3%A1ria+Completa+7+De+Setembro!3m5!1s0x1ee69affac42fedd:0xf7c9277bd40aeb91!8m2!3d-25.9591997!4d32.5798691!16s%2Fg%2F11bvtfznjm?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
-    }
+    },
   ];
 
   return (

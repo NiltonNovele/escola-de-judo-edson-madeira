@@ -26,8 +26,8 @@ export default function Equipe() {
       image: "/sucesso/kevin.jpg",
       description:
         "Especialista em ensino técnico e preparação de jovens atletas.",
-      email: "kevin@instituto.com",
-      phone: "+55 21 90000-0001",
+      email: "",
+      phone: "",
     },
     {
       name: "Jacira Ferreira",
@@ -35,8 +35,8 @@ export default function Equipe() {
       image: "/sucesso/jacira.jpg",
       description:
         "Focada no desenvolvimento de atletas femininas e inclusão social.",
-      email: "jacira@instituto.com",
-      phone: "+55 21 90000-0002",
+      email: "",
+      phone: "",
     },
     {
       name: "Edson Madeira",
@@ -44,35 +44,8 @@ export default function Equipe() {
       image: "/images/edson.jpg",
       description:
         "Treinador com experiência internacional e formação de atletas de alto rendimento.",
-      email: "edson@instituto.com",
-      phone: "+55 21 90000-0003",
-    },
-    {
-      name: "Rita Santos",
-      role: "Coordenadora Pedagógica",
-      image: "/team/rita.jpg",
-      description:
-        "Responsável pela orientação educacional e acompanhamento académico dos alunos.",
-      email: "rita@instituto.com",
-      phone: "+55 21 90000-0004",
-    },
-    {
-      name: "Carlos Menezes",
-      role: "Preparador Físico",
-      image: "/team/carlos.jpg",
-      description:
-        "Especialista em performance, força e condicionamento para atletas.",
-      email: "carlos@instituto.com",
-      phone: "+55 21 90000-0005",
-    },
-    {
-      name: "Marta Oliveira",
-      role: "Psicóloga Desportiva",
-      image: "/team/marta.jpg",
-      description:
-        "Actuação focada na motivação, foco competitivo e bem-estar emocional dos atletas.",
-      email: "marta@instituto.com",
-      phone: "+55 21 90000-0006",
+      email: "",
+      phone: "",
     },
   ];
 
@@ -89,7 +62,7 @@ export default function Equipe() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="pt-28 text-center px-6"
+        className="pt-32 text-center px-6"
       >
         <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
           A Nossa Equipa
@@ -101,7 +74,7 @@ export default function Equipe() {
       </motion.div>
 
       {/* CARDS */}
-      <section className="max-w-7xl mx-auto px-6 mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-10 pb-28">
+      <section className="max-w-7xl mx-auto px-6 mt-9 grid sm:grid-cols-2 lg:grid-cols-3 gap-10 pb-28">
         {team.map((m, idx) => (
           <motion.div
             key={idx}
