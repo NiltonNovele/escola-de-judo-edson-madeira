@@ -19,16 +19,27 @@ type Location = {
 export default function WhereWeAre() {
   const locations: Location[] = [
     {
-      name: "Escola de Judo Edson Madeira",
+      name: "Clube Naval de Maputo",
       description:
-        "Nosso tatami em Maputo, onde oferecemos aulas regulares de Judo para crianças, jovens e adultos com foco em disciplina, respeito e transformação social.",
-      address: "Rua de Mukumbura 367 R/c – Maputo, Moçambique",
+        "Dojo à beira-mar com estrutura completa para competidores. Ambiente único com vista para o oceano e instrutores experientes.",
+      address: " Av. Marginal, 1866 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
-      hours: "Seg a Sex – 09h00 às 18h00 | Sáb – 10h00 às 16h00",
-      image: "/images/onde-estamos/tatami.jpeg",
+      hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
+      image: "/images/onde-estamos/clube-naval.webp",
       mapsUrl:
-        "https://www.google.com/maps/place/Escola+de+Judo+Edson+Madeira/@-25.9696599,32.5732252,15z/data=!3m1!4b1!4m6!3m5!1s0x1ee69b6b37dcfea7:0x679540bcd88d7048!8m2!3d-25.9696611!4d32.5916792!16s%2Fg%2F11swv9ywgk?entry=ttu&g_ep=EgoyMDI2MDUyNi4wIKXMDSoASAFQAw%3D%3D",
+        "https://www.google.com/maps/place/Clube+Naval+de+Maputo/@-25.976896,32.593408,17z/data=!3m1!4b1!4m6!3m5!1s0x1ee69bbd0d5d0209:0x5ac0f4dcc30c7fcb!8m2!3d-25.976896!4d32.5959829!16s%2Fg%2F11cmyrz1j7?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
     },
+    {
+      name: "Escola Primária Filipe Samuel Magaia",
+      description:
+        "Centro comunitário dedicado a transformar vidas através do Judo, tornando a arte marcial acessível a crianças e jovens.",
+      address: "Av. Karl Marx – Maputo, Moçambique",
+      phone: "+258 84 400 2050",
+      hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
+      image: "/images/onde-estamos/escola-fsm.jpg",
+      mapsUrl:
+        "https://www.google.com/maps/place/Escola+Prim%C3%A1ria+7+de+Setembro+Felipe+Samuel+Magaia,+Av.+Marien+Ngouabi,+Maputo/@-25.959035,32.5781723,18.61z/data=!4m9!1m2!2m1!1sEscola+Prim%C3%A1ria+Completa+7+De+Setembro!3m5!1s0x1ee69affac42fedd:0xf7c9277bd40aeb91!8m2!3d-25.9591997!4d32.5798691!16s%2Fg%2F11bvtfznjm?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
+    }
   ];
 
   return (
@@ -52,7 +63,7 @@ export default function WhereWeAre() {
       </motion.div>
 
       {/* DOJO LIST */}
-      <section className="max-w-6xl mx-auto px-6 mt-20 flex flex-col gap-20">
+      <section className="max-w-6xl mx-auto px-6 mt-12 flex flex-col gap-20">
         {locations.map((dojo, idx) => (
           <motion.div
             key={idx}
