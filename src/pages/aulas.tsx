@@ -128,11 +128,8 @@ export default function AulasPage() {
       <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-5">
-              Escola de Judo Edson Madeira
-            </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
+            <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
               Aulas de Judo
             </h1>
 
@@ -248,10 +245,6 @@ export default function AulasPage() {
       <section id="horarios" className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CalendarDays size={16} />
-              Horários
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Quadro de aulas
             </h2>
@@ -273,10 +266,6 @@ export default function AulasPage() {
                     <p className="text-sm text-neutral-500 mt-1">{group.ages}</p>
                   </div>
 
-                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-900 px-3 py-2 text-sm font-medium">
-                    <Clock3 size={16} />
-                    Horário semanal
-                  </div>
                 </div>
 
                 <div className="mt-6 space-y-3">
@@ -304,10 +293,6 @@ export default function AulasPage() {
       <section id="precos" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CreditCard size={16} />
-              Preçário
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Planos de treino
             </h2>
