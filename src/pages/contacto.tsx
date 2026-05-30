@@ -34,7 +34,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-white relative pb-10">
+    <div className="mt-8 w-full min-h-screen bg-white relative pb-10">
       <Navbar />
 
       {/* --- FLOATING DONATE BUTTON --- */}
@@ -97,7 +97,7 @@ export default function ContactPage() {
       </div>
 
       {/* GRID CONTENT */}
-      <div className="max-w-6xl mx-auto px-6 mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="max-w-6xl mx-auto px-6 mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* LEFT SIDE – IMAGE + ADDRESS BLOCK */}
         <div className="space-y-6">
           <div className="rounded-2xl overflow-hidden shadow-xl border border-neutral-200">
@@ -140,9 +140,6 @@ export default function ContactPage() {
                   </p>
                   <p>
                     <strong>Sábado:</strong> 10:00 – 16:00
-                  </p>
-                  <p>
-                    <strong>Domingo:</strong> Fechado
                   </p>
                 </div>
               </div>

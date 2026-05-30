@@ -208,13 +208,10 @@ ${customer.notes || "Sem observações"}
 
       {/* HEADER */}
       <section className="pt-28 sm:pt-32 pb-12 sm:pb-14 px-4 bg-gradient-to-b from-blue-50 to-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-xs sm:text-sm font-semibold mb-5">
-            Loja Oficial EJEM
-          </div>
+        <div className="mt-8 max-w-4xl mx-auto text-center">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
-            Loja Oficial
+            Loja Oficial EJEM
           </h1>
 
           <p className="max-w-2xl mx-auto mt-4 text-neutral-600 text-base sm:text-lg leading-relaxed px-2">
