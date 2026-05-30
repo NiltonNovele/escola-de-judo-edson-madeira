@@ -95,7 +95,7 @@ const faqs = [
     a: "Não. Podemos trabalhar com empresas, escolas, organizações, associações, equipas desportivas e grupos comunitários.",
   },
   {
-    q: "As atividades são físicas?",
+    q: "As actividades são físicas?",
     a: "Algumas dinâmicas podem envolver movimento, mas o nível é ajustado ao perfil do grupo. O foco é sempre inclusão, segurança e participação.",
   },
   {
@@ -115,24 +115,21 @@ export default function TeamBuildingPage() {
 
       {/* HERO */}
       <section className="pt-28 sm:pt-32 pb-14 sm:pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="mt-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-5">
-              Escola de Judo Edson Madeira
-            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
               Team Building
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base sm:text-lg text-neutral-700 leading-relaxed">
+            <p className="mt-11 max-w-2xl text-base sm:text-lg text-neutral-700 leading-relaxed">
               Criamos experiências de Team Building inspiradas nos valores do
               Judo: respeito, confiança, disciplina, colaboração e liderança.
               Através de dinâmicas práticas e reflexivas, ajudamos equipas a
               fortalecer relações, melhorar comunicação e crescer juntas.
             </p>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
                 <p className="text-sm text-neutral-500">Público</p>
                 <p className="mt-1 font-bold text-blue-900">Empresas e equipas</p>
@@ -223,10 +220,6 @@ export default function TeamBuildingPage() {
       <section id="formatos" className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-4">
-              <CalendarDays size={16} />
-              Formatos
-            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-900">
               Estrutura das sessões
             </h2>
@@ -248,10 +241,6 @@ export default function TeamBuildingPage() {
                     <p className="text-sm text-neutral-500 mt-1">{group.audience}</p>
                   </div>
 
-                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-900 px-3 py-2 text-sm font-medium">
-                    <Sparkles size={16} />
-                    Estrutura
-                  </div>
                 </div>
 
                 <div className="mt-6 space-y-3">
