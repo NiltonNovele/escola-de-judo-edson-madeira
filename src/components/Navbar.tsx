@@ -116,13 +116,11 @@ export default function Navbar() {
               { href: "/manifesto", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
               { href: "/parceiros", label: "Parceiros" },
-              { href: "#", label: "Reconhecimento" },
-              { href: "#", label: "Blog" },
             ]} closeMenu={() => setMobileOpen(false)} />
             <MobileDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
-              { href: "/ferias", label: "Acividades de Ferias" },
+              { href: "/ferias", label: "Actividades de Férias" },
               // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)} />

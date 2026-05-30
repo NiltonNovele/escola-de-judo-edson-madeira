@@ -43,7 +43,7 @@ export default function WhereWeAre() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* HEADER */}
@@ -63,18 +63,27 @@ export default function WhereWeAre() {
       </motion.div>
 
       {/* DOJO LIST */}
-      <section className="max-w-6xl mx-auto px-6 mt-12 flex flex-col gap-20">
+      <section className="max-w-6xl mx-auto px-6 mt-12 flex flex-col gap-20 overflow-x-hidden">
         {locations.map((dojo, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, x: idx % 2 === 0 ? -80 : 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className={`grid md:grid-cols-2 gap-10 items-center ${idx % 2 !== 0 ? "md:flex-row-reverse" : ""
-              }`}
+            initial={{
+              opacity: 0,
+              x: idx % 2 === 0 ? -30 : 30,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+            }}
+            className="grid md:grid-cols-2 gap-10 items-center"
           >
             {/* IMAGE */}
-            <div className="relative h-72 rounded-xl overflow-hidden shadow-md">
+            <div className="relative w-full h-72 rounded-xl overflow-hidden shadow-md min-w-0">
               <Image
                 src={dojo.image}
                 alt={dojo.name}
@@ -84,7 +93,7 @@ export default function WhereWeAre() {
             </div>
 
             {/* TEXT BLOCK */}
-            <div>
+            <div className="min-w-0">
               <h2 className="text-3xl font-bold text-blue-900 mb-3">
                 {dojo.name}
               </h2>

@@ -82,7 +82,7 @@ export default function Home() {
                 Compartilhar
               </h1>
 
-              <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-700 font-medium leading-relaxed drop-shadow">
+              <p className="mt-6 max-w-xl text-lg sm:text-xl text-gray-800 font-medium leading-relaxed drop-shadow">
                 Sonhamos com um futuro onde cada criança tenha a oportunidade de crescer através
                 do desporto. O Judo é a nossa ferramenta de transformação social.
               </p>
@@ -454,7 +454,7 @@ export default function Home() {
         </section>
 
         {/* PARCEIROS */}
-        <section className="bg-gray-50 py-24 mt-24">
+        <section className="bg-gray-50 py-24">
           <div className="max-w-7xl mx-auto px-6 text-center">
 
             <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
