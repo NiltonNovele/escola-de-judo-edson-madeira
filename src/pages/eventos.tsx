@@ -131,10 +131,7 @@ export default function EventsPage() {
       <Navbar />
       {/* HEADER */}
       <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 px-4 bg-gradient-to-b from-blue-50 to-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center rounded-full bg-blue-100 text-blue-900 px-4 py-2 text-sm font-semibold mb-5">
-            Escola de Judo Edson Madeira
-          </div>
+        <div className="mt-8 max-w-4xl mx-auto text-center">
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-blue-900 tracking-tight mb-4">
             Eventos
