@@ -66,20 +66,9 @@ export default function Navbar() {
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
               { href: "/ferias", label: "Actividades de Férias" },
-              // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
             ]} />
-            {/* <DesktopDropdown title="TRANSPARÊNCIA" items={[
-              { href: "#", label: "Perguntas Frequentes" },
-              { href: "#", label: "Termos de Compromisso" },
-              { href: "#", label: "Organograma" },
-              { href: "#", label: "Relatório Técnico" },
-              { href: "#", label: "Estatuto e Atas" },
-              { href: "#", label: "Lei de Incentivo" },
-              { href: "#", label: "Política de Compliance" },
-              { href: "#", label: "Publicações Contábeis" },
-              { href: "#", label: "Edital de Convocação" },
-            ]}/> */}
+
             <DesktopDropdown title="EXTRAS" items={[
               { href: "/eventos", label: "Eventos" },
               { href: "/actividades", label: "Actividades" },
@@ -124,17 +113,7 @@ export default function Navbar() {
               // { href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)} />
-            {/* <MobileDropdown title="TRANSPARÊNCIA" items={[
-              { href:"#", label:"Perguntas Frequentes"},
-              { href:"#", label:"Termos de Compromisso"},
-              { href:"#", label:"Organograma"},
-              { href:"#", label:"Relatório Técnico"},
-              { href:"#", label:"Estatuto e Atas"},
-              { href:"#", label:"Lei de Incentivo"},
-              { href:"#", label:"Política de Compliance"},
-              { href:"#", label:"Publicações Contábeis"},
-              { href:"#", label:"Edital de Convocação"},
-            ]} closeMenu={() => setMobileOpen(false)}/> */}
+
             <MobileDropdown title="Extras" items={[
               { href: "/eventos", label: "Eventos" },
               { href: "/actividades", label: "Actividades" },

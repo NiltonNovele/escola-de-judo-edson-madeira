@@ -193,19 +193,19 @@ app.get("/api/bank-details", (_req, res) => {
 
 app.post("/api/donations/create-payment", async (req, res) => {
   try {
-  const {
-  donorName,
-  donorContact,
-  anonymousDonation,
-  amount,
-  paymentMethod,
-  message,
-  donationMode,
-  selectedGoods,
-  otherDonation,
-  deliveryMethod,
-  returnUrl,
-} = req.body;
+    const {
+      donorName,
+      donorContact,
+      anonymousDonation,
+      amount,
+      paymentMethod,
+      message,
+      donationMode,
+      selectedGoods,
+      otherDonation,
+      deliveryMethod,
+      returnUrl,
+    } = req.body;
 
     if (!amount || Number(amount) <= 0) {
       return res.status(400).json({
@@ -235,21 +235,21 @@ app.post("/api/donations/create-payment", async (req, res) => {
     );
 
     const finalReturnUrl =
-  returnUrl && isValidReturnUrl(returnUrl)
-    ? returnUrl
-    : process.env.PAYSUITE_RETURN_URL ||
-      `${process.env.FRONTEND_URL || "http://localhost:3000"}/donate?payment=success`;
+      returnUrl && isValidReturnUrl(returnUrl)
+        ? returnUrl
+        : process.env.PAYSUITE_RETURN_URL ||
+        `${process.env.FRONTEND_URL || "http://localhost:3000"}/donate?payment=success`;
 
-const payload = {
-  amount: Number(amount),
-  method: mappedMethod,
-  reference,
-  description,
-  return_url: finalReturnUrl,
-  callback_url:
-    process.env.PAYSUITE_CALLBACK_URL ||
-    `${process.env.PUBLIC_BACKEND_URL || `http://localhost:${PORT}`}/api/paysuite/webhook`,
-};
+    const payload = {
+      amount: Number(amount),
+      method: mappedMethod,
+      reference,
+      description,
+      return_url: finalReturnUrl,
+      callback_url:
+        process.env.PAYSUITE_CALLBACK_URL ||
+        `${process.env.PUBLIC_BACKEND_URL || `http://localhost:${PORT}`}/api/paysuite/webhook`,
+    };
 
     const response = await fetch(
       `${process.env.PAYSUITE_BASE_URL || "https://paysuite.tech"}/api/v1/payments`,

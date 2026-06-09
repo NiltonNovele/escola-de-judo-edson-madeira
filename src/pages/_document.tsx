@@ -36,10 +36,6 @@ export default function Document() {
               content="Esporte, educação e desenvolvimento humano através do judo." />
         <meta name="twitter:image" content="/images/logo.png" />
 
-        {/* ----------- FONTS (se quiseres) ----------- */}
-        {/* <link rel="preconnect" href="https://fonts.googleapis.com" /> */}
-        {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" /> */}
-
       </Head>
 
       <body className="antialiased">
