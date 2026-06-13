@@ -102,19 +102,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
-            {/* RIGHT-SIDE IMAGE STILL EXISTS ON LARGE SCREENS */}
-            <div className="hidden lg:flex lg:col-span-5 justify-end">
-              <div className="w-full max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl border border-white/20">
-                {/* <Image
-          src="/images/hero.jpg"
-          alt="Crianças praticando judo"
-          width={1200}
-          height={900}
-          className="object-cover w-full h-96"
-        /> */}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -184,9 +171,6 @@ export default function Home() {
                   </div>
 
                   <div className="p-5">
-                    {/*<time className="text-sm text-gray-500">
-                      {id === 1 ? "12 Maio 2025" : id === 2 ? "08 Junho 2025" : "15 Julho 2025"}
-                    </time>*/}
 
                     <h4 className="mt-2 font-semibold text-lg text-blue-900">
                       {id === 1
@@ -204,11 +188,6 @@ export default function Home() {
                           : "Campeonato com atletas de diversas regiões para promover o Judo."}
                     </p>
 
-                    <div className="mt-4">
-                      {/*<a href="/eventos" className="text-blue-900 font-medium hover:underline">
-                        Saber mais
-                      </a>*/}
-                    </div>
                   </div>
                 </article>
               ))}
@@ -216,9 +195,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------------------------------------------------- */}
-        {/* CASOS DE SUCESSO — NEW SECTION */}
-        {/* ---------------------------------------------------- */}
+        {/* CASOS DE SUCESSO */}
 
         <section id="casos" className="bg-white py-24 border-t">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -375,7 +352,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>``
+        </section>
 
         {/* NEWSLETTER */}
         <section

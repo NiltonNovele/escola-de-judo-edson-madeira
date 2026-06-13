@@ -246,6 +246,9 @@ export default function EventsPage() {
     );
   };
 
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
   const handlePrevImage = () => {
     if (!selectedEvent?.images) return;
 
@@ -259,6 +262,8 @@ export default function EventsPage() {
   const closeModal = () => {
     setSelectedEvent(null);
     setCurrentImage(0);
+    setGalleryOpen(false);
+    setLightboxImage(null);
   };
 
   const getStatusClasses = (status: EventType["status"]) => {
@@ -302,6 +307,10 @@ export default function EventsPage() {
               onClick={() => {
                 setSelectedEvent(event);
                 setCurrentImage(0);
+
+                if (event.images?.length) {
+                  setGalleryOpen(true);
+                }
               }}
             >
               <div className="relative h-64 overflow-hidden">
@@ -350,7 +359,7 @@ export default function EventsPage() {
         </div>
       </section>
       {/* EVENT DETAILS MODAL */}
-      {selectedEvent && (
+      {selectedEvent && !galleryOpen && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative animate-fadeIn max-h-[95vh] sm:max-h-[90vh] flex flex-col">
             <button
@@ -443,6 +452,81 @@ export default function EventsPage() {
           </div>
         </div>
       )}
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute top-6 right-6 text-white"
+            onClick={() => setLightboxImage(null)}
+          >
+            <X size={32} />
+          </button>
+
+          <div
+            className="relative w-full max-w-6xl h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={lightboxImage}
+              alt="Imagem do evento"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
+
+      {galleryOpen &&
+        selectedEvent &&
+        selectedEvent.images && (
+          <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4">
+
+            <div className="bg-white rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col relative">
+
+              <button
+                className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-50"
+                onClick={closeModal}
+              >
+                <X size={22} />
+              </button>
+
+              <div className="p-6 border-b">
+                <h2 className="text-3xl font-bold text-blue-900">
+                  {selectedEvent.name}
+                </h2>
+
+                <p className="text-gray-700 mt-2">
+                  {selectedEvent.description}
+                </p>
+              </div>
+
+              <div className="overflow-y-auto p-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                  {selectedEvent.images.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setLightboxImage(image)}
+                      className="relative aspect-square overflow-hidden rounded-2xl group"
+                    >
+                      <Image
+                        src={image}
+                        alt={`${selectedEvent.name} ${index + 1}`}
+                        fill
+                        className="object-cover transition duration-300 group-hover:scale-105"
+                      />
+                    </button>
+                  ))}
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
 
       <Footer />
 
