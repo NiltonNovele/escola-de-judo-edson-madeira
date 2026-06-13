@@ -60,7 +60,7 @@ export default function Navbar() {
               { href: "/onde-estamos", label: "Onde estamos" },
               { href: "/manifesto", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
-              { href: "/parceiros", label: "Parceiros" },
+              //{ href: "/parceiros", label: "Parceiros" },
             ]} />
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
@@ -104,13 +104,13 @@ export default function Navbar() {
               { href: "/onde-estamos", label: "Onde estamos" },
               { href: "/manifesto", label: "Manifesto" },
               { href: "/equipe", label: "Equipe" },
-              { href: "/parceiros", label: "Parceiros" },
+              //{ href: "/parceiros", label: "Parceiros" },
             ]} closeMenu={() => setMobileOpen(false)} />
             <MobileDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
               { href: "/teambuilding", label: "Team Building" },
               { href: "/ferias", label: "Actividades de Férias" },
-              // { href: "#", label: "Treino Personalizado" },
+              //{ href: "#", label: "Treino Personalizado" },
               { href: "/social", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)} />
 

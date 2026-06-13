@@ -352,7 +352,7 @@ export default function DonatePage() {
 
   const partnersRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
-  const partners = [1, 2, 3, 4, 5, 6, 7];
+  const partners = [1, 2, 3, 4, 5, 6, 7, 8];
 
   useEffect(() => {
     const container = partnersRef.current;

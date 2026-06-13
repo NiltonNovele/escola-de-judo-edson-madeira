@@ -164,7 +164,7 @@ export default function QuemSomos() {
       </section>
 
       {/* TIMELINE */}
-      <section className="max-w-6xl mx-auto px-6 mt-28">
+      {/*<section className="max-w-6xl mx-auto px-6 mt-28">
         <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">
           Linha do Tempo
         </h2>
@@ -181,7 +181,7 @@ export default function QuemSomos() {
                 ${idx % 2 !== 0 ? "md:[&>*:first-child]:order-2" : ""}
               `}
             >
-              {/* TEXT BLOCK */}
+              {/* TEXT BLOCK }
               <div>
                 <div className="flex items-center gap-3 mb-3">
                   <Calendar className="text-blue-700 w-6 h-6" />
@@ -190,7 +190,7 @@ export default function QuemSomos() {
                 <p className="text-gray-700 text-lg leading-relaxed">{item.text}</p>
               </div>
 
-              {/* IMAGE GRID */}
+              {/* IMAGE GRID }
               <div className="grid grid-cols-2 gap-4">
                 {item.images.map((img, i) => (
                   <div key={i} className="relative h-36 sm:h-40 md:h-48 rounded-xl overflow-hidden">
@@ -201,7 +201,7 @@ export default function QuemSomos() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section>*/}
 
       <div className="mt-20">
         <Footer />
