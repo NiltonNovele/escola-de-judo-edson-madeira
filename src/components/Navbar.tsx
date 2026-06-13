@@ -26,7 +26,7 @@ export default function Navbar() {
   return (
     <header className="w-full fixed top-0 left-0 z-50 font-sans">
 
-      {/* 🌈 TOP SOCIAL BAR WITH GRADIENT */}
+      {/* TOP SOCIAL BAR WITH GRADIENT */}
       <div className="w-full bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 text-white flex justify-end px-6 py-2 space-x-6 text-lg shadow">
         <SocialIcon href="https://www.instagram.com/escoladejudoedsonmadeira/" Icon={FaInstagram} />
         <SocialIcon href="https://web.facebook.com/profile.php?id=100064625562311" Icon={FaFacebookF} />
@@ -59,8 +59,7 @@ export default function Navbar() {
               { href: "/quem-somos", label: "Quem somos" },
               { href: "/onde-estamos", label: "Onde estamos" },
               { href: "/manifesto", label: "Manifesto" },
-              { href: "/equipe", label: "Equipe" },
-              //{ href: "/parceiros", label: "Parceiros" },
+              { href: "/equipa", label: "Equipa" },
             ]} />
             <DesktopDropdown title="PROGRAMAS" items={[
               { href: "/aulas", label: "Aulas de Judo" },
@@ -70,8 +69,9 @@ export default function Navbar() {
             ]} />
 
             <DesktopDropdown title="EXTRAS" items={[
+              { href: "/galeria", label: "Galeria" },
               { href: "/eventos", label: "Eventos" },
-              { href: "/actividades", label: "Actividades" },
+              { href: "/graduacoes", label: "Graduações" },
             ]} />
             <Link href="/loja" className="hover:text-blue-800 transition">LOJA DE JUDO</Link>
             <Link href="/contacto" className="hover:text-blue-800 transition">CONTACTE-NOS</Link>
@@ -103,7 +103,7 @@ export default function Navbar() {
               { href: "/quem-somos", label: "Quem somos" },
               { href: "/onde-estamos", label: "Onde estamos" },
               { href: "/manifesto", label: "Manifesto" },
-              { href: "/equipe", label: "Equipe" },
+              { href: "/equipa", label: "Equipa" },
               //{ href: "/parceiros", label: "Parceiros" },
             ]} closeMenu={() => setMobileOpen(false)} />
             <MobileDropdown title="PROGRAMAS" items={[
@@ -115,8 +115,9 @@ export default function Navbar() {
             ]} closeMenu={() => setMobileOpen(false)} />
 
             <MobileDropdown title="Extras" items={[
+              { href: "/galeria", label: "Galeria" },
               { href: "/eventos", label: "Eventos" },
-              { href: "/actividades", label: "Actividades" },
+              { href: "/graduacoes", label: "Graduações" },
             ]} closeMenu={() => setMobileOpen(false)} />
             <Link href="/loja" onClick={() => setMobileOpen(false)} className="block">LOJA DE JUDO</Link>
             <Link href="/contacto" onClick={() => setMobileOpen(false)} className="block">CONTACTE-NOS</Link>

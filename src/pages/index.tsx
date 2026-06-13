@@ -138,7 +138,7 @@ export default function Home() {
             {/* TEXT */}
             <div className="lg:col-span-7">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-blue-900 leading-tight">
-                Mais de duas décadas a formar faixas-pretas dentro e fora do tatami
+                Mais de uma década a formar faixas-pretas dentro e fora do tatami
               </h2>
               <p className="mt-6 text-lg sm:text-xl text-gray-700 leading-relaxed">
                 A Escola de Judo Edson Madeira usa o desporto como ferramenta de educação,
