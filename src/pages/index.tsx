@@ -61,7 +61,7 @@ export default function Home() {
         {/* HERO PRINCIPAL */}
         <section
           className="relative w-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero.jpg')" }}
+          style={{ backgroundImage: "url('/images/home/hero/h1.jpeg')" }}
         >
           {/* GRADIENT + BLUR LEFT SIDE */}
           <div className="
