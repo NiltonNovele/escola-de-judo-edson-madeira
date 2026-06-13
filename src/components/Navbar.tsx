@@ -114,7 +114,7 @@ export default function Navbar() {
               { href: "/social", label: "Social" },
             ]} closeMenu={() => setMobileOpen(false)} />
 
-            <MobileDropdown title="Extras" items={[
+            <MobileDropdown title="EXTRAS" items={[
               { href: "/galeria", label: "Galeria" },
               { href: "/eventos", label: "Eventos" },
               { href: "/graduacoes", label: "Graduações" },

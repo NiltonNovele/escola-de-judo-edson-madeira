@@ -38,17 +38,6 @@ const eventsData: EventType[] = [
   },
   {
     id: 2,
-    name: "Dia Mundial do Judo",
-    date: "2023-10-28",
-    location: "Maputo",
-    status: "Passado",
-    description: "Maior aula de Judo de Moçambique.",
-    details:
-      "Actividades comemorativas, demonstrações e participação dos atletas da escola.",
-    video: "/videos/dia-mundial-do-judo.mp4",
-  },
-  {
-    id: 3,
     name: "Martial Fest 2022",
     date: "2022-12-20",
     location: "Maputo",
@@ -188,6 +177,29 @@ const eventsData: EventType[] = [
       "/images/martial-fest-2022/image00117.jpg",
       "/images/martial-fest-2022/image00118.jpg"
     ],
+  },
+  {
+    id: 3,
+    name: "Dia Mundial do Judo",
+    date: "2023-10-28",
+    location: "Maputo",
+    status: "Passado",
+    description: "Maior aula de Judo de Moçambique.",
+    details:
+      "Actividades comemorativas, demonstrações e participação dos atletas da escola.",
+    video: "/videos/dia-mundial-do-judo.mp4",
+  },
+  {
+    id: 4,
+    name: "Dia do Pai",
+    date: "2026-03-19",
+    location: "Casa Colorida Creche e Pré-Escola, Maputo",
+    status: "Passado",
+    description:
+      "O Dia do Pai foi celebrado da melhor forma: juntos no tatami.",
+    details:
+      "Mais do que uma aula, foi um momento de união, aprendizagem e valores que ficam para a vida: respeito, confiança e exemplo. Ser pai é liderar com o coração. Ser filho é crescer com inspiração. Obrigado a todas as famílias que fizeram deste dia algo especial!",
+    images: ["/images/dia-do-pai/pai.png"],
   },
 ];
 
@@ -417,28 +429,6 @@ export default function EventsPage() {
                 >
                   {selectedEvent.status}
                 </span>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl bg-blue-50 border border-blue-100 p-4">
-                  <div className="flex items-center gap-2 text-blue-900 font-semibold mb-1">
-                    <Calendar size={16} />
-                    <span>Data</span>
-                  </div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    {new Date(selectedEvent.date).toLocaleDateString("pt-PT")}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-neutral-50 border border-neutral-200 p-4">
-                  <div className="flex items-center gap-2 text-blue-900 font-semibold mb-1">
-                    <MapPin size={16} />
-                    <span>Local</span>
-                  </div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    {selectedEvent.location}
-                  </p>
-                </div>
               </div>
 
               <div className="rounded-2xl border border-neutral-200 p-5 bg-white">
