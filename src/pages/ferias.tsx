@@ -5,18 +5,14 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 import {
   CalendarDays,
-  Clock3,
   MapPin,
   Sun,
   Users,
   CheckCircle2,
-  CreditCard,
-  HelpCircle,
   Phone,
   Sparkles,
   Trophy,
   Dumbbell,
-  Gamepad2,
 } from "lucide-react";
 
 const highlights = [
@@ -154,6 +150,7 @@ export default function FeriasPage() {
               criançada aproveitar ao máximo.
             </p>
 
+{/*
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#horarios"
@@ -187,6 +184,7 @@ export default function FeriasPage() {
                 <p className="mt-1 font-bold text-red-500">Limitadas</p>
               </div>
             </div>
+*/}
           </div>
 
           <div className="lg:col-span-5">
@@ -299,7 +297,8 @@ export default function FeriasPage() {
         </div>
       </section>
 
-      {/* TIMETABLE */}
+{/*
+      {/* TIMETABLE }
       <section id="horarios" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -346,7 +345,7 @@ export default function FeriasPage() {
         </div>
       </section>
 
-      {/* PRICING + INFO */}
+      {/* PRICING + INFO }
       <section
         id="inscricoes"
         className="py-16 sm:py-20 px-4 bg-gradient-to-b from-white to-blue-50 border-t"
@@ -435,7 +434,7 @@ export default function FeriasPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ }
       <section className="py-16 sm:py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -457,6 +456,7 @@ export default function FeriasPage() {
           </div>
         </div>
       </section>
+*/}
 
       <Footer />
     </div>

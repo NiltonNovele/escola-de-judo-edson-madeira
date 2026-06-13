@@ -4,15 +4,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import {
-  Clock3,
   Users,
   Target,
   Shield,
   Award,
   CheckCircle2,
-  CalendarDays,
-  CreditCard,
-  HelpCircle,
 } from "lucide-react";
 
 const pricingPlans = [
@@ -140,6 +136,7 @@ export default function AulasPage() {
               ambiente seguro, acolhedor e exigente na medida certa.
             </p>
 
+{/*
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#horarios"
@@ -154,6 +151,7 @@ export default function AulasPage() {
                 Ver Preçário
               </a>
             </div>
+*/}
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
@@ -241,7 +239,7 @@ export default function AulasPage() {
         </div>
       </section>
 
-      {/* HORÁRIOS */}
+      {/* HORÁRIOS }
       <section id="horarios" className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -289,7 +287,7 @@ export default function AulasPage() {
         </div>
       </section>
 
-      {/* PREÇOS */}
+      {/* PREÇOS }
       <section id="precos" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -382,6 +380,7 @@ export default function AulasPage() {
           </div>
         </div>
       </section>
+*/}
 
       {/* OBJECTIVOS / CTA */}
       <section className="py-16 sm:py-20 px-4 bg-gradient-to-b from-white to-blue-50 border-t">

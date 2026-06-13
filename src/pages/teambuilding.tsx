@@ -9,10 +9,6 @@ import {
   Shield,
   Award,
   CheckCircle2,
-  CalendarDays,
-  CreditCard,
-  HelpCircle,
-  Sparkles,
   Briefcase,
   HeartHandshake,
 } from "lucide-react";
@@ -216,7 +212,8 @@ export default function TeamBuildingPage() {
         </div>
       </section>
 
-      {/* FORMATOS */}
+{/*}
+      {/* FORMATOS }
       <section id="formatos" className="py-16 sm:py-20 px-4 bg-neutral-50 border-y">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -263,6 +260,7 @@ export default function TeamBuildingPage() {
           </div>
         </div>
       </section>
+*/}
 
       {/* BENEFÍCIOS / CTA */}
       <section className="py-16 sm:py-20 px-4 bg-gradient-to-b from-white to-blue-50 border-t">
