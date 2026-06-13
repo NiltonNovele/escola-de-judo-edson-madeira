@@ -7,16 +7,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const aboutImages = [
-  "/quem-somos/1.jpeg",
-  "/quem-somos/2.jpeg",
-  "/quem-somos/3.jpeg",
-  "/quem-somos/4.jpeg",
-  "/quem-somos/5.jpeg",
-  "/quem-somos/6.jpeg",
-  "/quem-somos/7.jpeg",
-  "/quem-somos/8.jpeg",
-  "/quem-somos/9.jpeg",
-  "/quem-somos/10.jpeg",
+  "/images/quem-somos/1.jpeg",
+  "/images/quem-somos/2.jpeg",
+  "/images/quem-somos/3.jpeg",
+  "/images/quem-somos/4.jpeg",
+  "/images/quem-somos/5.jpeg",
+  "/images/quem-somos/6.jpeg",
+  "/images/quem-somos/7.jpeg",
+  "/images/quem-somos/8.jpeg",
+  "/images/quem-somos/9.jpeg",
+  "/images/quem-somos/10.jpeg",
 ];
 
 export default function AboutUs() {

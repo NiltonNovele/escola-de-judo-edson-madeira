@@ -208,19 +208,19 @@ export default function Home() {
               {[
                 {
                   name: "Kevin Loforte",
-                  img: "/sucesso/kevin.jpg",
+                  img: "/images/sucesso/kevin.jpg",
                   text:
                     "Conhecido como 'Mozambican Monster'. Judoca -66kg, Olímpico em Tóquio 2020, medalhista africano e um dos atletas mais dominantes do país.",
                 },
                 {
                   name: "Jacira Ferreira",
-                  img: "/sucesso/jacira.jpg",
+                  img: "/images/sucesso/jacira.jpg",
                   text:
                     "Judoca olímpica em Paris 2024. Conquistou 5º lugar no African Championship Seniores. Exemplo de determinação e disciplina.",
                 },
                 {
                   name: "Shenidy Tsemane",
-                  img: "/sucesso/shneidy.jpg",
+                  img: "/images/sucesso/shneidy.jpg",
                   text:
                     "Primeira atleta moçambicana a conquistar ouro nos Jogos Africanos de Judo. Um marco histórico para o desporto nacional.",
                 },
@@ -455,7 +455,7 @@ export default function Home() {
                   className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
                   <img
-                    src={`/parceiros/partner${id}.png`}
+                    src={`/images/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
                     className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />

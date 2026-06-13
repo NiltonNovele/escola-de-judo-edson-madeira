@@ -201,6 +201,34 @@ const eventsData: EventType[] = [
       "Mais do que uma aula, foi um momento de união, aprendizagem e valores que ficam para a vida: respeito, confiança e exemplo. Ser pai é liderar com o coração. Ser filho é crescer com inspiração. Obrigado a todas as famílias que fizeram deste dia algo especial!",
     images: ["/images/dia-do-pai/pai.png"],
   },
+  {
+    id: 5,
+    name: "Torneio Escolar de Judo",
+    date: "2026-05-30",
+    location: "Pavilhão da UEM, Maputo",
+    status: "Passado",
+    description:
+      "O Torneio Escolar de Judo 2026 foi um evento emocionante que reuniu jovens talentos de várias escolas para competir e demonstrar suas habilidades no tatami.",
+    details:
+      "O torneio contou com a participação de atletas de diferentes faixas etárias e níveis de experiência, proporcionando uma oportunidade única para os jovens judocas mostrarem seu talento e espírito esportivo. Além das competições, o evento também incluiu demonstrações de técnicas, workshops e actividades educativas sobre o judo, promovendo a cultura do esporte e incentivando a prática saudável entre os estudantes.",
+    images: [
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.23.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.24.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.26 (1).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.26.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.27 (1).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.27.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.28 (1).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.28 (2).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.28.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.29 (1).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.29.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.30 (1).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.30 (2).jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.30.jpeg",
+      "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.31.jpeg"
+    ],
+  },
 ];
 
 export default function EventsPage() {
@@ -498,9 +526,6 @@ export default function EventsPage() {
                   {selectedEvent.name}
                 </h2>
 
-                <p className="text-gray-700 mt-2">
-                  {selectedEvent.description}
-                </p>
               </div>
 
               <div className="overflow-y-auto p-6">

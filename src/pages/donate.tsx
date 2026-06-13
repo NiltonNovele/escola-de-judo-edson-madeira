@@ -1197,7 +1197,7 @@ export default function DonatePage() {
                   className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
                   <img
-                    src={`/parceiros/partner${id}.png`}
+                    src={`/images/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
                     className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />
