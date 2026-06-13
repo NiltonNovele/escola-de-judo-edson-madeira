@@ -84,12 +84,14 @@ const graduationsData: GraduationType[] = [
 ];
 
 export default function GraduationsPage() {
-  const [open, setOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
 
-  const [slides, setSlides] = useState<{ src: string }[]>([]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const [selectedGraduation, setSelectedGraduation] =
     useState<GraduationType | null>(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [cardImages, setCardImages] = useState<Record<number, number>>({});
 
@@ -142,14 +144,7 @@ export default function GraduationsPage() {
               className="h-full flex flex-col text-left bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition duration-300"
               onClick={() => {
                 setSelectedGraduation(graduation);
-
-                setSlides(
-                  graduation.images?.map((image) => ({
-                    src: image,
-                  })) || []
-                );
-
-                setOpen(true);
+                setGalleryOpen(true);
               }}
             >
               <div className="relative h-64 overflow-hidden">
@@ -195,12 +190,65 @@ export default function GraduationsPage() {
       </section>
 
       <Lightbox
-        open={open}
-        close={() => setOpen(false)}
-        slides={slides}
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={currentIndex}
+        slides={
+          selectedGraduation?.images?.map((image) => ({
+            src: image,
+          })) || []
+        }
         plugins={[Thumbnails, Fullscreen]}
       />
 
+      {galleryOpen && selectedGraduation && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4">
+          <div className="bg-white rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b">
+              <div>
+                <h2 className="text-2xl font-bold text-blue-900">
+                  {selectedGraduation.title}
+                </h2>
+              </div>
+
+              <button
+                onClick={() => setGalleryOpen(false)}
+                className="text-gray-600 hover:text-black"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Grelha */}
+            <div className="overflow-y-auto p-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                {selectedGraduation.images?.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setLightboxOpen(true);
+                    }}
+                    className="relative aspect-square overflow-hidden rounded-2xl"
+                  >
+                    <Image
+                      src={image}
+                      alt={`Foto ${index + 1}`}
+                      fill
+                      className="object-cover hover:scale-105 transition duration-300"
+                    />
+                  </button>
+                ))}
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
       <Footer />
     </div>
   );
