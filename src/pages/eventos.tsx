@@ -7,11 +7,14 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
+  ArrowLeft,
   Calendar,
-  MapPin,
-  X,
   ChevronLeft,
   ChevronRight,
+  Images,
+  MapPin,
+  Maximize2,
+  X,
 } from "lucide-react";
 
 type EventType = {
@@ -193,7 +196,7 @@ const eventsData: EventType[] = [
   },
   {
     id: 4,
-    name: "Dia do Pai",
+    name: "Dia dos Pais",
     date: "2026-03-19",
     location: "Casa Colorida Creche e Pré-Escola, Maputo",
     status: "Passado",
@@ -235,8 +238,14 @@ const eventsData: EventType[] = [
 
 export default function EventsPage() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
-  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [cardImages, setCardImages] = useState<Record<number, number>>({});
+  const eventSectionRef = useRef<HTMLElement | null>(null);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const selectedImages = selectedEvent?.images ?? [];
+  const activeImage = selectedImages[currentIndex];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -257,45 +266,20 @@ export default function EventsPage() {
   }, []);
 
   useEffect(() => {
-    if (!selectedEvent?.images?.length) return;
+    if (!selectedEvent) return;
 
-    const interval = setInterval(() => {
-      setCurrentImage((prev) =>
-        (prev + 1) % selectedEvent.images!.length
-      );
-    }, 3000);
+    const frame = window.requestAnimationFrame(() => {
+      eventSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
 
-    return () => clearInterval(interval);
+    return () => window.cancelAnimationFrame(frame);
   }, [selectedEvent]);
 
-  const handleNextImage = () => {
-    if (!selectedEvent?.images) return;
-
-    setCurrentImage(
-      (prev) => (prev + 1) % selectedEvent.images!.length
-    );
-  };
-
-  const [galleryOpen, setGalleryOpen] = useState(false);
-  const [eventViewerOpen, setEventViewerOpen] = useState(false);
-  const [eventViewerIndex, setEventViewerIndex] = useState(0);
-  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const eventImages = selectedEvent?.images ?? [];
-  const activeEventImage = eventImages[eventViewerIndex];
-
-  const handlePrevImage = () => {
-    if (!selectedEvent?.images) return;
-
-    setCurrentImage(
-      (prev) =>
-        (prev - 1 + selectedEvent.images!.length) %
-        selectedEvent.images!.length
-    );
-  };
-
   useEffect(() => {
-    if (!eventViewerOpen) return;
+    if (!viewerOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -303,66 +287,64 @@ export default function EventsPage() {
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [eventViewerOpen]);
+  }, [viewerOpen]);
 
   useEffect(() => {
-    if (!eventViewerOpen || eventImages.length === 0) return;
+    if (!viewerOpen || selectedImages.length === 0) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setEventViewerOpen(false);
+        setViewerOpen(false);
       }
 
       if (event.key === "ArrowRight") {
-        setEventViewerIndex((prev) => (prev + 1) % eventImages.length);
+        setCurrentIndex((prev) => (prev + 1) % selectedImages.length);
       }
 
       if (event.key === "ArrowLeft") {
-        setEventViewerIndex(
-          (prev) => (prev - 1 + eventImages.length) % eventImages.length
+        setCurrentIndex(
+          (prev) => (prev - 1 + selectedImages.length) % selectedImages.length
         );
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [eventImages.length, eventViewerOpen]);
+  }, [selectedImages.length, viewerOpen]);
 
   useEffect(() => {
-    if (!eventViewerOpen) return;
+    if (!viewerOpen) return;
 
-    thumbnailRefs.current[eventViewerIndex]?.scrollIntoView({
+    thumbnailRefs.current[currentIndex]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
       inline: "center",
     });
-  }, [eventViewerIndex, eventViewerOpen]);
+  }, [currentIndex, viewerOpen]);
 
-  const closeModal = () => {
+  const closeEventDetails = () => {
     setSelectedEvent(null);
-    setCurrentImage(0);
-    setGalleryOpen(false);
-    setEventViewerOpen(false);
-    setEventViewerIndex(0);
+    setViewerOpen(false);
+    setCurrentIndex(0);
   };
 
-  const openEventViewer = (index: number) => {
-    setEventViewerIndex(index);
-    setEventViewerOpen(true);
+  const openViewer = (index: number) => {
+    setCurrentIndex(index);
+    setViewerOpen(true);
   };
 
-  const showPreviousEventImage = () => {
-    if (eventImages.length === 0) return;
+  const showPreviousImage = () => {
+    if (selectedImages.length === 0) return;
 
-    setEventViewerIndex(
-      (prev) => (prev - 1 + eventImages.length) % eventImages.length
+    setCurrentIndex(
+      (prev) => (prev - 1 + selectedImages.length) % selectedImages.length
     );
   };
 
-  const showNextEventImage = () => {
-    if (eventImages.length === 0) return;
+  const showNextImage = () => {
+    if (selectedImages.length === 0) return;
 
-    setEventViewerIndex((prev) => (prev + 1) % eventImages.length);
+    setCurrentIndex((prev) => (prev + 1) % selectedImages.length);
   };
 
   const getStatusClasses = (status: EventType["status"]) => {
@@ -396,20 +378,28 @@ export default function EventsPage() {
         </div>
       </section>
       {/* EVENTS GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+      <section
+        className={`max-w-7xl mx-auto px-4 sm:px-6 ${
+          selectedEvent ? "pb-12" : "pb-20"
+        }`}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {eventsData.map((event) => (
-            <button
+          {eventsData.map((event) => {
+            const isSelected = selectedEvent?.id === event.id;
+
+            return (
+              <button
               key={event.id}
               type="button"
-              className="h-full flex flex-col text-left bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition duration-300 group"
+              className={`h-full flex flex-col text-left bg-white rounded-2xl border overflow-hidden hover:-translate-y-1 transition duration-300 group ${
+                isSelected
+                  ? "border-blue-600 shadow-xl ring-2 ring-blue-100"
+                  : "border-neutral-200 shadow-sm hover:shadow-2xl"
+              }`}
               onClick={() => {
                 setSelectedEvent(event);
-                setCurrentImage(0);
-
-                if (event.images?.length) {
-                  setGalleryOpen(true);
-                }
+                setCurrentIndex(0);
+                setViewerOpen(false);
               }}
             >
               <div className="relative h-64 overflow-hidden">
@@ -427,7 +417,7 @@ export default function EventsPage() {
                     src={event.images?.[cardImages[event.id] ?? 0] || "/images/logo.png"}
                     alt={event.name}
                     fill
-                    className="object-cover"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
                 )}
               </div>
@@ -453,120 +443,127 @@ export default function EventsPage() {
                   </span>
                 </div>
               </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </section>
-      {/* EVENT DETAILS MODAL */}
-      {selectedEvent && !galleryOpen && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative animate-fadeIn max-h-[95vh] sm:max-h-[90vh] flex flex-col">
-            <button
-              type="button"
-              className="absolute top-4 right-4 text-white bg-black/35 hover:bg-black/50 transition rounded-full p-2 z-50"
-              onClick={closeModal}
-            >
-              <X size={22} />
-            </button>
-            {/* Video/Image Carousel */}
-            {selectedEvent.video ? (
-              <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
+      {selectedEvent && (
+        <section
+          ref={eventSectionRef}
+          className="event-gallery-enter scroll-mt-36 bg-slate-50 text-slate-950 py-10 sm:py-12 lg:py-14"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <button
+                  type="button"
+                  onClick={closeEventDetails}
+                  className="mb-6 inline-flex items-center gap-2 rounded-lg border border-blue-100 bg-white px-4 py-2 text-sm font-semibold text-blue-900 shadow-sm transition hover:border-blue-200 hover:bg-blue-50"
+                >
+                  <ArrowLeft size={18} />
+                  Voltar
+                </button>
+
+                <div className="mb-4 flex flex-wrap items-center gap-3 text-sm font-medium text-slate-600">
+                  <span className="inline-flex items-center gap-2">
+                    <Calendar size={16} />
+                    {new Date(selectedEvent.date).toLocaleDateString("pt-PT")}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin size={16} />
+                    {selectedEvent.location}
+                  </span>
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap ${getStatusClasses(
+                      selectedEvent.status
+                    )}`}
+                  >
+                    {selectedEvent.status}
+                  </span>
+                </div>
+
+                <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-blue-900">
+                  {selectedEvent.name}
+                </h2>
+
+                <p className="mt-4 text-gray-700 text-base sm:text-lg leading-relaxed">
+                  {selectedEvent.description}
+                </p>
+              </div>
+
+              <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-blue-900 shadow-sm">
+                <Images size={18} className="text-blue-700" />
+                {selectedImages.length} fotos
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-lg border border-blue-100 bg-white p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-blue-900 mb-3">
+                Mais detalhes
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                {selectedEvent.details}
+              </p>
+            </div>
+
+            {selectedEvent.video && (
+              <div className="mt-8 overflow-hidden rounded-lg bg-black shadow-sm ring-1 ring-slate-200">
                 <video
                   src={selectedEvent.video}
-                  className="w-full h-full object-cover"
+                  className="block w-full max-h-[70vh] object-contain"
                   controls
-                  autoPlay
                   playsInline
                 />
               </div>
-            ) : (
-              <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
-                <Image
-                  src={selectedEvent.images?.[currentImage] || "/images/logo.png"}
-                  alt={selectedEvent.name}
-                  fill
-                  className="object-cover"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-                {selectedEvent.images &&
-                  selectedEvent.images.length > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/35 rounded-full p-2"
-                        onClick={handlePrevImage}
-                      >
-                        <ChevronLeft size={22} className="text-white" />
-                      </button>
-
-                      <button
-                        type="button"
-                        className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/35 rounded-full p-2"
-                        onClick={handleNextImage}
-                      >
-                        <ChevronRight size={22} className="text-white" />
-                      </button>
-                      {selectedEvent.images &&
-                        selectedEvent.images.length > 1 && (
-                          <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                            {currentImage + 1} / {selectedEvent.images.length}
-                          </div>
-                        )}
-                    </>
-                  )}
-              </div>
             )}
 
-            <div className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-blue-900">
-                    {selectedEvent.name}
-                  </h2>
-                  <p className="text-gray-600 mt-2 text-sm sm:text-base leading-relaxed">
-                    {selectedEvent.description}
-                  </p>
-                </div>
-
-                <span
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap ${getStatusClasses(
-                    selectedEvent.status
-                  )}`}
-                >
-                  {selectedEvent.status}
-                </span>
+            {selectedImages.length > 0 && (
+              <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+                {selectedImages.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => openViewer(index)}
+                    aria-label={`Abrir foto ${index + 1} de ${
+                      selectedImages.length
+                    }`}
+                    className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
+                  >
+                    <img
+                      src={image}
+                      alt={`${selectedEvent.name} - foto ${index + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
+                    />
+                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-950/18 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                    <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
+                      <Maximize2 size={17} />
+                    </span>
+                  </button>
+                ))}
               </div>
-
-              <div className="rounded-2xl border border-neutral-200 p-5 bg-white">
-                <h3 className="text-lg font-semibold text-blue-900 mb-3">
-                  Mais detalhes
-                </h3>
-                <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                  {selectedEvent.details}
-                </p>
-              </div>
-            </div>
+            )}
           </div>
-        </div>
+        </section>
       )}
 
-      {eventViewerOpen && activeEventImage && selectedEvent && (
-        <div className="event-whatsapp-viewer fixed inset-0 z-[60] bg-slate-50 text-slate-950">
+      {viewerOpen && activeImage && selectedEvent && (
+        <div className="event-viewer fixed inset-0 z-[10000] bg-slate-50 text-slate-950">
           <div className="absolute inset-x-0 top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/95 px-4 shadow-sm backdrop-blur md:px-6">
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-slate-900">
                 {selectedEvent.name}
               </p>
               <p className="text-xs font-medium text-slate-500">
-                {eventViewerIndex + 1} de {eventImages.length}
+                {currentIndex + 1} de {selectedImages.length}
               </p>
             </div>
 
             <button
               type="button"
-              onClick={() => setEventViewerOpen(false)}
+              onClick={() => setViewerOpen(false)}
               aria-label="Fechar visualizador"
               className="flex h-10 w-10 items-center justify-center rounded-full text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
             >
@@ -574,11 +571,11 @@ export default function EventsPage() {
             </button>
           </div>
 
-          {eventImages.length > 1 && (
+          {selectedImages.length > 1 && (
             <>
               <button
                 type="button"
-                onClick={showPreviousEventImage}
+                onClick={showPreviousImage}
                 aria-label="Foto anterior"
                 className="absolute left-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:left-7 sm:h-14 sm:w-14"
               >
@@ -587,7 +584,7 @@ export default function EventsPage() {
 
               <button
                 type="button"
-                onClick={showNextEventImage}
+                onClick={showNextImage}
                 aria-label="Próxima foto"
                 className="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:right-7 sm:h-14 sm:w-14"
               >
@@ -598,22 +595,22 @@ export default function EventsPage() {
 
           <div className="flex h-full items-center justify-center px-4 pb-32 pt-20 sm:px-24 sm:pb-36">
             <img
-              key={activeEventImage}
-              src={activeEventImage}
-              alt={`${selectedEvent.name} - foto ${eventViewerIndex + 1}`}
+              key={activeImage}
+              src={activeImage}
+              alt={`${selectedEvent.name} - foto ${currentIndex + 1}`}
               draggable={false}
-              className="event-whatsapp-viewer-image h-auto w-auto select-none rounded-sm object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
+              className="event-viewer-image h-auto w-auto select-none rounded-sm object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
             />
           </div>
 
           <div className="absolute inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 pb-3 shadow-[0_-6px_22px_rgba(15,23,42,0.06)] backdrop-blur">
             <div className="py-2 text-center text-sm font-semibold text-slate-600">
-              {eventViewerIndex + 1} de {eventImages.length}
+              {currentIndex + 1} de {selectedImages.length}
             </div>
 
             <div className="flex gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:thin] sm:px-6">
-              {eventImages.map((image, index) => {
-                const isActive = index === eventViewerIndex;
+              {selectedImages.map((image, index) => {
+                const isActive = index === currentIndex;
 
                 return (
                   <button
@@ -622,7 +619,7 @@ export default function EventsPage() {
                     ref={(button) => {
                       thumbnailRefs.current[index] = button;
                     }}
-                    onClick={() => setEventViewerIndex(index)}
+                    onClick={() => setCurrentIndex(index)}
                     aria-label={`Ver foto ${index + 1}`}
                     className={`flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-slate-100 p-1 transition duration-200 ${
                       isActive
@@ -645,71 +642,25 @@ export default function EventsPage() {
         </div>
       )}
 
-      {galleryOpen &&
-        selectedEvent &&
-        selectedEvent.images && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4">
-
-            <div className="bg-white rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col relative">
-
-              <button
-                className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-50"
-                onClick={closeModal}
-              >
-                <X size={22} />
-              </button>
-
-              <div className="p-6 border-b">
-                <h2 className="text-3xl font-bold text-blue-900">
-                  {selectedEvent.name}
-                </h2>
-
-              </div>
-
-              <div className="overflow-y-auto p-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
-                  {selectedEvent.images.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => openEventViewer(index)}
-                      className="relative aspect-square overflow-hidden rounded-2xl group"
-                    >
-                      <Image
-                        src={image}
-                        alt={`${selectedEvent.name} ${index + 1}`}
-                        fill
-                        className="object-cover transition duration-300 group-hover:scale-105"
-                      />
-                    </button>
-                  ))}
-
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
       <Footer />
 
       <style jsx global>{`
-        .animate-fadeIn {
-          animation: fadeIn 0.25s ease-in-out;
+        .event-gallery-enter {
+          animation: eventGalleryIn 0.32s ease both;
         }
 
-        .event-whatsapp-viewer {
+        .event-viewer {
           animation: eventViewerIn 0.18s ease both;
         }
 
-        .event-whatsapp-viewer-image {
+        .event-viewer-image {
           animation: eventViewerImageIn 0.2s ease both;
         }
 
-        @keyframes fadeIn {
+        @keyframes eventGalleryIn {
           from {
             opacity: 0;
-            transform: translateY(8px);
+            transform: translateY(18px);
           }
           to {
             opacity: 1;
@@ -738,8 +689,9 @@ export default function EventsPage() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .event-whatsapp-viewer,
-          .event-whatsapp-viewer-image {
+          .event-gallery-enter,
+          .event-viewer,
+          .event-viewer-image {
             animation: none;
           }
         }
