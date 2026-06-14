@@ -245,6 +245,8 @@ export default function EventsPage() {
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const selectedImages = selectedEvent?.images ?? [];
+  const hasSelectedImages = selectedImages.length > 0;
+  const isSelectedVideo = Boolean(selectedEvent?.video);
   const activeImage = selectedImages[currentIndex];
 
   useEffect(() => {
@@ -266,7 +268,7 @@ export default function EventsPage() {
   }, []);
 
   useEffect(() => {
-    if (!selectedEvent) return;
+    if (!selectedEvent || isSelectedVideo || !hasSelectedImages) return;
 
     const frame = window.requestAnimationFrame(() => {
       eventSectionRef.current?.scrollIntoView({
@@ -276,7 +278,7 @@ export default function EventsPage() {
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [selectedEvent]);
+  }, [hasSelectedImages, isSelectedVideo, selectedEvent]);
 
   useEffect(() => {
     if (!viewerOpen) return;
@@ -380,7 +382,7 @@ export default function EventsPage() {
       {/* EVENTS GRID */}
       <section
         className={`max-w-7xl mx-auto px-4 sm:px-6 ${
-          selectedEvent ? "pb-12" : "pb-20"
+          hasSelectedImages && !isSelectedVideo ? "pb-12" : "pb-20"
         }`}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -448,7 +450,61 @@ export default function EventsPage() {
           })}
         </div>
       </section>
-      {selectedEvent && (
+      {selectedEvent && isSelectedVideo && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl relative animate-fadeIn max-h-[95vh] sm:max-h-[90vh] flex flex-col">
+            <button
+              type="button"
+              className="absolute top-4 right-4 text-white bg-black/35 hover:bg-black/50 transition rounded-full p-2 z-50"
+              onClick={closeEventDetails}
+            >
+              <X size={22} />
+            </button>
+
+            <div className="relative w-full h-64 sm:h-80 md:h-96 flex-shrink-0">
+              <video
+                src={selectedEvent.video}
+                className="w-full h-full object-cover"
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
+
+            <div className="p-5 sm:p-6 md:p-8 space-y-5 overflow-y-auto">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-blue-900">
+                    {selectedEvent.name}
+                  </h2>
+                  <p className="text-gray-600 mt-2 text-sm sm:text-base leading-relaxed">
+                    {selectedEvent.description}
+                  </p>
+                </div>
+
+                <span
+                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap ${getStatusClasses(
+                    selectedEvent.status
+                  )}`}
+                >
+                  {selectedEvent.status}
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-neutral-200 p-5 bg-white">
+                <h3 className="text-lg font-semibold text-blue-900 mb-3">
+                  Mais detalhes
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+                  {selectedEvent.details}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedEvent && hasSelectedImages && !isSelectedVideo && (
         <section
           ref={eventSectionRef}
           className="event-gallery-enter scroll-mt-36 bg-slate-50 text-slate-950 py-10 sm:py-12 lg:py-14"
@@ -465,31 +521,10 @@ export default function EventsPage() {
                   Voltar
                 </button>
 
-                <div className="mb-4 flex flex-wrap items-center gap-3 text-sm font-medium text-slate-600">
-                  <span className="inline-flex items-center gap-2">
-                    <Calendar size={16} />
-                    {new Date(selectedEvent.date).toLocaleDateString("pt-PT")}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <MapPin size={16} />
-                    {selectedEvent.location}
-                  </span>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap ${getStatusClasses(
-                      selectedEvent.status
-                    )}`}
-                  >
-                    {selectedEvent.status}
-                  </span>
-                </div>
-
                 <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-blue-900">
                   {selectedEvent.name}
                 </h2>
 
-                <p className="mt-4 text-gray-700 text-base sm:text-lg leading-relaxed">
-                  {selectedEvent.description}
-                </p>
               </div>
 
               <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-blue-900 shadow-sm">
@@ -507,44 +542,31 @@ export default function EventsPage() {
               </p>
             </div>
 
-            {selectedEvent.video && (
-              <div className="mt-8 overflow-hidden rounded-lg bg-black shadow-sm ring-1 ring-slate-200">
-                <video
-                  src={selectedEvent.video}
-                  className="block w-full max-h-[70vh] object-contain"
-                  controls
-                  playsInline
-                />
-              </div>
-            )}
-
-            {selectedImages.length > 0 && (
-              <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
-                {selectedImages.map((image, index) => (
-                  <button
-                    key={image}
-                    type="button"
-                    onClick={() => openViewer(index)}
-                    aria-label={`Abrir foto ${index + 1} de ${
-                      selectedImages.length
-                    }`}
-                    className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
-                  >
-                    <img
-                      src={image}
-                      alt={`${selectedEvent.name} - foto ${index + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
-                    />
-                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-950/18 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-                    <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
-                      <Maximize2 size={17} />
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
+              {selectedImages.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => openViewer(index)}
+                  aria-label={`Abrir foto ${index + 1} de ${
+                    selectedImages.length
+                  }`}
+                  className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
+                >
+                  <img
+                    src={image}
+                    alt={`${selectedEvent.name} - foto ${index + 1}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
+                  />
+                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-950/18 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                  <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
+                    <Maximize2 size={17} />
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
       )}
@@ -645,6 +667,10 @@ export default function EventsPage() {
       <Footer />
 
       <style jsx global>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-in-out;
+        }
+
         .event-gallery-enter {
           animation: eventGalleryIn 0.32s ease both;
         }
@@ -655,6 +681,17 @@ export default function EventsPage() {
 
         .event-viewer-image {
           animation: eventViewerImageIn 0.2s ease both;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         @keyframes eventGalleryIn {
@@ -689,6 +726,7 @@ export default function EventsPage() {
         }
 
         @media (prefers-reduced-motion: reduce) {
+          .animate-fadeIn,
           .event-gallery-enter,
           .event-viewer,
           .event-viewer-image {
