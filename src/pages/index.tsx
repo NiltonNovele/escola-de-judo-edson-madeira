@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StatsSection from "../components/StatsSection";
@@ -14,10 +14,26 @@ const inter = Inter({
   display: "swap",
 });
 
+const heroImages = [
+  "/images/home/hero/h1.jpeg",
+  "/images/home/hero/h2.jpeg",
+  "/images/home/hero/h3.jpeg",
+  "/images/home/hero/h4.jpeg",
+];
+
 export default function Home() {
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
   const partnersRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
   const partners = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setHeroImageIndex((currentIndex) => (currentIndex + 1) % heroImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const container = partnersRef.current;
@@ -59,18 +75,26 @@ export default function Home() {
       <main className="pt-24">
 
         {/* HERO PRINCIPAL */}
-        <section
-          className="relative w-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/home/hero/h1.jpeg')" }}
-        >
+        <section className="relative w-full overflow-hidden">
+          {heroImages.map((image, index) => (
+            <div
+              key={image}
+              aria-hidden="true"
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+                index === heroImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ backgroundImage: `url('${image}')` }}
+            />
+          ))}
+
           {/* GRADIENT + BLUR LEFT SIDE */}
           <div className="
-    absolute inset-0 
+    absolute inset-0 z-10
     bg-gradient-to-r from-white/70 via-white/40 to-transparent
     
   " />
 
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-40 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             {/* TEXT */}
             <div className="lg:col-span-7">
