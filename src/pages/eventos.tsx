@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+/* eslint-disable @next/next/no-img-element */
+
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import {
   Calendar,
   MapPin,
@@ -275,7 +277,12 @@ export default function EventsPage() {
   };
 
   const [galleryOpen, setGalleryOpen] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [eventViewerOpen, setEventViewerOpen] = useState(false);
+  const [eventViewerIndex, setEventViewerIndex] = useState(0);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const eventImages = selectedEvent?.images ?? [];
+  const activeEventImage = eventImages[eventViewerIndex];
 
   const handlePrevImage = () => {
     if (!selectedEvent?.images) return;
@@ -287,11 +294,75 @@ export default function EventsPage() {
     );
   };
 
+  useEffect(() => {
+    if (!eventViewerOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [eventViewerOpen]);
+
+  useEffect(() => {
+    if (!eventViewerOpen || eventImages.length === 0) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setEventViewerOpen(false);
+      }
+
+      if (event.key === "ArrowRight") {
+        setEventViewerIndex((prev) => (prev + 1) % eventImages.length);
+      }
+
+      if (event.key === "ArrowLeft") {
+        setEventViewerIndex(
+          (prev) => (prev - 1 + eventImages.length) % eventImages.length
+        );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [eventImages.length, eventViewerOpen]);
+
+  useEffect(() => {
+    if (!eventViewerOpen) return;
+
+    thumbnailRefs.current[eventViewerIndex]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [eventViewerIndex, eventViewerOpen]);
+
   const closeModal = () => {
     setSelectedEvent(null);
     setCurrentImage(0);
     setGalleryOpen(false);
-    setLightboxImage(null);
+    setEventViewerOpen(false);
+    setEventViewerIndex(0);
+  };
+
+  const openEventViewer = (index: number) => {
+    setEventViewerIndex(index);
+    setEventViewerOpen(true);
+  };
+
+  const showPreviousEventImage = () => {
+    if (eventImages.length === 0) return;
+
+    setEventViewerIndex(
+      (prev) => (prev - 1 + eventImages.length) % eventImages.length
+    );
+  };
+
+  const showNextEventImage = () => {
+    if (eventImages.length === 0) return;
+
+    setEventViewerIndex((prev) => (prev + 1) % eventImages.length);
   };
 
   const getStatusClasses = (status: EventType["status"]) => {
@@ -481,28 +552,95 @@ export default function EventsPage() {
         </div>
       )}
 
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            className="absolute top-6 right-6 text-white"
-            onClick={() => setLightboxImage(null)}
-          >
-            <X size={32} />
-          </button>
+      {eventViewerOpen && activeEventImage && selectedEvent && (
+        <div className="event-whatsapp-viewer fixed inset-0 z-[60] bg-slate-50 text-slate-950">
+          <div className="absolute inset-x-0 top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/95 px-4 shadow-sm backdrop-blur md:px-6">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-900">
+                {selectedEvent.name}
+              </p>
+              <p className="text-xs font-medium text-slate-500">
+                {eventViewerIndex + 1} de {eventImages.length}
+              </p>
+            </div>
 
-          <div
-            className="relative w-full max-w-6xl h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={lightboxImage}
-              alt="Imagem do evento"
-              fill
-              className="object-contain"
+            <button
+              type="button"
+              onClick={() => setEventViewerOpen(false)}
+              aria-label="Fechar visualizador"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
+            >
+              <X size={22} />
+            </button>
+          </div>
+
+          {eventImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={showPreviousEventImage}
+                aria-label="Foto anterior"
+                className="absolute left-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:left-7 sm:h-14 sm:w-14"
+              >
+                <ChevronLeft size={28} />
+              </button>
+
+              <button
+                type="button"
+                onClick={showNextEventImage}
+                aria-label="Próxima foto"
+                className="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:right-7 sm:h-14 sm:w-14"
+              >
+                <ChevronRight size={28} />
+              </button>
+            </>
+          )}
+
+          <div className="flex h-full items-center justify-center px-4 pb-32 pt-20 sm:px-24 sm:pb-36">
+            <img
+              key={activeEventImage}
+              src={activeEventImage}
+              alt={`${selectedEvent.name} - foto ${eventViewerIndex + 1}`}
+              draggable={false}
+              className="event-whatsapp-viewer-image h-auto w-auto select-none rounded-sm object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
             />
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 pb-3 shadow-[0_-6px_22px_rgba(15,23,42,0.06)] backdrop-blur">
+            <div className="py-2 text-center text-sm font-semibold text-slate-600">
+              {eventViewerIndex + 1} de {eventImages.length}
+            </div>
+
+            <div className="flex gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:thin] sm:px-6">
+              {eventImages.map((image, index) => {
+                const isActive = index === eventViewerIndex;
+
+                return (
+                  <button
+                    key={image}
+                    type="button"
+                    ref={(button) => {
+                      thumbnailRefs.current[index] = button;
+                    }}
+                    onClick={() => setEventViewerIndex(index)}
+                    aria-label={`Ver foto ${index + 1}`}
+                    className={`flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-slate-100 p-1 transition duration-200 ${
+                      isActive
+                        ? "scale-[1.03] border-emerald-500 shadow-sm ring-2 ring-emerald-500"
+                        : "border-slate-200 opacity-70 hover:border-blue-300 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${selectedEvent.name} miniatura ${index + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -534,7 +672,7 @@ export default function EventsPage() {
                   {selectedEvent.images.map((image, index) => (
                     <button
                       key={index}
-                      onClick={() => setLightboxImage(image)}
+                      onClick={() => openEventViewer(index)}
                       className="relative aspect-square overflow-hidden rounded-2xl group"
                     >
                       <Image
@@ -559,6 +697,15 @@ export default function EventsPage() {
         .animate-fadeIn {
           animation: fadeIn 0.25s ease-in-out;
         }
+
+        .event-whatsapp-viewer {
+          animation: eventViewerIn 0.18s ease both;
+        }
+
+        .event-whatsapp-viewer-image {
+          animation: eventViewerImageIn 0.2s ease both;
+        }
+
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -568,7 +715,34 @@ export default function EventsPage() {
             opacity: 1;
             transform: translateY(0);
           }
-      }
+        }
+
+        @keyframes eventViewerIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes eventViewerImageIn {
+          from {
+            opacity: 0;
+            transform: scale(0.985);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .event-whatsapp-viewer,
+          .event-whatsapp-viewer-image {
+            animation: none;
+          }
+        }
       `}</style>
     </div>
   );
