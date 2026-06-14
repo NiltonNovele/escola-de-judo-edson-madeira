@@ -39,7 +39,7 @@ const galleriesData: GalleryType[] = [
   },
   {
     id: 2,
-    title: "Jogos Africanos - Acra",
+    title: "Jogos Africanos 2024 - Acra",
     description:
       "Registos da participação nos Jogos Africanos realizados em Acra.",
     images: [
@@ -85,7 +85,7 @@ const galleriesData: GalleryType[] = [
   },
   {
     id: 5,
-    title: "Mbombela",
+    title: "Mbombela Open 2024",
     description: "Imagens de competições e actividades realizadas em Mbombela.",
     images: [
       "/galeria/mbombela/WhatsApp Image 2026-06-14 at 01.21.23 (2).jpeg",
@@ -115,7 +115,7 @@ const galleriesData: GalleryType[] = [
   },
   {
     id: 7,
-    title: "Open de Marrakech",
+    title: "Open de Marrakech 2024",
     description: "Registos da participação no Open de Marrakech.",
     images: [
       "/galeria/open-de-marrakech/WhatsApp Image 2026-06-14 at 01.25.33 (1).jpeg",
@@ -125,7 +125,7 @@ const galleriesData: GalleryType[] = [
   },
   {
     id: 8,
-    title: "World Championships - Abu Dhabi",
+    title: "World Championships 2024 - Abu Dhabi",
     description:
       "Momentos da participação no World Championships em Abu Dhabi.",
     images: [
