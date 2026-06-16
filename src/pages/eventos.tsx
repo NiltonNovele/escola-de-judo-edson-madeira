@@ -441,9 +441,8 @@ export default function EventsPage() {
       </section>
       {/* EVENTS GRID */}
       <section
-        className={`max-w-7xl mx-auto px-4 sm:px-6 ${
-          hasSelectedImages && !isSelectedVideo ? "pb-12" : "pb-20"
-        }`}
+        className={`max-w-7xl mx-auto px-4 sm:px-6 ${hasSelectedImages && !isSelectedVideo ? "pb-12" : "pb-20"
+          }`}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {eventsData.map((event) => {
@@ -451,60 +450,59 @@ export default function EventsPage() {
 
             return (
               <button
-              key={event.id}
-              type="button"
-              className={`h-full flex flex-col text-left bg-white rounded-2xl border overflow-hidden hover:-translate-y-1 transition duration-300 group ${
-                isSelected
+                key={event.id}
+                type="button"
+                className={`h-full flex flex-col text-left bg-white rounded-2xl border overflow-hidden hover:-translate-y-1 transition duration-300 group ${isSelected
                   ? "border-blue-600 shadow-xl ring-2 ring-blue-100"
                   : "border-neutral-200 shadow-sm hover:shadow-2xl"
-              }`}
-              onClick={() => {
-                setSelectedEvent(event);
-                setCurrentIndex(0);
-                setViewerOpen(false);
-              }}
-            >
-              <div className="relative h-64 overflow-hidden">
-                {event.video ? (
-                  <video
-                    src={event.video}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  />
-                ) : (
-                  <Image
-                    src={event.images?.[cardImages[event.id] ?? 0] || "/images/logo.png"}
-                    alt={event.name}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-105"
-                  />
-                )}
-              </div>
+                  }`}
+                onClick={() => {
+                  setSelectedEvent(event);
+                  setCurrentIndex(0);
+                  setViewerOpen(false);
+                }}
+              >
+                <div className="relative h-64 overflow-hidden">
+                  {event.video ? (
+                    <video
+                      src={event.video}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  ) : (
+                    <Image
+                      src={event.images?.[cardImages[event.id] ?? 0] || "/images/logo.png"}
+                      alt={event.name}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  )}
+                </div>
 
-              <div className="flex-1 p-5 sm:p-6 space-y-3">
-                <h3 className="text-xl font-bold text-blue-900 leading-snug">
-                  {event.name}
-                </h3>
-                <div className="flex items-center text-gray-600 text-sm gap-2">
-                  <Calendar size={16} className="shrink-0" />
-                  <span>{new Date(event.date).toLocaleDateString("pt-PT")}</span>
+                <div className="flex-1 p-5 sm:p-6 space-y-3">
+                  <h3 className="text-xl font-bold text-blue-900 leading-snug">
+                    {event.name}
+                  </h3>
+                  <div className="flex items-center text-gray-600 text-sm gap-2">
+                    <Calendar size={16} className="shrink-0" />
+                    <span>{new Date(event.date).toLocaleDateString("pt-PT")}</span>
+                  </div>
+                  <div className="flex items-start text-gray-600 text-sm gap-2">
+                    <MapPin size={16} className="shrink-0 mt-0.5" />
+                    <span>{event.location}</span>
+                  </div>
+                  <p className="text-gray-700 text-sm sm:text-[15px] leading-relaxed line-clamp-3 pt-1">
+                    {event.description}
+                  </p>
+                  <div className="pt-2">
+                    <span className="inline-flex text-sm font-semibold text-blue-900">
+                      Ver detalhes →
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-start text-gray-600 text-sm gap-2">
-                  <MapPin size={16} className="shrink-0 mt-0.5" />
-                  <span>{event.location}</span>
-                </div>
-                <p className="text-gray-700 text-sm sm:text-[15px] leading-relaxed line-clamp-3 pt-1">
-                  {event.description}
-                </p>
-                <div className="pt-2">
-                  <span className="inline-flex text-sm font-semibold text-blue-900">
-                    Ver detalhes →
-                  </span>
-                </div>
-              </div>
               </button>
             );
           })}
@@ -608,9 +606,8 @@ export default function EventsPage() {
                   key={image}
                   type="button"
                   onClick={() => openViewer(index)}
-                  aria-label={`Abrir foto ${index + 1} de ${
-                    selectedImages.length
-                  }`}
+                  aria-label={`Abrir foto ${index + 1} de ${selectedImages.length
+                    }`}
                   className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
                 >
                   <img
@@ -642,11 +639,6 @@ export default function EventsPage() {
                 <p className="mt-2 text-sm sm:text-base text-gray-700">
                   Calendário de actividades previstas para 2026.
                 </p>
-              </div>
-
-              <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
-                <Calendar size={18} className="text-blue-700" />
-                Calendário
               </div>
             </div>
 
@@ -755,11 +747,10 @@ export default function EventsPage() {
                     }}
                     onClick={() => setCurrentIndex(index)}
                     aria-label={`Ver foto ${index + 1}`}
-                    className={`flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-slate-100 p-1 transition duration-200 ${
-                      isActive
-                        ? "scale-[1.03] border-emerald-500 shadow-sm ring-2 ring-emerald-500"
-                        : "border-slate-200 opacity-70 hover:border-blue-300 hover:opacity-100"
-                    }`}
+                    className={`flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-slate-100 p-1 transition duration-200 ${isActive
+                      ? "scale-[1.03] border-emerald-500 shadow-sm ring-2 ring-emerald-500"
+                      : "border-slate-200 opacity-70 hover:border-blue-300 hover:opacity-100"
+                      }`}
                   >
                     <img
                       src={image}
