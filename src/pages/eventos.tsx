@@ -30,6 +30,14 @@ type EventType = {
   images?: string[];
 };
 
+type UpcomingEventType = {
+  id: number;
+  date: string;
+  title: string;
+  location: string;
+  details: string;
+};
+
 const eventsData: EventType[] = [
   {
     id: 1,
@@ -233,6 +241,58 @@ const eventsData: EventType[] = [
       "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.30.jpeg",
       "/images/torneio-escolar/WhatsApp Image 2026-06-14 at 00.35.31.jpeg"
     ],
+  },
+];
+
+const upcomingEvents: UpcomingEventType[] = [
+  {
+    id: 1,
+    date: "20/06 a 04/07",
+    title: "Graduação intermédia",
+    location: "EJEM",
+    details: "Período de avaliação técnica e progressão dos atletas.",
+  },
+  {
+    id: 2,
+    date: "26/06 a 29/06",
+    title: "Open da África do Sul",
+    location: "Joanesburgo, África do Sul",
+    details: "Ranking mundial, cadetes, juniores e seniores.",
+  },
+  {
+    id: 3,
+    date: "Julho 2026",
+    title: "Jogos da Commonwealth",
+    location: "Glasgow",
+    details: "Participação nos Jogos da Commonwealth.",
+  },
+  {
+    id: 4,
+    date: "Setembro 2026",
+    title: "Estágio EJEM",
+    location: "EJEM",
+    details: "Estágio técnico da escola.",
+  },
+  {
+    id: 5,
+    date: "Novembro 2026",
+    title: "Jogos Olímpicos da Juventude",
+    location: "Dakar, Senegal",
+    details: "Competição internacional juvenil.",
+  },
+  {
+    id: 6,
+    date: "Data a confirmar",
+    title: "Maputo Martial Fest 2026",
+    location: "Maputo",
+    details: "Festival de artes marciais em Maputo.",
+  },
+  {
+    id: 7,
+    date: "Dezembro 2026",
+    title: "Jogos da AUSC",
+    location: "A confirmar",
+    details: "Jogos previstos para Dezembro.",
   },
 ];
 
@@ -570,6 +630,58 @@ export default function EventsPage() {
           </div>
         </section>
       )}
+
+      <section className="bg-white pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-blue-900">
+                  Próximos eventos
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-gray-700">
+                  Calendário de actividades previstas para 2026.
+                </p>
+              </div>
+
+              <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
+                <Calendar size={18} className="text-blue-700" />
+                Calendário
+              </div>
+            </div>
+
+            <div className="mt-6 divide-y divide-neutral-200">
+              {upcomingEvents.map((event) => (
+                <article
+                  key={event.id}
+                  className="grid gap-3 py-5 first:pt-0 last:pb-0 md:grid-cols-[170px_1fr]"
+                >
+                  <div className="flex items-center gap-2 text-sm font-semibold text-blue-900">
+                    <Calendar size={16} className="shrink-0 text-blue-700" />
+                    <span>{event.date}</span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-bold leading-snug text-blue-900">
+                      {event.title}
+                    </h3>
+
+                    <div
+                      className="mt-2 flex flex-col gap-2 text-sm text-gray-700 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <MapPin size={16} className="shrink-0 text-gray-500" />
+                        {event.location}
+                      </span>
+                      <span>{event.details}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {viewerOpen && activeImage && selectedEvent && (
         <div className="event-viewer fixed inset-0 z-[10000] bg-slate-50 text-slate-950">

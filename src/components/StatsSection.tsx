@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 export default function StatsSection() {
   const stats = [
-    { num: 2000, label: "alunos formados" },
-    { num: 20, label: "anos de experiência" },
-    { num: 400, label: "bolsas atribuídas" },
-    { num: 1500, label: "medalhas conquistadas" },
+    { num: 10, label: "anos de experiência" },
+    { num: 3, label: "participações em jogos olímpicos" },
+    { num: 200, label: "bolsas atribuídas" },
+    { num: 10, label: "medalhas continentais conquistadas" },
   ];
 
   const sectionRef = useRef<HTMLDivElement>(null);
