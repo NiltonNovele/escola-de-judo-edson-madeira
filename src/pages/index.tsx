@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Inter } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
@@ -253,7 +254,7 @@ export default function Home() {
                   key={index}
                   className="min-w-[85%] bg-white rounded-2xl shadow-lg p-6 snap-center border hover:shadow-xl transition"
                 >
-                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+                  <div className="relative w-full h-64 rounded-xl overflow-hidden mb-6">
                     <Image
                       src={item.img}
                       alt={item.name}
@@ -261,6 +262,14 @@ export default function Home() {
                       height={900}
                       className="object-cover w-full h-full"
                     />
+                    {item.name === "Shenidy Tsemane" && (
+                      <Link
+                        href="/shenidy-tsemane"
+                        className="absolute bottom-4 left-4 right-4 inline-flex items-center justify-center rounded-full bg-blue-900/95 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                      >
+                        Mais sobre a Shenidy
+                      </Link>
+                    )}
                   </div>
 
                   <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
@@ -295,7 +304,7 @@ export default function Home() {
                   key={index}
                   className="bg-white rounded-2xl shadow-lg p-6 border hover:shadow-xl transition"
                 >
-                  <div className="w-full h-64 rounded-xl overflow-hidden mb-6">
+                  <div className="relative w-full h-64 rounded-xl overflow-hidden mb-6">
                     <Image
                       src={item.img}
                       alt={item.name}
@@ -303,6 +312,14 @@ export default function Home() {
                       height={900}
                       className="object-cover w-full h-full"
                     />
+                    {item.name === "Shenidy Tsemane" && (
+                      <Link
+                        href="/shenidy-tsemane"
+                        className="absolute bottom-4 left-4 right-4 inline-flex items-center justify-center rounded-full bg-blue-900/95 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                      >
+                        Mais sobre a Shenidy
+                      </Link>
+                    )}
                   </div>
 
                   <h3 className="text-xl font-bold text-blue-900">{item.name}</h3>
