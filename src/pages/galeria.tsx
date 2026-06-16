@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   ArrowLeft,
@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Images,
   Maximize2,
+  PlayCircle,
   X,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -21,7 +22,14 @@ type GalleryType = {
   description: string;
   video?: string;
   images?: string[];
+  videos?: string[];
   imageDescriptions?: string[];
+};
+
+type GalleryMedia = {
+  src: string;
+  type: "image" | "video";
+  description?: string;
 };
 
 const galleriesData: GalleryType[] = [
@@ -29,7 +37,7 @@ const galleriesData: GalleryType[] = [
     id: 1,
     title: "Favoritas",
     description:
-      "Seleção de momentos especiais da Escola de Judo Edson Madeira.",
+      "Selecção de momentos especiais da Escola de Judo Edson Madeira.",
     images: [
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.17.jpeg",
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.18 (1).jpeg",
@@ -37,10 +45,13 @@ const galleriesData: GalleryType[] = [
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.19 (1).jpeg",
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.19.jpeg"
     ],
+    videos: [
+      "/galeria/favoritas/WhatsApp Video 2026-06-16 at 17.43.34.mp4",
+    ],
     imageDescriptions: [
       "Edson Madeira, Jacira Ferreira e Kevin Loforte",
       "Edson Madeira e Jacira Ferreira no Abidjan African Open 2024",
-      "Edson Madeira e Telma Monteiro (lenda Portuguesa)",
+      "Edson Madeira e Telma Monteiro (Lenda Portuguesa)",
       "Edson Madeira e Teddy Riner (Lenda Mundial do Judo)",
       "Open de Marrakech 2024 - Jacira Ferreira (3ª Classificada)",
     ],
@@ -155,7 +166,29 @@ export default function GalleryPage() {
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const selectedImages = selectedGallery?.images ?? [];
-  const activeImage = selectedImages[currentIndex];
+  const selectedVideos = selectedGallery?.videos ?? [];
+  const selectedMedia = useMemo<GalleryMedia[]>(() => {
+    if (!selectedGallery) return [];
+
+    return [
+      ...(selectedGallery.images ?? []).map((src, index) => ({
+        src,
+        type: "image" as const,
+        description: selectedGallery.imageDescriptions?.[index],
+      })),
+      ...(selectedGallery.videos ?? []).map((src) => ({
+        src,
+        type: "video" as const,
+      })),
+    ];
+  }, [selectedGallery]);
+  const activeMedia = selectedMedia[currentIndex];
+  const selectedMediaLabel =
+    selectedVideos.length > 0
+      ? `${selectedImages.length} fotos + ${selectedVideos.length} ${
+          selectedVideos.length === 1 ? "vídeo" : "vídeos"
+        }`
+      : `${selectedImages.length} fotos`;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -201,7 +234,7 @@ export default function GalleryPage() {
   }, [viewerOpen]);
 
   useEffect(() => {
-    if (!viewerOpen || selectedImages.length === 0) return;
+    if (!viewerOpen || selectedMedia.length === 0) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -209,19 +242,19 @@ export default function GalleryPage() {
       }
 
       if (event.key === "ArrowRight") {
-        setCurrentIndex((prev) => (prev + 1) % selectedImages.length);
+        setCurrentIndex((prev) => (prev + 1) % selectedMedia.length);
       }
 
       if (event.key === "ArrowLeft") {
         setCurrentIndex(
-          (prev) => (prev - 1 + selectedImages.length) % selectedImages.length
+          (prev) => (prev - 1 + selectedMedia.length) % selectedMedia.length
         );
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImages.length, viewerOpen]);
+  }, [selectedMedia.length, viewerOpen]);
 
   useEffect(() => {
     if (!viewerOpen) return;
@@ -244,18 +277,18 @@ export default function GalleryPage() {
     setViewerOpen(true);
   };
 
-  const showPreviousImage = () => {
-    if (selectedImages.length === 0) return;
+  const showPreviousMedia = () => {
+    if (selectedMedia.length === 0) return;
 
     setCurrentIndex(
-      (prev) => (prev - 1 + selectedImages.length) % selectedImages.length
+      (prev) => (prev - 1 + selectedMedia.length) % selectedMedia.length
     );
   };
 
-  const showNextImage = () => {
-    if (selectedImages.length === 0) return;
+  const showNextMedia = () => {
+    if (selectedMedia.length === 0) return;
 
-    setCurrentIndex((prev) => (prev + 1) % selectedImages.length);
+    setCurrentIndex((prev) => (prev + 1) % selectedMedia.length);
   };
 
   return (
@@ -362,44 +395,64 @@ export default function GalleryPage() {
 
               <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-blue-900 shadow-sm">
                 <Images size={18} className="text-blue-700" />
-                {selectedImages.length} fotos
+                {selectedMediaLabel}
               </div>
             </div>
 
             <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
-              {selectedImages.map((image, index) => {
-                const imageDescription =
-                  selectedGallery.imageDescriptions?.[index];
+              {selectedMedia.map((media, index) => {
+                const isVideo = media.type === "video";
+                const mediaLabel = isVideo ? "vídeo" : "foto";
 
                 return (
                   <button
-                    key={image}
+                    key={media.src}
                     type="button"
                     onClick={() => openViewer(index)}
-                    aria-label={`Abrir foto ${index + 1} de ${selectedImages.length
-                      }${imageDescription ? `: ${imageDescription}` : ""}`}
+                    aria-label={`Abrir ${mediaLabel} ${index + 1} de ${
+                      selectedMedia.length
+                    }${media.description ? `: ${media.description}` : ""}`}
                     className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
                   >
-                    <img
-                      src={image}
-                      alt={`${selectedGallery.title} - foto ${index + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
-                    />
+                    {isVideo ? (
+                      <>
+                        <video
+                          src={media.src}
+                          preload="metadata"
+                          muted
+                          playsInline
+                          className="block aspect-video w-full bg-slate-900 object-cover transition duration-500 group-hover:scale-[1.015]"
+                        />
+                        <span className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-slate-950/18 text-white transition duration-300 group-hover:bg-slate-950/28">
+                          <PlayCircle size={52} strokeWidth={1.8} />
+                        </span>
+                      </>
+                    ) : (
+                      <img
+                        src={media.src}
+                        alt={`${selectedGallery.title} - foto ${index + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
+                      />
+                    )}
                     <span
-                      className={`pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent transition duration-300 ${imageDescription
+                      className={`pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent transition duration-300 ${media.description
                         ? "from-blue-950/65 opacity-100"
                         : "from-blue-950/18 opacity-0 group-hover:opacity-100"
                         }`}
                     />
-                    {imageDescription && (
+                    {media.description && (
                       <span className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-4 pt-12 text-sm font-semibold leading-snug text-white drop-shadow-md">
-                        {imageDescription}
+                        {media.description}
                       </span>
                     )}
                     <span className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
-                      <Maximize2 size={17} />
+                      {isVideo ? (
+                        <PlayCircle size={17} />
+                      ) : (
+                        <Maximize2 size={17} />
+                      )}
                     </span>
                   </button>
                 );
@@ -409,7 +462,7 @@ export default function GalleryPage() {
         </section>
       )}
 
-      {viewerOpen && activeImage && selectedGallery && (
+      {viewerOpen && activeMedia && selectedGallery && (
         <div className="gallery-viewer fixed inset-0 z-[10000] bg-slate-50 text-slate-950">
           <div className="absolute inset-x-0 top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/95 px-4 shadow-sm backdrop-blur md:px-6">
             <div className="min-w-0">
@@ -417,7 +470,7 @@ export default function GalleryPage() {
                 {selectedGallery.title}
               </p>
               <p className="text-xs font-medium text-slate-500">
-                {currentIndex + 1} de {selectedImages.length}
+                {currentIndex + 1} de {selectedMedia.length}
               </p>
             </div>
 
@@ -431,12 +484,12 @@ export default function GalleryPage() {
             </button>
           </div>
 
-          {selectedImages.length > 1 && (
+          {selectedMedia.length > 1 && (
             <>
               <button
                 type="button"
-                onClick={showPreviousImage}
-                aria-label="Foto anterior"
+                onClick={showPreviousMedia}
+                aria-label="Mídia anterior"
                 className="absolute left-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:left-7 sm:h-14 sm:w-14"
               >
                 <ChevronLeft size={28} />
@@ -444,8 +497,8 @@ export default function GalleryPage() {
 
               <button
                 type="button"
-                onClick={showNextImage}
-                aria-label="Próxima foto"
+                onClick={showNextMedia}
+                aria-label="Próxima mídia"
                 className="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-75 shadow-md ring-1 ring-slate-200 transition duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-900 hover:opacity-100 active:opacity-100 sm:right-7 sm:h-14 sm:w-14"
               >
                 <ChevronRight size={28} />
@@ -454,45 +507,72 @@ export default function GalleryPage() {
           )}
 
           <div className="flex h-full items-center justify-center px-4 pb-32 pt-20 sm:px-24 sm:pb-36">
-            <img
-              key={activeImage}
-              src={activeImage}
-              alt={`${selectedGallery.title} - foto ${currentIndex + 1}`}
-              draggable={false}
-              className="gallery-viewer-image h-auto w-auto select-none rounded-sm object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
-            />
+            {activeMedia.type === "video" ? (
+              <video
+                key={activeMedia.src}
+                src={activeMedia.src}
+                controls
+                autoPlay
+                playsInline
+                className="gallery-viewer-image h-auto w-auto select-none rounded-sm bg-slate-950 object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
+              />
+            ) : (
+              <img
+                key={activeMedia.src}
+                src={activeMedia.src}
+                alt={`${selectedGallery.title} - foto ${currentIndex + 1}`}
+                draggable={false}
+                className="gallery-viewer-image h-auto w-auto select-none rounded-sm object-contain shadow-sm max-h-[calc(100vh-13rem)] max-w-[calc(100vw-2rem)] sm:max-h-[calc(100vh-14rem)] sm:max-w-[calc(100vw-12rem)]"
+              />
+            )}
           </div>
 
           <div className="absolute inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 pb-3 shadow-[0_-6px_22px_rgba(15,23,42,0.06)] backdrop-blur">
             <div className="py-2 text-center text-sm font-semibold text-slate-600">
-              {currentIndex + 1} de {selectedImages.length}
+              {currentIndex + 1} de {selectedMedia.length}
             </div>
 
             <div className="flex gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:thin] sm:px-6">
-              {selectedImages.map((image, index) => {
+              {selectedMedia.map((media, index) => {
                 const isActive = index === currentIndex;
+                const isVideo = media.type === "video";
 
                 return (
                   <button
-                    key={image}
+                    key={media.src}
                     type="button"
                     ref={(button) => {
                       thumbnailRefs.current[index] = button;
                     }}
                     onClick={() => setCurrentIndex(index)}
-                    aria-label={`Ver foto ${index + 1}`}
+                    aria-label={`Ver ${isVideo ? "vídeo" : "foto"} ${
+                      index + 1
+                    }`}
                     className={`flex h-16 w-24 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-slate-100 p-1 transition duration-200 ${isActive
                       ? "scale-[1.03] border-emerald-500 shadow-sm ring-2 ring-emerald-500"
                       : "border-slate-200 opacity-70 hover:border-blue-300 hover:opacity-100"
                       }`}
                   >
-                    <img
-                      src={image}
-                      alt={`${selectedGallery.title} miniatura ${index + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="max-h-full max-w-full object-contain"
-                    />
+                    {isVideo ? (
+                      <span className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-sm bg-slate-900 text-white">
+                        <video
+                          src={media.src}
+                          preload="metadata"
+                          muted
+                          playsInline
+                          className="h-full w-full object-cover opacity-75"
+                        />
+                        <PlayCircle size={22} className="absolute" />
+                      </span>
+                    ) : (
+                      <img
+                        src={media.src}
+                        alt={`${selectedGallery.title} miniatura ${index + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    )}
                   </button>
                 );
               })}
