@@ -3,7 +3,7 @@ const path = require("path");
 
 const folder = path.join(
     process.cwd(),
-    "public/galeria/favoritas"
+    "public/galeria/mbombela"
 );
 
 const files = fs
@@ -17,7 +17,7 @@ const files = fs
     .sort();
 
 const images = files.map(
-    (file) => `/galeria/favoritas/${file}`
+    (file) => `/galeria/mbombela/${file}`
 );
 
 console.log(JSON.stringify(images, null, 2));
