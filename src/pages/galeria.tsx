@@ -21,6 +21,7 @@ type GalleryType = {
   description: string;
   video?: string;
   images?: string[];
+  imageDescriptions?: string[];
 };
 
 const galleriesData: GalleryType[] = [
@@ -35,6 +36,13 @@ const galleriesData: GalleryType[] = [
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.18.jpeg",
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.19 (1).jpeg",
       "/galeria/favoritas/WhatsApp Image 2026-06-14 at 01.38.19.jpeg"
+    ],
+    imageDescriptions: [
+      "Edson Madeira, Jacira Ferreira e Kevin Loforte",
+      "Edson Madeira e Jacira Ferreira no Abidjan African Open 2024",
+      "Edson Madeira e Telma Monteiro (lenda Portuguesa)",
+      "Edson Madeira e Teddy Riner (Lenda Mundial do Judo)",
+      "Open de Marrakech 2024 - Jacira Ferreira (3ª Classificada)",
     ],
   },
   {
@@ -359,28 +367,43 @@ export default function GalleryPage() {
             </div>
 
             <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
-              {selectedImages.map((image, index) => (
-                <button
-                  key={image}
-                  type="button"
-                  onClick={() => openViewer(index)}
-                  aria-label={`Abrir foto ${index + 1} de ${selectedImages.length
-                    }`}
-                  className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
-                >
-                  <img
-                    src={image}
-                    alt={`${selectedGallery.title} - foto ${index + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
-                  />
-                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-950/18 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-                  <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
-                    <Maximize2 size={17} />
-                  </span>
-                </button>
-              ))}
+              {selectedImages.map((image, index) => {
+                const imageDescription =
+                  selectedGallery.imageDescriptions?.[index];
+
+                return (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => openViewer(index)}
+                    aria-label={`Abrir foto ${index + 1} de ${selectedImages.length
+                      }${imageDescription ? `: ${imageDescription}` : ""}`}
+                    className="group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg bg-white text-left shadow-sm outline-none ring-1 ring-slate-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-600"
+                  >
+                    <img
+                      src={image}
+                      alt={`${selectedGallery.title} - foto ${index + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="block h-auto w-full transition duration-500 group-hover:scale-[1.015]"
+                    />
+                    <span
+                      className={`pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent transition duration-300 ${imageDescription
+                        ? "from-blue-950/65 opacity-100"
+                        : "from-blue-950/18 opacity-0 group-hover:opacity-100"
+                        }`}
+                    />
+                    {imageDescription && (
+                      <span className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-4 pt-12 text-sm font-semibold leading-snug text-white drop-shadow-md">
+                        {imageDescription}
+                      </span>
+                    )}
+                    <span className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-800 opacity-0 shadow-sm backdrop-blur-sm transition group-hover:opacity-100">
+                      <Maximize2 size={17} />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </section>
