@@ -68,32 +68,8 @@ export default function ContactPage() {
 
         <p className="max-w-2xl mx-auto mt-4 text-neutral-700 text-lg leading-relaxed">
           Estamos aqui para ajudar! Envie sua mensagem, tire dúvidas ou fale
-          diretamente com nossa equipe.
+          directamente com a nossa equipa.
         </p>
-
-        {/* CONTACT INFO BADGE – (UPDATED INFO) */}
-        <div className="max-w-2xl mx-auto mt-8 bg-blue-50 rounded-xl p-6 shadow-md border border-blue-100 space-y-3">
-          <p className="text-neutral-800 flex items-center gap-2">
-            <Mail size={20} className="text-blue-700" />
-            Email:
-            <a
-              href="mailto:contacto@ejem.org.mz"
-              className="text-blue-800 font-semibold underline ml-1"
-            >
-              contacto@ejem.org.mz
-            </a>
-          </p>
-
-          <p className="text-neutral-800 flex items-center gap-2">
-            <Phone size={20} className="text-blue-700" />
-            Telefone: +258 84 400 2050
-          </p>
-
-          <p className="text-neutral-800 flex items-center gap-2">
-            <HelpCircle size={20} className="text-blue-700" />
-            Veja também nosso FAQ abaixo.
-          </p>
-        </div>
       </div>
 
       {/* GRID CONTENT */}
@@ -132,17 +108,6 @@ export default function ContactPage() {
                 contacto@ejem.org.mz
               </p>
 
-              <div className="flex items-start gap-3 text-neutral-800">
-                <Clock className="text-blue-700 flex-shrink-0" />
-                <div>
-                  <p>
-                    <strong>Seg – Sex:</strong> 9:00 – 18:00
-                  </p>
-                  <p>
-                    <strong>Sábado:</strong> 10:00 – 16:00
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
