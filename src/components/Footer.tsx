@@ -1,36 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Instagram,
-  Facebook,
-  Linkedin,
-  MapPin,
-  Mail,
-  Phone,
-} from "lucide-react";
-import { FaTiktok } from "react-icons/fa";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { FOOTER_SOCIAL_LINKS, type SocialLink } from "@/data/site";
+import LogoMark from "./LogoMark";
 
 export default function Footer() {
   return (
     <footer className="bg-white text-black pt-20 pb-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
-
-        {/* Logo & Short Description */}
         <div className="flex flex-col items-start">
-          <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg mb-4 ring-2 ring-gray-200">
-            <img
-              src="/images/logo.jpg"
-              alt="Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <LogoMark
+            className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg mb-4 ring-2 ring-gray-200"
+            imageSizes="80px"
+          />
           <p className="text-gray-700 text-sm leading-relaxed">
-            Escola de Judo Edson Madeira — promovendo a educação, disciplina e espírito esportivo através do Judo.
+            Escola de Judo Edson Madeira — promovendo a educação, disciplina e
+            espírito esportivo através do Judo.
           </p>
         </div>
 
-        {/* Contact Info */}
         <div>
           <h4 className="text-black font-semibold mb-4 text-lg">Contacto</h4>
           <ul className="space-y-3 text-sm text-gray-700">
@@ -54,9 +43,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Quick Links */}
         <div>
-          <h4 className="text-black font-semibold mb-4 text-lg">Links Rápidos</h4>
+          <h4 className="text-black font-semibold mb-4 text-lg">
+            Links Rápidos
+          </h4>
           <ul className="space-y-2 text-sm text-gray-700">
             <li>
               <Link href="/privacy" className="hover:text-blue-700 transition">
@@ -66,23 +56,23 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Social Media */}
         <div>
-          <h4 className="text-black font-semibold mb-4 text-lg">Redes Sociais</h4>
+          <h4 className="text-black font-semibold mb-4 text-lg">
+            Redes Sociais
+          </h4>
           <div className="flex gap-4">
-            <SocialIcon href="https://www.instagram.com/escoladejudoedsonmadeira/" Icon={Instagram} />
-            <SocialIcon href="https://web.facebook.com/profile.php?id=100064625562311" Icon={Facebook} />
-            <SocialIcon href="https://www.linkedin.com/in/edson-madeira-oly-0858b8a0/" Icon={Linkedin} />
-            <SocialIcon href="https://www.tiktok.com/@escoladejudoedsonmadeira?lang=en" Icon={FaTiktok} />
+            {FOOTER_SOCIAL_LINKS.map((link) => (
+              <SocialIcon key={link.label} {...link} />
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="mt-16 border-t border-gray-200 pt-6">
         <div className="text-center text-gray-500 text-xs space-y-1">
           <p>
-            © {new Date().getFullYear()} Escola de Judo Edson Madeira. Todos os direitos reservados.
+            © {new Date().getFullYear()} Escola de Judo Edson Madeira. Todos os
+            direitos reservados.
           </p>
           <p>
             Desenvolvido pela{" "}
@@ -99,11 +89,11 @@ export default function Footer() {
   );
 }
 
-/* Social Icon Component */
-function SocialIcon({ href, Icon }: { href: string; Icon: any }) {
+function SocialIcon({ href, label, Icon }: SocialLink) {
   return (
     <a
       href={href}
+      aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
       className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition flex items-center justify-center shadow-sm hover:shadow transform hover:scale-110"

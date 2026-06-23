@@ -16,6 +16,8 @@ import {
   Maximize2,
   X,
 } from "lucide-react";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useCyclingIndexes } from "@/hooks/useCyclingIndexes";
 
 type EventType = {
   id: number;
@@ -300,32 +302,14 @@ export default function EventsPage() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardImages, setCardImages] = useState<Record<number, number>>({});
   const eventSectionRef = useRef<HTMLElement | null>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const cardImages = useCyclingIndexes(eventsData);
 
   const selectedImages = selectedEvent?.images ?? [];
   const hasSelectedImages = selectedImages.length > 0;
   const isSelectedVideo = Boolean(selectedEvent?.video);
   const activeImage = selectedImages[currentIndex];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCardImages((prev) => {
-        const updated = { ...prev };
-
-        eventsData.forEach((event) => {
-          if (event.images?.length) {
-            updated[event.id] =
-              ((updated[event.id] ?? 0) + 1) % event.images.length;
-          }
-        });
-
-        return updated;
-      });
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (!selectedEvent || isSelectedVideo || !hasSelectedImages) return;
@@ -340,16 +324,7 @@ export default function EventsPage() {
     return () => window.cancelAnimationFrame(frame);
   }, [hasSelectedImages, isSelectedVideo, selectedEvent]);
 
-  useEffect(() => {
-    if (!viewerOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [viewerOpen]);
+  useBodyScrollLock(viewerOpen);
 
   useEffect(() => {
     if (!viewerOpen || selectedImages.length === 0) return;
@@ -477,6 +452,7 @@ export default function EventsPage() {
                       src={event.images?.[cardImages[event.id] ?? 0] || "/images/logo.png"}
                       alt={event.name}
                       fill
+                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                   )}

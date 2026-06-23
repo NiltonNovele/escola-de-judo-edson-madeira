@@ -248,6 +248,7 @@ ${customer.notes || "Sem observações"}
                   src={item.image}
                   alt={item.name}
                   fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover group-hover:scale-105 transition duration-500"
                 />
               </div>
@@ -327,6 +328,7 @@ ${customer.notes || "Sem observações"}
                             src={item.image}
                             alt={item.name}
                             fill
+                            sizes="80px"
                             className="object-cover"
                           />
                         </div>

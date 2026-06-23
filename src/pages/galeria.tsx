@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useCyclingIndexes } from "@/hooks/useCyclingIndexes";
 
 type GalleryType = {
   id: number;
@@ -161,9 +163,9 @@ export default function GalleryPage() {
     null
   );
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardImages, setCardImages] = useState<Record<number, number>>({});
   const gallerySectionRef = useRef<HTMLElement | null>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const cardImages = useCyclingIndexes(galleriesData);
 
   const selectedImages = selectedGallery?.images ?? [];
   const selectedVideos = selectedGallery?.videos ?? [];
@@ -191,25 +193,6 @@ export default function GalleryPage() {
       : `${selectedImages.length} fotos`;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCardImages((prev) => {
-        const updated = { ...prev };
-
-        galleriesData.forEach((gallery) => {
-          if (gallery.images?.length) {
-            updated[gallery.id] =
-              ((updated[gallery.id] ?? 0) + 1) % gallery.images.length;
-          }
-        });
-
-        return updated;
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
     if (!selectedGallery) return;
 
     const frame = window.requestAnimationFrame(() => {
@@ -222,16 +205,7 @@ export default function GalleryPage() {
     return () => window.cancelAnimationFrame(frame);
   }, [selectedGallery]);
 
-  useEffect(() => {
-    if (!viewerOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [viewerOpen]);
+  useBodyScrollLock(viewerOpen);
 
   useEffect(() => {
     if (!viewerOpen || selectedMedia.length === 0) return;
@@ -347,6 +321,7 @@ export default function GalleryPage() {
                       }
                       alt={gallery.title}
                       fill
+                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                   )}

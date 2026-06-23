@@ -88,6 +88,7 @@ export default function WhereWeAre() {
                 src={dojo.image}
                 alt={dojo.name}
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>

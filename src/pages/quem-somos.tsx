@@ -73,6 +73,7 @@ return () => clearInterval(interval);
                 alt="Escola de Judo Edson Madeira"
                 fill
                 priority={currentImage === 0}
+                sizes="(min-width: 768px) 672px, calc(100vw - 32px)"
                 className="object-cover"
               />
             </motion.div>

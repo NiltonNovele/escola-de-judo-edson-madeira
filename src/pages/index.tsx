@@ -3,10 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "next/font/google";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import StatsSection from "../components/StatsSection";
+import {
+  FEATURED_EVENTS,
+  HERO_IMAGES,
+} from "@/data/home";
+import { PARTNER_IDS } from "@/data/site";
+import { useHorizontalLoop } from "@/hooks/useHorizontalLoop";
 
 
 const inter = Inter({
@@ -15,58 +21,24 @@ const inter = Inter({
   display: "swap",
 });
 
-const heroImages = [
-  "/images/home/hero/h1.jpeg",
-  "/images/home/hero/h2.jpeg",
-  "/images/home/hero/h3.jpeg",
-  "/images/home/hero/h4.jpeg",
-];
-
 export default function Home() {
   const [heroImageIndex, setHeroImageIndex] = useState(0);
-  const partnersRef = useRef<HTMLDivElement | null>(null);
-  const pausedRef = useRef(false);
-  const partners = [1, 2, 3, 4, 5, 6, 7, 8];
+  const {
+    containerRef: partnersRef,
+    pause: pausePartners,
+    resume: resumePartners,
+  } = useHorizontalLoop({ speed: 1 });
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
-      setHeroImageIndex((currentIndex) => (currentIndex + 1) % heroImages.length);
+      if (!document.hidden) {
+        setHeroImageIndex(
+          (currentIndex) => (currentIndex + 1) % HERO_IMAGES.length
+        );
+      }
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    const container = partnersRef.current;
-    if (!container) return;
-
-    let rafId: number;
-    const speed = 1.0;
-    let totalScroll = container.scrollWidth / 2;
-
-    const updateTotalScroll = () => {
-      totalScroll = container.scrollWidth / 2;
-    };
-
-    const animate = () => {
-      if (!container) return;
-      if (!pausedRef.current) {
-        container.scrollLeft += speed;
-        if (container.scrollLeft >= totalScroll) {
-          container.scrollLeft -= totalScroll;
-        }
-      }
-      rafId = window.requestAnimationFrame(animate);
-    };
-
-    updateTotalScroll();
-    rafId = window.requestAnimationFrame(animate);
-    window.addEventListener("resize", updateTotalScroll);
-
-    return () => {
-      window.cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", updateTotalScroll);
-    };
   }, []);
 
   return (
@@ -77,7 +49,7 @@ export default function Home() {
 
         {/* HERO PRINCIPAL */}
         <section className="relative w-full overflow-hidden">
-          {heroImages.map((image, index) => (
+          {HERO_IMAGES.map((image, index) => (
             <div
               key={image}
               aria-hidden="true"
@@ -113,18 +85,18 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
+                <Link
                   href="/manifesto"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 border-2 border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition"
                 >
                   CONHEÇA A NOSSA CAUSA
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/donate"
                   className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-blue-900 text-white font-semibold hover:bg-blue-950 transition"
                 >
                   QUERO FAZER PARTE
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -169,28 +141,23 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-3xl font-extrabold text-blue-900">Eventos</h3>
-              <a href="/eventos" className="text-blue-900 font-semibold hover:underline">
+              <Link href="/eventos" className="text-blue-900 font-semibold hover:underline">
                 Ver todos os eventos
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((id) => (
+              {FEATURED_EVENTS.map((event) => (
                 <article
-                  key={id}
+                  key={event.id}
                   className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-2xl transition cursor-pointer"
                 >
                   <div className="relative w-full h-56">
                     <Image
-                      src={
-                        id === 1
-                          ? "/images/home/martial-fest.jpg"
-                          : id === 2
-                            ? "/images/home/aula-aberta.jpeg"
-                            : "/images/home/campeonato-local.jpg"
-                      }
-                      alt={`Evento ${id}`}
+                      src={event.image}
+                      alt={event.title}
                       fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       className="object-cover"
                     />
                   </div>
@@ -198,19 +165,11 @@ export default function Home() {
                   <div className="p-5">
 
                     <h4 className="mt-2 font-semibold text-lg text-blue-900">
-                      {id === 1
-                        ? "Martial Fest"
-                        : id === 2
-                          ? "Aula Aberta"
-                          : "Campeonato Local"}
+                      {event.title}
                     </h4>
 
                     <p className="mt-2 text-sm text-gray-600 line-clamp-3">
-                      {id === 1
-                        ? "Competição que reúne alunos e jovens com bolsas de formação."
-                        : id === 2
-                          ? "Sessão especial aberta à comunidade para experimentar Judo gratuitamente."
-                          : "Campeonato com atletas de diversas regiões para promover o Judo."}
+                      {event.description}
                     </p>
 
                   </div>
@@ -488,18 +447,21 @@ export default function Home() {
 
             <div
               ref={partnersRef}
-              onMouseEnter={() => (pausedRef.current = true)}
-              onMouseLeave={() => (pausedRef.current = false)}
+              onMouseEnter={pausePartners}
+              onMouseLeave={resumePartners}
               className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
             >
-              {[...partners, ...partners].map((id, index) => (
+              {[...PARTNER_IDS, ...PARTNER_IDS].map((id, index) => (
                 <div
                   key={`${id}-${index}`}
                   className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
-                  <img
+                  <Image
                     src={`/images/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
+                    width={160}
+                    height={96}
+                    sizes="160px"
                     className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />
                 </div>

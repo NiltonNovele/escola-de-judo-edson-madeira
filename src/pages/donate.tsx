@@ -23,6 +23,8 @@ import {
   Loader2,
   Landmark,
 } from "lucide-react";
+import { PARTNER_IDS } from "@/data/site";
+import { useHorizontalLoop } from "@/hooks/useHorizontalLoop";
 
 const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations.onrender.com";
@@ -103,7 +105,7 @@ export default function DonatePage() {
         if (res.ok && data?.status === "success") {
           setBankDetails(data.data);
         }
-      } catch (_error) {
+      } catch {
         // silent fail; user can still use other payment methods
       }
     }
@@ -162,8 +164,12 @@ export default function DonatePage() {
       } else {
         await submitDonation();
       }
-    } catch (error: any) {
-      setError(error?.message || "Ocorreu um erro ao enviar o formulário.");
+    } catch (error: unknown) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Ocorreu um erro ao enviar o formulário."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -350,42 +356,11 @@ export default function DonatePage() {
     }
   }
 
-  const partnersRef = useRef<HTMLDivElement | null>(null);
-  const pausedRef = useRef(false);
-  const partners = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  useEffect(() => {
-    const container = partnersRef.current;
-    if (!container) return;
-
-    let rafId: number;
-    const speed = 1.0;
-    let totalScroll = container.scrollWidth / 2;
-
-    const updateTotalScroll = () => {
-      totalScroll = container.scrollWidth / 2;
-    };
-
-    const animate = () => {
-      if (!container) return;
-      if (!pausedRef.current) {
-        container.scrollLeft += speed;
-        if (container.scrollLeft >= totalScroll) {
-          container.scrollLeft -= totalScroll;
-        }
-      }
-      rafId = window.requestAnimationFrame(animate);
-    };
-
-    updateTotalScroll();
-    rafId = window.requestAnimationFrame(animate);
-    window.addEventListener("resize", updateTotalScroll);
-
-    return () => {
-      window.cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", updateTotalScroll);
-    };
-  }, []);
+  const {
+    containerRef: partnersRef,
+    pause: pausePartners,
+    resume: resumePartners,
+  } = useHorizontalLoop({ speed: 1 });
 
   return (
     <div className="w-full min-h-screen bg-white text-gray-900 antialiased">
@@ -1187,18 +1162,21 @@ export default function DonatePage() {
 
             <div
               ref={partnersRef}
-              onMouseEnter={() => (pausedRef.current = true)}
-              onMouseLeave={() => (pausedRef.current = false)}
+              onMouseEnter={pausePartners}
+              onMouseLeave={resumePartners}
               className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
             >
-              {[...partners, ...partners].map((id, index) => (
+              {[...PARTNER_IDS, ...PARTNER_IDS].map((id, index) => (
                 <div
                   key={`${id}-${index}`}
                   className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
                 >
-                  <img
+                  <Image
                     src={`/images/parceiros/partner${id}.png`}
                     alt={`Parceiro ${id}`}
+                    width={160}
+                    height={96}
+                    sizes="160px"
                     className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
                   />
                 </div>

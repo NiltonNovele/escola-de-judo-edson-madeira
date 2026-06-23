@@ -3,6 +3,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Users,
   Target,
@@ -147,6 +148,7 @@ export default function TeamBuildingPage() {
                 src="/images/team-building/team-building.webp"
                 alt="Team Building EJEM"
                 fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
               />
             </div>
@@ -324,12 +326,12 @@ export default function TeamBuildingPage() {
                 </div>
               </div>
 
-              <a
+              <Link
                 href="/contacto"
                 className="mt-7 inline-flex items-center justify-center rounded-2xl bg-white text-blue-900 px-6 py-3 font-semibold hover:bg-blue-50 transition"
               >
                 Pedir proposta
-              </a>
+              </Link>
             </div>
           </div>
         </div>

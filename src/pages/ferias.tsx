@@ -4,12 +4,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import {
-  CalendarDays,
-  MapPin,
-  Sun,
   Users,
   CheckCircle2,
-  Phone,
   Sparkles,
   Trophy,
   Dumbbell,
@@ -193,6 +189,7 @@ export default function FeriasPage() {
                 src="/images/fe1.png"
                 alt="Actividades de Férias EJEM"
                 fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
               />
             </div>
@@ -290,6 +287,7 @@ export default function FeriasPage() {
                 src="/images/fe.png"
                 alt="Horário das Actividades de Férias"
                 fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
               />
             </div>

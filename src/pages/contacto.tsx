@@ -2,6 +2,7 @@
 
 import Navbar from "../components/Navbar";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import {
   Heart,
@@ -10,8 +11,6 @@ import {
   SendHorizonal,
   HelpCircle,
   MapPin,
-  Clock,
-  Users,
 } from "lucide-react";
 import Footer from "../components/Footer";
 
@@ -24,11 +23,13 @@ export default function ContactPage() {
     message: "",
   });
 
-  function handleChange(e: any) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     alert("Form submitted (placeholder).");
   }
@@ -38,13 +39,13 @@ export default function ContactPage() {
       <Navbar />
 
       {/* --- FLOATING DONATE BUTTON --- */}
-      <a
+      <Link
         href="/donate"
         className="fixed right-6 bottom-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full shadow-xl transition transform hover:scale-110 flex items-center gap-2 z-50"
       >
         <Heart size={20} />
         Doar
-      </a>
+      </Link>
 
       {/* HEADER */}
       <div className="text-center pt-32 px-4">

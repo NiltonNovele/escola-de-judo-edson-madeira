@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useCyclingIndexes } from "@/hooks/useCyclingIndexes";
 
 type GraduationType = {
   id: number;
@@ -89,31 +91,12 @@ export default function GraduationsPage() {
   const [selectedGraduation, setSelectedGraduation] =
     useState<GraduationType | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardImages, setCardImages] = useState<Record<number, number>>({});
   const gallerySectionRef = useRef<HTMLElement | null>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const cardImages = useCyclingIndexes(graduationsData);
 
   const selectedImages = selectedGraduation?.images ?? [];
   const activeImage = selectedImages[currentIndex];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCardImages((prev) => {
-        const updated = { ...prev };
-
-        graduationsData.forEach((graduation) => {
-          if (graduation.images?.length) {
-            updated[graduation.id] =
-              ((updated[graduation.id] ?? 0) + 1) % graduation.images.length;
-          }
-        });
-
-        return updated;
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (!selectedGraduation) return;
@@ -128,16 +111,7 @@ export default function GraduationsPage() {
     return () => window.cancelAnimationFrame(frame);
   }, [selectedGraduation]);
 
-  useEffect(() => {
-    if (!viewerOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [viewerOpen]);
+  useBodyScrollLock(viewerOpen);
 
   useEffect(() => {
     if (!viewerOpen || selectedImages.length === 0) return;
@@ -256,6 +230,7 @@ export default function GraduationsPage() {
                     }
                     alt={graduation.title}
                     fill
+                    sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
                 )}
