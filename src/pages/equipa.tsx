@@ -23,7 +23,7 @@ export default function Equipe() {
     {
       name: "Kevin Loforte",
       role: "Professor de Judo",
-      image: "/sucesso/kevin.jpg",
+      image: "/images/sucesso/kevin.jpg",
       description:
         "Especialista em ensino técnico e preparação de jovens atletas.",
       email: "",
@@ -32,7 +32,7 @@ export default function Equipe() {
     {
       name: "Jacira Ferreira",
       role: "Professora de Judo",
-      image: "/sucesso/jacira.jpg",
+      image: "/images/sucesso/jacira.jpg",
       description:
         "Focada no desenvolvimento de atletas femininas e inclusão social.",
       email: "",
@@ -90,6 +90,7 @@ export default function Equipe() {
                 src={m.image}
                 alt={m.name}
                 fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>

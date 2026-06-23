@@ -260,6 +260,7 @@ export default function Home() {
                       alt={item.name}
                       width={1200}
                       height={900}
+                      sizes="(min-width: 1024px) 30vw, 85vw"
                       className="object-cover w-full h-full"
                     />
                     {item.name === "Shenidy Tsemane" && (
@@ -283,19 +284,19 @@ export default function Home() {
               {[
                 {
                   name: "Kevin Loforte",
-                  img: "/sucesso/kevin.jpg",
+                  img: "/images/sucesso/kevin.jpg",
                   text:
                     "O 'Mozambican Monster'. Judoca olímpico (-66kg), medalhista africano e uma inspiração para jovens atletas.",
                 },
                 {
                   name: "Jacira Ferreira",
-                  img: "/sucesso/jacira.jpg",
+                  img: "/images/sucesso/jacira.jpg",
                   text:
                     "Representou Moçambique nos Jogos Olímpicos Paris 2024. Exemplo de coragem, dedicação e superação.",
                 },
                 {
                   name: "Shenidy Tsemane",
-                  img: "/sucesso/shneidy.jpg",
+                  img: "/images/sucesso/shneidy.jpg",
                   text:
                     "Primeira medalha de ouro de Moçambique nos Jogos Africanos de Judo — um marco histórico para o país.",
                 },
@@ -310,6 +311,7 @@ export default function Home() {
                       alt={item.name}
                       width={1200}
                       height={900}
+                      sizes="(min-width: 1024px) 30vw, 85vw"
                       className="object-cover w-full h-full"
                     />
                     {item.name === "Shenidy Tsemane" && (
