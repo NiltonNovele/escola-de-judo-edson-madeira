@@ -155,6 +155,26 @@ const galleriesData: GalleryType[] = [
       "/galeria/world-championships-abu-dhabi/WhatsApp Image 2026-06-14 at 01.27.42.jpeg"
     ],
   },
+  {
+    id: 9,
+    title: "Open de Johannesburgo 2026",
+    description: "Registos da participação no Open de Johannesburgo.",
+    images: [
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.24.46.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.24.47.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.24.47 (1).jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.24.48.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.35.28.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.35.29.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.35.29 (1).jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.35.30.jpeg",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.35.30 (1).jpeg"
+    ],
+    videos: [
+      "/galeria/open-de-johannesburg-2026/WhatsApp Video 2026-06-30 at 09.25.26.mp4",
+      "/galeria/open-de-johannesburg-2026/WhatsApp Video 2026-06-30 at 09.25.46.mp4"
+    ],
+  },
 ];
 
 export default function GalleryPage() {
