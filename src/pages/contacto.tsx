@@ -95,18 +95,18 @@ export default function ContactPage() {
               <p className="flex items-start gap-3 text-neutral-800">
                 <MapPin className="text-blue-700 flex-shrink-0" />
                 <span>
-                  Rua de Mukumbura 367 R/c <br /> Maputo, Moçambique
+                  Rua de Mukumbura, 387, R/c <br /> Maputo, Moçambique
                 </span>
               </p>
 
               <p className="flex items-center gap-3 text-neutral-800">
                 <Phone className="text-blue-700" />
-                +258 84 400 2050
+                +258 84 525 5636 | 87 153 8427
               </p>
 
               <p className="flex items-center gap-3 text-neutral-800">
                 <Mail className="text-blue-700" />
-                contacto@ejem.org.mz
+                parceria@ejem.org.mz
               </p>
 
             </div>

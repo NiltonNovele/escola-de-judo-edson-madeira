@@ -25,20 +25,20 @@ export default function Footer() {
           <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex gap-3 items-start">
               <MapPin size={20} className="text-blue-600" />
-              <span>Avenida Principal, Maputo, Moçambique</span>
+              <span>Rua de Mukumbura, 387, R/c, Maputo, Moçambique</span>
             </li>
             <li className="flex gap-3 items-center">
               <Mail size={20} className="text-blue-600" />
               <a
-                href="mailto:ajuda@ejem.org.mz"
+                href="mailto:parceria@ejem.org.mz"
                 className="underline hover:text-blue-700 transition"
               >
-                ajuda@ejem.org.mz
+                parceria@ejem.org.mz
               </a>
             </li>
             <li className="flex gap-3 items-center">
               <Phone size={20} className="text-blue-600" />
-              +258 84 123 4567
+              +258 84 525 5636 | 87 153 8427
             </li>
           </ul>
         </div>
