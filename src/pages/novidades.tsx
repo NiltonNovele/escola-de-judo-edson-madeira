@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
+import Image from "next/image";
 import { ExternalLink, GraduationCap, MapPin, Trophy } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -42,32 +43,44 @@ export default function NovidadesPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
         {/* EXAME DE GRADUAÇÃO */}
         <div className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-900 text-white transition duration-300 group-hover:scale-110 group-hover:bg-blue-800">
-              <GraduationCap size={24} />
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+            <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-xl shadow-md sm:h-auto sm:w-56 sm:self-stretch">
+              <Image
+                src="/images/novidades/exame-de-graduacao.jpg"
+                alt="Exame de Graduação"
+                fill
+                sizes="(min-width: 640px) 224px, 100vw"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
             </div>
 
-            <div>
-              <h2 className="text-2xl font-bold text-blue-900">
-                Exame de Graduação
-              </h2>
-              <p className="mt-2 text-gray-700 leading-relaxed">
-                Está a decorrer o exame de graduação. Inscreva-se através do
-                formulário abaixo.
-              </p>
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-900 text-white transition duration-300 group-hover:scale-110 group-hover:bg-blue-800">
+                <GraduationCap size={24} />
+              </div>
 
-              <a
-                href={GRADUATION_EXAM_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-blue-950 hover:shadow-xl active:translate-y-0 active:scale-95"
-              >
-                Aceder ao Formulário de Inscrição
-                <ExternalLink
-                  size={16}
-                  className="transition duration-300 group-hover:translate-x-0.5"
-                />
-              </a>
+              <div>
+                <h2 className="text-2xl font-bold text-blue-900">
+                  Exame de Graduação
+                </h2>
+                <p className="mt-2 text-gray-700 leading-relaxed">
+                  Está a decorrer o exame de graduação. Inscreva-se através do
+                  formulário abaixo.
+                </p>
+
+                <a
+                  href={GRADUATION_EXAM_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-blue-950 hover:shadow-xl active:translate-y-0 active:scale-95"
+                >
+                  Aceder ao Formulário de Inscrição
+                  <ExternalLink
+                    size={16}
+                    className="transition duration-300 group-hover:translate-x-0.5"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
