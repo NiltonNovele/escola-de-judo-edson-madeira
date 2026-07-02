@@ -3,12 +3,21 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Image from "next/image";
-import { ExternalLink, GraduationCap, MapPin, Trophy } from "lucide-react";
+import {
+  ExternalLink,
+  FileText,
+  GraduationCap,
+  MapPin,
+  Trophy,
+} from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const GRADUATION_EXAM_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSfXUUtD46IVRDT0YKStmNxlOCL8sCeJHjHP5d-fKN_0iBiknA/viewform?usp=publish-editor";
+
+const GRADUATION_EXAM_DOCUMENT_URL =
+  "/docs/comunicado-oficial-graduacao-2026.pdf";
 
 const JOHANNESBURG_OPEN_IMAGES = [
   "/galeria/open-de-johannesburg-2026/WhatsApp Image 2026-06-30 at 09.24.46.jpeg",
@@ -68,28 +77,40 @@ export default function NovidadesPage() {
                   formulário abaixo.
                 </p>
 
-                <div className="relative mt-5 inline-block">
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 rounded-xl bg-blue-500/70 animate-cta-glow"
-                  />
-                  <a
-                    href={GRADUATION_EXAM_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/btn relative z-10 inline-flex items-center gap-2 overflow-hidden rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-blue-950 hover:shadow-xl hover:shadow-blue-500/40 active:translate-y-0 active:scale-95"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      Aceder ao Formulário de Inscrição
-                      <ExternalLink
-                        size={16}
-                        className="transition duration-300 group-hover/btn:translate-x-0.5"
-                      />
-                    </span>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <div className="relative inline-block">
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-cta-shine"
+                      className="pointer-events-none absolute inset-0 rounded-xl bg-blue-500/70 animate-cta-glow"
                     />
+                    <a
+                      href={GRADUATION_EXAM_FORM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn relative z-10 inline-flex items-center gap-2 overflow-hidden rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-blue-950 hover:shadow-xl hover:shadow-blue-500/40 active:translate-y-0 active:scale-95"
+                    >
+                      <span className="relative z-10 flex items-center gap-2">
+                        Aceder ao Formulário de Inscrição
+                        <ExternalLink
+                          size={16}
+                          className="transition duration-300 group-hover/btn:translate-x-0.5"
+                        />
+                      </span>
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-cta-shine"
+                      />
+                    </a>
+                  </div>
+
+                  <a
+                    href={GRADUATION_EXAM_DOCUMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-white px-5 py-3 text-sm font-semibold text-blue-900 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:shadow-md active:translate-y-0 active:scale-95"
+                  >
+                    <FileText size={16} />
+                    Ver Comunicado Oficial
                   </a>
                 </div>
               </div>

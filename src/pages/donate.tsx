@@ -1146,48 +1146,6 @@ export default function DonatePage() {
             </div>
           </div>
         </section>
-
-        {/* PARTNERS */}
-        <section className="bg-gray-50 py-24">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-
-            <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
-              Parceiros & Apoiantes
-            </h2>
-
-            <p className="text-gray-700 max-w-2xl mx-auto text-lg mb-14 leading-relaxed">
-              Agradecemos aos parceiros, patrocinadores e apoiantes que ajudam a
-              tornar possível o crescimento da Escola de Judo Edson Madeira.
-            </p>
-
-            <div
-              ref={partnersRef}
-              onMouseEnter={pausePartners}
-              onMouseLeave={resumePartners}
-              className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
-            >
-              {[...PARTNER_IDS, ...PARTNER_IDS].map((id, index) => (
-                <div
-                  key={`${id}-${index}`}
-                  className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
-                >
-                  <Image
-                    src={`/images/parceiros/partner${id}.png`}
-                    alt={`Parceiro ${id}`}
-                    width={160}
-                    height={96}
-                    sizes="160px"
-                    className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <p className="text-gray-600 mt-14 text-sm">
-              Agradecemos cada parceiro que acredita na nossa missão.
-            </p>
-          </div>
-        </section>
       </main>
 
       <Footer />
