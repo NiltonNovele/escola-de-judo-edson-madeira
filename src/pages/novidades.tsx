@@ -41,9 +41,9 @@ export default function NovidadesPage() {
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
         {/* EXAME DE GRADUAÇÃO */}
-        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
+        <div className="group rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-900 text-white">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-900 text-white transition duration-300 group-hover:scale-110 group-hover:bg-blue-800">
               <GraduationCap size={24} />
             </div>
 
@@ -60,19 +60,22 @@ export default function NovidadesPage() {
                 href={GRADUATION_EXAM_FORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-950"
+                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-blue-950 hover:shadow-xl active:translate-y-0 active:scale-95"
               >
                 Aceder ao Formulário de Inscrição
-                <ExternalLink size={16} />
+                <ExternalLink
+                  size={16}
+                  className="transition duration-300 group-hover:translate-x-0.5"
+                />
               </a>
             </div>
           </div>
         </div>
 
         {/* DESTAQUE - JOHANNESBURG OPEN */}
-        <div className="rounded-2xl border border-blue-100 bg-white p-8 shadow-xl">
+        <div className="group/card rounded-2xl border border-blue-100 bg-white p-8 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
 
-          <h2 className="text-3xl font-extrabold text-blue-900">
+          <h2 className="text-3xl font-extrabold text-blue-900 transition duration-300 group-hover/card:text-blue-700">
             Johannesburg Open 2026
           </h2>
           <p className="text-gray-600 font-medium">26 a 28 de Junho</p>
@@ -94,7 +97,7 @@ export default function NovidadesPage() {
                   src={video}
                   controls
                   playsInline
-                  className="w-full rounded-xl bg-slate-900 shadow-md aspect-video object-cover"
+                  className="w-full rounded-xl bg-slate-900 shadow-md aspect-video object-cover transition duration-300 hover:-translate-y-0.5 hover:shadow-xl"
                 />
               ))}
             </div>
@@ -103,23 +106,30 @@ export default function NovidadesPage() {
           {JOHANNESBURG_OPEN_IMAGES.length > 0 && (
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
               {JOHANNESBURG_OPEN_IMAGES.map((image) => (
-                <img
+                <div
                   key={image}
-                  src={image}
-                  alt="Johannesburg Open 2026"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-32 w-full rounded-lg object-cover shadow-sm sm:h-28"
-                />
+                  className="h-32 overflow-hidden rounded-lg shadow-sm transition duration-300 hover:shadow-lg sm:h-28"
+                >
+                  <img
+                    src={image}
+                    alt="Johannesburg Open 2026"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition duration-500 hover:scale-110"
+                  />
+                </div>
               ))}
             </div>
           )}
 
           <a
             href="/galeria"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-900 hover:text-blue-700 transition"
+            className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-900 transition hover:text-blue-700"
           >
-            Ver mais na Galeria →
+            Ver mais na Galeria
+            <span className="transition-transform duration-300 group-hover/link:translate-x-1">
+              →
+            </span>
           </a>
         </div>
       </section>
