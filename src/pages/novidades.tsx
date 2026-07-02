@@ -68,18 +68,30 @@ export default function NovidadesPage() {
                   formulário abaixo.
                 </p>
 
-                <a
-                  href={GRADUATION_EXAM_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:bg-blue-950 hover:shadow-xl active:translate-y-0 active:scale-95"
-                >
-                  Aceder ao Formulário de Inscrição
-                  <ExternalLink
-                    size={16}
-                    className="transition duration-300 group-hover:translate-x-0.5"
+                <div className="relative mt-5 inline-block">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-xl bg-blue-500/70 animate-cta-glow"
                   />
-                </a>
+                  <a
+                    href={GRADUATION_EXAM_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn relative z-10 inline-flex items-center gap-2 overflow-hidden rounded-xl bg-blue-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-blue-950 hover:shadow-xl hover:shadow-blue-500/40 active:translate-y-0 active:scale-95"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Aceder ao Formulário de Inscrição
+                      <ExternalLink
+                        size={16}
+                        className="transition duration-300 group-hover/btn:translate-x-0.5"
+                      />
+                    </span>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-cta-shine"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -148,6 +160,44 @@ export default function NovidadesPage() {
       </section>
 
       <Footer />
+
+      <style jsx global>{`
+        @keyframes ctaGlow {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.6;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0;
+          }
+        }
+
+        .animate-cta-glow {
+          animation: ctaGlow 2.4s ease-in-out infinite;
+        }
+
+        @keyframes ctaShine {
+          0% {
+            transform: translateX(-20%) skewX(-12deg);
+          }
+          100% {
+            transform: translateX(320%) skewX(-12deg);
+          }
+        }
+
+        .animate-cta-shine {
+          animation: ctaShine 2.8s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-cta-glow,
+          .animate-cta-shine {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
