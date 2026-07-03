@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useEffect, useRef, useState } from "react";
 import {
-  Heart,
   HeartHandshake,
   HandCoins,
   Building2,
@@ -16,8 +15,6 @@ import {
   Utensils,
   Shirt,
   MessageSquare,
-  CheckCircle2,
-  HelpingHand,
   Wallet,
   ShieldCheck,
   Loader2,
@@ -39,6 +36,26 @@ type BankDetails = {
   note?: string;
 };
 
+const QUICK_AMOUNTS = [250, 500, 1000, 2500, 5000];
+
+const initialForm = {
+  name: "",
+  companyName: "",
+  contactPerson: "",
+  email: "",
+  phone: "",
+  amount: "",
+  paymentMethod: "M-Pesa",
+  message: "",
+  otherDonation: "",
+  deliveryMethod: "Posso entregar",
+  partnershipType: "Apoio financeiro",
+  partnershipObjective: "",
+  benefitsInterest: "Gostaria de saber mais",
+  sector: "",
+  website: "",
+};
+
 export default function DonatePage() {
   const formRef = useRef<HTMLElement | null>(null);
 
@@ -51,6 +68,8 @@ export default function DonatePage() {
   const [anonymousDonation, setAnonymousDonation] = useState(false);
   const [proofFile, setProofFile] = useState<File | null>(null);
   const [bankDetails, setBankDetails] = useState<BankDetails | null>(null);
+  const [bankDetailsError, setBankDetailsError] = useState(false);
+  const [bankDetailsRetryKey, setBankDetailsRetryKey] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alertState, setAlertState] = useState<{
     type: "" | "success" | "error";
@@ -60,23 +79,7 @@ export default function DonatePage() {
     message: "",
   });
 
-  const [form, setForm] = useState({
-    name: "",
-    companyName: "",
-    contactPerson: "",
-    email: "",
-    phone: "",
-    amount: "",
-    paymentMethod: "M-Pesa",
-    message: "",
-    otherDonation: "",
-    deliveryMethod: "Posso entregar",
-    partnershipType: "Apoio financeiro",
-    partnershipObjective: "",
-    benefitsInterest: "Gostaria de saber mais",
-    sector: "",
-    website: "",
-  });
+  const [form, setForm] = useState(initialForm);
 
   const donationGoodsOptions = [
     { label: "Transporte", icon: Truck },
@@ -93,10 +96,26 @@ export default function DonatePage() {
   const isBankTransfer =
     showMoneySection && form.paymentMethod === "Transferência Bancária";
 
+  const donateSubmitLabel = isSubmitting
+    ? "A processar..."
+    : isBankTransfer
+      ? "Enviar Comprovativo"
+      : showMoneySection
+        ? "Ir para Pagamento"
+        : "Enviar Pedido de Apoio";
+
+  const donateSubmitCaption = isBankTransfer
+    ? "A nossa equipa vai validar o comprovativo e entrar em contacto consigo."
+    : showMoneySection
+      ? "Vai ser redirecionado para uma página de pagamento segura para concluir a doação."
+      : "A nossa equipa vai entrar em contacto para combinar a entrega ou recolha.";
+
   useEffect(() => {
     async function loadBankDetails() {
       if (!isBankTransfer) return;
       if (bankDetails) return;
+
+      setBankDetailsError(false);
 
       try {
         const res = await fetch(`${API_BASE}/api/bank-details`);
@@ -104,14 +123,16 @@ export default function DonatePage() {
 
         if (res.ok && data?.status === "success") {
           setBankDetails(data.data);
+        } else {
+          setBankDetailsError(true);
         }
       } catch {
-        // silent fail; user can still use other payment methods
+        setBankDetailsError(true);
       }
     }
 
     loadBankDetails();
-  }, [isBankTransfer, bankDetails]);
+  }, [isBankTransfer, bankDetails, bankDetailsRetryKey]);
 
   function goToForm(selectedType: "donate" | "partner") {
     setType(selectedType);
@@ -151,6 +172,13 @@ export default function DonatePage() {
 
   function setError(message: string) {
     setAlertState({ type: "error", message });
+  }
+
+  function resetFormAfterSuccess() {
+    setForm(initialForm);
+    setGoods([]);
+    setProofFile(null);
+    setAnonymousDonation(false);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -208,6 +236,7 @@ export default function DonatePage() {
     }
 
     setSuccess("Pedido de parceria enviado com sucesso.");
+    setForm(initialForm);
   }
 
   async function submitDonation() {
@@ -252,14 +281,11 @@ export default function DonatePage() {
         setSuccess(
           "Comprovativo enviado com sucesso. A sua transferência será validada em breve."
         );
+        resetFormAfterSuccess();
         return;
       }
 
-      if (
-        form.paymentMethod === "M-Pesa" ||
-        form.paymentMethod === "e-Mola" ||
-        form.paymentMethod === "Cartão"
-      ) {
+      if (form.paymentMethod === "M-Pesa" || form.paymentMethod === "e-Mola") {
         const res = await fetch(`${API_BASE}/api/donations/create-payment`, {
           method: "POST",
           headers: {
@@ -293,35 +319,6 @@ export default function DonatePage() {
 
         throw new Error("Link de checkout não foi devolvido.");
       }
-
-      if (form.paymentMethod === "Dinheiro") {
-        const res = await fetch(`${API_BASE}/api/donations/non-money`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            donorName,
-            donorContact,
-            message:
-              form.message ||
-              `Doação em dinheiro presencial. Valor indicado: ${form.amount} MZN`,
-            donationMode,
-            selectedGoods: goods,
-            otherDonation: form.otherDonation,
-            deliveryMethod: form.deliveryMethod,
-          }),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data?.message || "Falha ao registar doação.");
-        }
-
-        setSuccess("Doação registada com sucesso.");
-        return;
-      }
     }
 
     if (showGoodsSection && !showMoneySection) {
@@ -348,10 +345,7 @@ export default function DonatePage() {
       }
 
       setSuccess("Apoio enviado com sucesso. Obrigado!");
-      return;
-    }
-
-    if (showMoneySection && showGoodsSection && form.paymentMethod === "Transferência Bancária") {
+      resetFormAfterSuccess();
       return;
     }
   }
@@ -374,12 +368,8 @@ export default function DonatePage() {
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 rounded-full bg-red-100 text-red-700 px-4 py-2 text-sm font-semibold">
-                <Heart size={16} />
-                APOIE A NOSSA MISSÃO
-              </div>
 
-              <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900">
                 Faça parte desta
                 <br />
                 transformação
@@ -392,51 +382,53 @@ export default function DonatePage() {
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => goToForm("donate")}
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition bg-blue-900 text-white hover:bg-blue-950"
-                >
-                  <HandCoins size={18} />
-                  Quero Doar
-                </button>
+                <div className="relative inline-block">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-full bg-blue-500/70 animate-cta-glow"
+                  />
+                  <button
+                    onClick={() => goToForm("donate")}
+                    className="group/donate relative z-10 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-blue-900 px-6 py-3 font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-blue-950 hover:shadow-xl hover:shadow-blue-500/40 active:translate-y-0 active:scale-95"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      <HandCoins
+                        size={18}
+                        className="transition duration-300 group-hover/donate:scale-110"
+                      />
+                      Quero Doar
+                    </span>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-cta-shine"
+                    />
+                  </button>
+                </div>
 
-                <button
-                  onClick={() => goToForm("partner")}
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition border-2 border-red-600 text-red-600 hover:bg-red-50"
-                >
-                  <HeartHandshake size={18} />
-                  Tornar-me Parceiro
-                </button>
+                <div className="relative inline-block">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-full bg-red-500/60 animate-cta-glow"
+                  />
+                  <button
+                    onClick={() => goToForm("partner")}
+                    className="group/partner relative z-10 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-red-600 bg-white px-6 py-3 font-semibold text-red-600 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-red-50 hover:shadow-xl hover:shadow-red-500/30 active:translate-y-0 active:scale-95"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      <HeartHandshake
+                        size={18}
+                        className="transition duration-300 group-hover/partner:scale-110"
+                      />
+                      Tornar-me Parceiro
+                    </span>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-red-400/30 to-transparent animate-cta-shine"
+                    />
+                  </button>
+                </div>
               </div>
 
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-white/90 backdrop-blur rounded-2xl border border-blue-100 shadow-sm p-5">
-                  <Wallet className="text-blue-900 mb-3" size={22} />
-                  <h3 className="font-bold text-blue-900">Doação simples</h3>
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                    Valor livre, processo rápido e possibilidade de doar
-                    anonimamente.
-                  </p>
-                </div>
-
-                <div className="bg-white/90 backdrop-blur rounded-2xl border border-blue-100 shadow-sm p-5">
-                  <HelpingHand className="text-blue-900 mb-3" size={22} />
-                  <h3 className="font-bold text-blue-900">Outras formas</h3>
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                    Transporte, alimentação, equipamentos, uniformes e apoio
-                    profissional.
-                  </p>
-                </div>
-
-                <div className="bg-white/90 backdrop-blur rounded-2xl border border-blue-100 shadow-sm p-5">
-                  <Building2 className="text-blue-900 mb-3" size={22} />
-                  <h3 className="font-bold text-blue-900">Parcerias</h3>
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                    Para indivíduos, empresas, organizações e iniciativas
-                    sociais.
-                  </p>
-                </div>
-              </div>
             </div>
 
             <div className="lg:col-span-5">
@@ -462,40 +454,35 @@ export default function DonatePage() {
             {/* FORM */}
             <div>
               <div className="rounded-3xl bg-white border border-gray-200 shadow-xl overflow-hidden">
-                <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-8 py-7">
-                  <div className="flex flex-wrap gap-3 mb-5">
+                <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-8 pt-7 pb-5">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+                    {type === "donate"
+                      ? "Formulário de Apoio"
+                      : "Formulário de Parceria"}
+                  </h2>
+
+                  <div className="mt-4 flex gap-6 border-b border-white/15">
                     <button
                       type="button"
                       onClick={() => setType("donate")}
-                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${type === "donate"
-                        ? "bg-white text-blue-900"
-                        : "bg-white/10 text-white hover:bg-white/20"
+                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${type === "donate"
+                        ? "border-white text-white"
+                        : "border-transparent text-blue-200 hover:text-white"
                         }`}
                     >
-                      Quero Doar
+                      Doar
                     </button>
                     <button
                       type="button"
                       onClick={() => setType("partner")}
-                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${type === "partner"
-                        ? "bg-white text-blue-900"
-                        : "bg-white/10 text-white hover:bg-white/20"
+                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${type === "partner"
+                        ? "border-white text-white"
+                        : "border-transparent text-blue-200 hover:text-white"
                         }`}
                     >
-                      Tornar-me Parceiro
+                      Ser parceiro
                     </button>
                   </div>
-
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                    {type === "donate"
-                      ? "Formulário de Apoio / Doação"
-                      : "Formulário de Parceria"}
-                  </h2>
-                  <p className="text-blue-100 mt-2">
-                    {type === "donate"
-                      ? "Preencha apenas o essencial para apoiar a escola da forma que preferir."
-                      : "Preencha os dados abaixo para iniciar uma parceria simples e objetiva."}
-                  </p>
                 </div>
 
                 <div className="p-6 sm:p-8">
@@ -513,71 +500,51 @@ export default function DonatePage() {
                   {type === "donate" ? (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       {/* DONATION MODE */}
-                      <div className="rounded-2xl bg-gray-50 border border-gray-200 p-5">
-                        <label className="block text-sm font-semibold text-gray-800 mb-4">
+                      <div>
+                        <span className="text-sm font-semibold text-gray-800">
                           Como deseja apoiar?
-                        </label>
+                        </span>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                          <button
-                            type="button"
-                            onClick={() => setDonationMode("money")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "money"
-                              ? "bg-blue-900 text-white border-blue-900"
-                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                              }`}
-                          >
-                            Só dinheiro
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => setDonationMode("goods")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "goods"
-                              ? "bg-blue-900 text-white border-blue-900"
-                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                              }`}
-                          >
-                            Só bens / serviços
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => setDonationMode("both")}
-                            className={`rounded-2xl px-4 py-4 font-medium border transition ${donationMode === "both"
-                              ? "bg-blue-900 text-white border-blue-900"
-                              : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                              }`}
-                          >
-                            Ambos
-                          </button>
+                        <div className="mt-3 grid grid-cols-3 gap-1 rounded-xl bg-gray-100 p-1">
+                          {(
+                            [
+                              { key: "money", label: "Dinheiro", icon: Wallet },
+                              { key: "goods", label: "Bens / serviços", icon: Gift },
+                              { key: "both", label: "Ambos", icon: HeartHandshake },
+                            ] as const
+                          ).map((option) => (
+                            <button
+                              key={option.key}
+                              type="button"
+                              onClick={() => setDonationMode(option.key)}
+                              className={`flex items-center justify-center gap-1.5 rounded-lg px-2 py-2.5 text-sm font-medium transition ${donationMode === option.key
+                                ? "bg-white text-blue-900 shadow-sm"
+                                : "text-gray-500 hover:text-gray-800"
+                                }`}
+                            >
+                              <option.icon size={15} />
+                              {option.label}
+                            </button>
+                          ))}
                         </div>
                       </div>
 
                       {/* ANONYMOUS */}
                       {showMoneySection && (
-                        <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                          <label className="flex items-start gap-3 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={anonymousDonation}
-                              onChange={() =>
-                                setAnonymousDonation((prev) => !prev)
-                              }
-                              className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-900 focus:ring-blue-500"
-                            />
-                            <div>
-                              <span className="flex items-center gap-2 font-semibold text-blue-900">
-                                <ShieldCheck size={18} />
-                                Fazer doação anónima
-                              </span>
-                              <p className="text-sm text-gray-600 mt-1">
-                                Se selecionar esta opção, não precisa preencher
-                                nome nem contacto para a doação.
-                              </p>
-                            </div>
-                          </label>
-                        </div>
+                        <label className="flex items-center gap-2.5 cursor-pointer text-sm">
+                          <input
+                            type="checkbox"
+                            checked={anonymousDonation}
+                            onChange={() =>
+                              setAnonymousDonation((prev) => !prev)
+                            }
+                            className="h-4 w-4 rounded border-gray-300 text-blue-900 focus:ring-blue-500"
+                          />
+                          <span className="flex items-center gap-1.5 font-medium text-gray-800">
+                            <ShieldCheck size={15} className="text-blue-900" />
+                            Doar de forma anónima
+                          </span>
+                        </label>
                       )}
 
                       {/* OPTIONAL CONTACT FOR DONATION */}
@@ -615,45 +582,68 @@ export default function DonatePage() {
 
                       {/* MONEY DONATION */}
                       {showMoneySection && (
-                        <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5 space-y-5">
-                          <div className="flex items-center gap-2 text-blue-900 font-bold">
-                            <HandCoins size={18} />
+                        <div className="border-t border-gray-200 pt-6 space-y-5">
+                          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-blue-900">
+                            <HandCoins size={14} />
                             Apoio financeiro
+                          </p>
+
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-800">
+                              Quanto deseja doar? (MZN)
+                            </label>
+
+                            <div className="flex flex-wrap gap-2 mb-3">
+                              {QUICK_AMOUNTS.map((value) => (
+                                <button
+                                  key={value}
+                                  type="button"
+                                  onClick={() =>
+                                    setForm((prev) => ({
+                                      ...prev,
+                                      amount: String(value),
+                                    }))
+                                  }
+                                  className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${String(value) === form.amount
+                                    ? "bg-blue-900 text-white border-blue-900"
+                                    : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                                    }`}
+                                >
+                                  {value.toLocaleString("pt-PT")}
+                                </button>
+                              ))}
+                            </div>
+
+                            <input
+                              type="number"
+                              name="amount"
+                              value={form.amount}
+                              onChange={handleChange}
+                              placeholder="Ou indique outro valor, ex: 1500"
+                              min="0"
+                              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            />
                           </div>
 
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div>
-                              <label className="block text-sm font-medium mb-2 text-gray-800">
-                                Quanto deseja doar?
-                              </label>
-                              <input
-                                type="number"
-                                name="amount"
-                                value={form.amount}
-                                onChange={handleChange}
-                                placeholder="Ex: 1000"
-                                min="0"
-                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                              />
-                            </div>
-
-                            <div>
-                              <label className="block text-sm font-medium mb-2 text-gray-800">
-                                Método de doação
-                              </label>
-                              <select
-                                name="paymentMethod"
-                                value={form.paymentMethod}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                              >
-                                <option>M-Pesa</option>
-                                <option>e-Mola</option>
-                                <option>Transferência Bancária</option>
-                                {/* <option>Dinheiro</option>
-                                <option>Cartão</option> */}
-                              </select>
-                            </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-800">
+                              Como prefere pagar?
+                            </label>
+                            <select
+                              name="paymentMethod"
+                              value={form.paymentMethod}
+                              onChange={handleChange}
+                              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                              <option>M-Pesa</option>
+                              <option>e-Mola</option>
+                              <option>Transferência Bancária</option>
+                            </select>
+                            <p className="mt-2 text-xs text-gray-600">
+                              {form.paymentMethod === "Transferência Bancária"
+                                ? "Vai ver os dados bancários para transferir e depois anexar o comprovativo."
+                                : "Vai ser encaminhado para uma página de pagamento segura para concluir a doação."}
+                            </p>
                           </div>
 
                           {isBankTransfer && (
@@ -713,6 +703,19 @@ export default function DonatePage() {
                                     </div>
                                   )}
                                 </div>
+                              ) : bankDetailsError ? (
+                                <div className="text-sm text-red-700">
+                                  Não foi possível carregar os dados bancários.{" "}
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setBankDetailsRetryKey((key) => key + 1)
+                                    }
+                                    className="font-semibold underline"
+                                  >
+                                    Tentar novamente
+                                  </button>
+                                </div>
                               ) : (
                                 <p className="text-sm text-gray-700">
                                   A carregar dados bancários...
@@ -745,18 +748,18 @@ export default function DonatePage() {
 
                       {/* GOODS / SERVICES */}
                       {showGoodsSection && (
-                        <div className="rounded-2xl border border-red-100 bg-red-50/50 p-5 space-y-5">
-                          <div className="flex items-center gap-2 text-red-700 font-bold">
-                            <Gift size={18} />
+                        <div className="border-t border-gray-200 pt-6 space-y-5">
+                          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-red-700">
+                            <Gift size={14} />
                             Bens e serviços
-                          </div>
+                          </p>
 
                           <div>
                             <label className="block text-sm font-medium mb-3 text-gray-800">
                               O que gostaria de doar?
                             </label>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="flex flex-wrap gap-2">
                               {donationGoodsOptions.map((item) => {
                                 const Icon = item.icon;
                                 const active = goods.includes(item.label);
@@ -766,15 +769,13 @@ export default function DonatePage() {
                                     key={item.label}
                                     type="button"
                                     onClick={() => toggleGood(item.label)}
-                                    className={`flex items-center gap-3 text-left rounded-2xl px-4 py-4 border transition ${active
-                                      ? "bg-white border-red-500 text-red-700 shadow-sm"
-                                      : "bg-white border-gray-300 text-gray-700 hover:border-red-300"
+                                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${active
+                                      ? "border-red-600 bg-red-600 text-white"
+                                      : "border-gray-300 text-gray-700 hover:border-red-300 hover:bg-red-50"
                                       }`}
                                   >
-                                    <Icon size={18} />
-                                    <span className="font-medium">
-                                      {item.label}
-                                    </span>
+                                    <Icon size={15} />
+                                    {item.label}
                                   </button>
                                 );
                               })}
@@ -830,18 +831,23 @@ export default function DonatePage() {
                         />
                       </div>
 
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg disabled:opacity-70"
-                      >
-                        {isSubmitting ? (
-                          <Loader2 size={18} className="animate-spin" />
-                        ) : (
-                          <MessageSquare size={18} />
-                        )}
-                        {isSubmitting ? "A processar..." : "Enviar"}
-                      </button>
+                      <div>
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-white font-semibold hover:bg-red-700 transition shadow-lg disabled:opacity-70"
+                        >
+                          {isSubmitting ? (
+                            <Loader2 size={18} className="animate-spin" />
+                          ) : (
+                            <HandCoins size={18} />
+                          )}
+                          {donateSubmitLabel}
+                        </button>
+                        <p className="mt-3 text-center text-xs text-gray-500">
+                          {donateSubmitCaption}
+                        </p>
+                      </div>
                     </form>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -1114,7 +1120,6 @@ export default function DonatePage() {
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <CheckCircle2 className="text-blue-900 mb-4" size={24} />
                 <h3 className="text-xl font-bold text-blue-900">
                   Apoio financeiro
                 </h3>
@@ -1125,7 +1130,6 @@ export default function DonatePage() {
               </div>
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <CheckCircle2 className="text-red-600 mb-4" size={24} />
                 <h3 className="text-xl font-bold text-blue-900">
                   Bens e serviços
                 </h3>
@@ -1136,7 +1140,6 @@ export default function DonatePage() {
               </div>
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <CheckCircle2 className="text-blue-900 mb-4" size={24} />
                 <h3 className="text-xl font-bold text-blue-900">Parcerias</h3>
                 <p className="mt-3 text-gray-600 leading-relaxed">
                   Crie uma parceria com propósito e ajude a expandir o impacto
@@ -1146,9 +1149,89 @@ export default function DonatePage() {
             </div>
           </div>
         </section>
+
+        {/* PARTNERS */}
+        <section className="bg-gray-50">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+
+            <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
+              Parceiros & Apoiantes
+            </h2>
+
+            <p className="text-gray-700 max-w-2xl mx-auto text-lg mb-14 leading-relaxed">
+              Agradecemos aos parceiros, patrocinadores e apoiantes que ajudam a
+              tornar possível o crescimento da Escola de Judo Edson Madeira.
+            </p>
+
+            <div
+              ref={partnersRef}
+              onMouseEnter={pausePartners}
+              onMouseLeave={resumePartners}
+              className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
+            >
+              {[...PARTNER_IDS, ...PARTNER_IDS].map((id, index) => (
+                <div
+                  key={`${id}-${index}`}
+                  className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
+                >
+                  <Image
+                    src={`/images/parceiros/partner${id}.png`}
+                    alt={`Parceiro ${id}`}
+                    width={160}
+                    height={96}
+                    sizes="160px"
+                    className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <p className="text-gray-600 mt-14 text-sm">
+              Agradecemos cada parceiro que acredita na nossa missão.<br /><br />
+            </p>
+          </div>
+        </section>
       </main>
 
       <Footer />
+
+      <style jsx global>{`
+        @keyframes ctaGlow {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.6;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0;
+          }
+        }
+
+        .animate-cta-glow {
+          animation: ctaGlow 2.4s ease-in-out infinite;
+        }
+
+        @keyframes ctaShine {
+          0% {
+            transform: translateX(-20%) skewX(-12deg);
+          }
+          100% {
+            transform: translateX(320%) skewX(-12deg);
+          }
+        }
+
+        .animate-cta-shine {
+          animation: ctaShine 2.8s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-cta-glow,
+          .animate-cta-shine {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
