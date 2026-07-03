@@ -1118,30 +1118,41 @@ export default function DonatePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-blue-900">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="group rounded-2xl bg-white border border-gray-200 p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-900 transition duration-300 group-hover:bg-blue-900 group-hover:text-white">
+                  <HandCoins size={20} />
+                </div>
+                <h3 className="mt-4 text-xl font-bold text-blue-900">
                   Apoio financeiro
                 </h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">
+                <p className="mt-2 text-gray-600 leading-relaxed">
                   Contribua com qualquer valor para apoiar treinos, competições,
                   material e desenvolvimento contínuo dos atletas.
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-blue-900">
+              <div className="group rounded-2xl bg-white border border-gray-200 p-6 transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-red-600 transition duration-300 group-hover:bg-red-600 group-hover:text-white">
+                  <Gift size={20} />
+                </div>
+                <h3 className="mt-4 text-xl font-bold text-blue-900">
                   Bens e serviços
                 </h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">
+                <p className="mt-2 text-gray-600 leading-relaxed">
                   Transporte, alimentação, uniformes, material desportivo,
                   consultoria e apoio técnico também são valiosos.
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-blue-900">Parcerias</h3>
-                <p className="mt-3 text-gray-600 leading-relaxed">
+              <div className="group rounded-2xl bg-white border border-gray-200 p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-900 transition duration-300 group-hover:bg-blue-900 group-hover:text-white">
+                  <HeartHandshake size={20} />
+                </div>
+                <h3 className="mt-4 text-xl font-bold text-blue-900">
+                  Parcerias
+                </h3>
+                <p className="mt-2 text-gray-600 leading-relaxed">
                   Crie uma parceria com propósito e ajude a expandir o impacto
                   social e desportivo da escola.
                 </p>
