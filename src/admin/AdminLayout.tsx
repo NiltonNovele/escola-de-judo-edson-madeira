@@ -3,8 +3,13 @@ import { useRouter } from "next/router";
 import AdminSidebar from "./components/AdminSidebar";
 import { useAdminSession } from "./hooks/useAdminSession";
 
+const SIDEBAR_STORAGE_KEY = "adminSidebarCollapsed";
+
 const AdminLayout = ({ children }: { children: ReactNode }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return localStorage.getItem(SIDEBAR_STORAGE_KEY) !== "false";
+  });
   const status = useAdminSession();
   const router = useRouter();
 
@@ -13,6 +18,10 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       router.replace("/admin/login");
     }
   }, [status, router]);
+
+  useEffect(() => {
+    localStorage.setItem(SIDEBAR_STORAGE_KEY, String(collapsed));
+  }, [collapsed]);
 
   if (status !== "authenticated") return null;
 
