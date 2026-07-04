@@ -10,6 +10,11 @@ import {
   Menu,
   X,
   CalendarDays,
+  Users,
+  Images,
+  GraduationCap,
+  Newspaper,
+  Store,
 } from "lucide-react";
 
 type AdminSidebarProps = {
@@ -28,7 +33,12 @@ const AdminSidebar = ({ collapsed, setCollapsed }: AdminSidebarProps) => {
 
   const tabs = [
     { path: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { path: "/admin/events", label: "Events", icon: CalendarDays },
+    { path: "/admin/equipa", label: "Equipa", icon: Users },
+    { path: "/admin/eventos", label: "Eventos", icon: CalendarDays },
+    { path: "/admin/galeria", label: "Galeria", icon: Images },
+    { path: "/admin/graduacoes", label: "Graduações", icon: GraduationCap },
+    { path: "/admin/novidades", label: "Novidades", icon: Newspaper },
+    { path: "/admin/loja", label: "Loja", icon: Store },
   ];
 
   return (
