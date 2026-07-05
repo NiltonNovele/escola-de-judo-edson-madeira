@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import {
   Phone,
   User,
   CreditCard,
+  Construction,
 } from "lucide-react";
 
 type Product = {
@@ -30,10 +31,24 @@ type CartItem = Product & {
   qty: number;
 };
 
+// TODO: remove this flag and the overlay block in the JSX below once the store page is finished
+const PAGE_UNDER_CONSTRUCTION = true;
+
 export default function LojaPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  useEffect(() => {
+    if (!PAGE_UNDER_CONSTRUCTION) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -205,6 +220,30 @@ ${customer.notes || "Sem observações"}
   return (
     <div className="w-full min-h-screen bg-white text-black">
       <Navbar />
+
+      {/* TODO: remove this overlay once the store page is finished */}
+      {PAGE_UNDER_CONSTRUCTION && (
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 flex items-center justify-center bg-blue-950/80 backdrop-blur-md px-6">
+          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-3xl bg-blue-500/20 blur-2xl animate-pulse"
+            />
+            <div className="relative">
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-900/70 text-white">
+                <Construction size={30} className="animate-bounce" />
+              </div>
+              <h2 className="text-2xl font-extrabold text-white">
+                Em Desenvolvimento
+              </h2>
+              <p className="mt-3 text-sm text-blue-100 leading-relaxed">
+                A loja oficial da EJEM está a ser construída. Volte em breve
+                para conhecer os nossos produtos.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* HEADER */}
       <section className="pt-28 sm:pt-32 pb-12 sm:pb-14 px-4 bg-gradient-to-b from-blue-50 to-white">
