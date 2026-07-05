@@ -1,9 +1,10 @@
 import AdminLayout from "../../AdminLayout";
+import UnderDevelopment from "../../components/UnderDevelopment";
 
 export default function GraduacoesAdmin() {
   return (
     <AdminLayout>
-      <h1 className="text-center text-xl">Graduações (under development)</h1>
+      <UnderDevelopment title="Graduações" />
     </AdminLayout>
   );
 }

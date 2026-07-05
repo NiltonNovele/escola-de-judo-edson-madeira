@@ -1,9 +1,10 @@
 import AdminLayout from "../../AdminLayout";
+import UnderDevelopment from "../../components/UnderDevelopment";
 
 export default function LojaAdmin() {
   return (
     <AdminLayout>
-      <h1 className="text-center text-xl">Loja (under development)</h1>
+      <UnderDevelopment title="Loja" />
     </AdminLayout>
   );
 }

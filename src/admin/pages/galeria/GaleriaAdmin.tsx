@@ -1,9 +1,10 @@
 import AdminLayout from "../../AdminLayout";
+import UnderDevelopment from "../../components/UnderDevelopment";
 
 export default function GaleriaAdmin() {
   return (
     <AdminLayout>
-      <h1 className="text-center text-xl">Galeria (under development)</h1>
+      <UnderDevelopment title="Galeria" />
     </AdminLayout>
   );
 }

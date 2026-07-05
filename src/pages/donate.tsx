@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Loader2,
   Landmark,
+  Construction,
 } from "lucide-react";
 import { PARTNER_IDS } from "@/data/site";
 import { useHorizontalLoop } from "@/hooks/useHorizontalLoop";
@@ -37,6 +38,9 @@ type BankDetails = {
 };
 
 const QUICK_AMOUNTS = [250, 500, 1000, 2500, 5000];
+
+// TODO: remove this flag and the overlay block in the JSX below once the donations page is finished
+const PAGE_UNDER_CONSTRUCTION = true;
 
 const initialForm = {
   name: "",
@@ -80,6 +84,17 @@ export default function DonatePage() {
   });
 
   const [form, setForm] = useState(initialForm);
+
+  useEffect(() => {
+    if (!PAGE_UNDER_CONSTRUCTION) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   const donationGoodsOptions = [
     { label: "Transporte", icon: Truck },
@@ -359,6 +374,30 @@ export default function DonatePage() {
   return (
     <div className="w-full min-h-screen bg-white text-gray-900 antialiased">
       <Navbar />
+
+      {/* TODO: remove this overlay once the donations page is finished */}
+      {PAGE_UNDER_CONSTRUCTION && (
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 flex items-center justify-center bg-blue-950/80 backdrop-blur-md px-6">
+          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-3xl bg-blue-500/20 blur-2xl animate-pulse"
+            />
+            <div className="relative">
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-900/70 text-white">
+                <Construction size={30} className="animate-bounce" />
+              </div>
+              <h2 className="text-2xl font-extrabold text-white">
+                Em Desenvolvimento
+              </h2>
+              <p className="mt-3 text-sm text-blue-100 leading-relaxed">
+                Esta página está a ser construída. Volte em breve para poder
+                apoiar a Escola de Judo Edson Madeira.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="pt-16">
         {/* HERO */}

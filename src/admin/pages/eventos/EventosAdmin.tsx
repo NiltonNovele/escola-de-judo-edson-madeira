@@ -1,9 +1,10 @@
 import AdminLayout from "../../AdminLayout";
+import UnderDevelopment from "../../components/UnderDevelopment";
 
 export default function EventosAdmin() {
   return (
     <AdminLayout>
-      <h1 className="text-center text-xl">Eventos (under development)</h1>
+      <UnderDevelopment title="Eventos" />
     </AdminLayout>
   );
 }

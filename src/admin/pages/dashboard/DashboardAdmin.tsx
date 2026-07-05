@@ -1,9 +1,10 @@
 import AdminLayout from "../../AdminLayout";
+import UnderDevelopment from "../../components/UnderDevelopment";
 
 export default function DashboardAdmin() {
   return (
     <AdminLayout>
-      <h1 className="text-center text-xl">Overview (under development)</h1>
+      <UnderDevelopment title="Overview" />
     </AdminLayout>
   );
 }
