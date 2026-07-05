@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
+import type { GetStaticProps } from "next";
+import { API_BASE, resolveUploadedImage } from "../lib/api";
 
 type Member = {
   name: string;
@@ -16,38 +18,60 @@ type Member = {
   phone?: string;
 };
 
-export default function Equipe() {
-  const [active, setActive] = useState<number | null>(null);
+const FALLBACK_TEAM: Member[] = [
+  {
+    name: "Kevin Loforte",
+    role: "Professor de Judo",
+    image: "/images/sucesso/kevin.jpg",
+    description:
+      "Especialista em ensino técnico e preparação de jovens atletas.",
+    email: "",
+    phone: "",
+  },
+  {
+    name: "Jacira Ferreira",
+    role: "Professora de Judo",
+    image: "/images/sucesso/jacira.jpg",
+    description:
+      "Focada no desenvolvimento de atletas femininas e inclusão social.",
+    email: "",
+    phone: "",
+  },
+  {
+    name: "Edson Madeira",
+    role: "Treinador Olímpico",
+    image: "/images/edson.jpg",
+    description:
+      "Treinador com experiência internacional e formação de atletas de alto rendimento.",
+    email: "",
+    phone: "",
+  },
+];
 
-  const team: Member[] = [
-    {
-      name: "Kevin Loforte",
-      role: "Professor de Judo",
-      image: "/images/sucesso/kevin.jpg",
-      description:
-        "Especialista em ensino técnico e preparação de jovens atletas.",
-      email: "",
-      phone: "",
-    },
-    {
-      name: "Jacira Ferreira",
-      role: "Professora de Judo",
-      image: "/images/sucesso/jacira.jpg",
-      description:
-        "Focada no desenvolvimento de atletas femininas e inclusão social.",
-      email: "",
-      phone: "",
-    },
-    {
-      name: "Edson Madeira",
-      role: "Treinador Olímpico",
-      image: "/images/edson.jpg",
-      description:
-        "Treinador com experiência internacional e formação de atletas de alto rendimento.",
-      email: "",
-      phone: "",
-    },
-  ];
+export const getStaticProps: GetStaticProps<{ team: Member[] }> = async () => {
+  try {
+    const res = await fetch(`${API_BASE}/api/team`);
+    const body = await res.json();
+
+    if (!res.ok || !Array.isArray(body?.data)) {
+      throw new Error("Invalid team response");
+    }
+
+    const team: Member[] = body.data.map(
+      (member: Member & { image: string }) => ({
+        ...member,
+        image: resolveUploadedImage(member.image),
+      })
+    );
+
+    return { props: { team }, revalidate: 60 };
+  } catch {
+    return { props: { team: FALLBACK_TEAM }, revalidate: 60 };
+  }
+};
+
+export default function Equipe({ team }: { team: Member[] }) {
+  const [active, setActive] = useState<number | null>(null);
 
   const toggleDescription = (idx: number) => {
     setActive(active === idx ? null : idx);

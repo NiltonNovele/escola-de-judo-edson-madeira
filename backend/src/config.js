@@ -1,12 +1,6 @@
-const path = require("path");
 const dotenv = require("dotenv");
 
 dotenv.config();
-
-const ROOT_DIR = path.resolve(__dirname, "..");
-const DATA_DIR = path.join(ROOT_DIR, "data");
-const UPLOAD_DIR = path.join(ROOT_DIR, "uploads");
-const PROOFS_DIR = path.join(UPLOAD_DIR, "proofs");
 
 const DEFAULT_ORIGINS = [
   "http://localhost:3000",
@@ -25,11 +19,22 @@ const ALLOWED_RETURN_ORIGINS = parseCsv(
 
 const ALLOWED_ORIGINS = parseCsv(process.env.CORS_ORIGINS, DEFAULT_ORIGINS);
 
-const DATA_FILES = {
-  donations: path.join(DATA_DIR, "donations.json"),
-  partnerships: path.join(DATA_DIR, "partnerships.json"),
-  webhooks: path.join(DATA_DIR, "webhooks.json"),
+const MONGODB_URI = process.env.MONGODB_URI || "";
+
+const COLLECTIONS = {
+  donations: "donations",
+  partnerships: "partnerships",
+  webhooks: "webhooks",
+  team: "team",
 };
+
+const CLOUDINARY = {
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
+  apiKey: process.env.CLOUDINARY_API_KEY || "",
+  apiSecret: process.env.CLOUDINARY_API_SECRET || "",
+};
+
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "";
 
 const BANK_DETAILS = {
   bankName: process.env.BANK_NAME || "Banco Exemplo",
@@ -67,14 +72,13 @@ function parseCsv(value, fallback) {
 }
 
 module.exports = {
+  ADMIN_API_KEY,
   ALLOWED_ORIGINS,
   ALLOWED_RETURN_ORIGINS,
   BANK_DETAILS,
-  DATA_DIR,
-  DATA_FILES,
+  CLOUDINARY,
+  COLLECTIONS,
+  MONGODB_URI,
   PAYSUITE,
   PORT,
-  PROOFS_DIR,
-  ROOT_DIR,
-  UPLOAD_DIR,
 };

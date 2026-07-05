@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const express = require("express");
-const { ALLOWED_RETURN_ORIGINS, DATA_FILES, PAYSUITE } = require("../config");
+const { ALLOWED_RETURN_ORIGINS, COLLECTIONS, PAYSUITE } = require("../config");
 const upload = require("../middleware/upload");
 const { createPayment } = require("../services/paysuite");
 const { readJsonArray, writeJsonArray } = require("../storage/jsonStore");
@@ -75,7 +75,7 @@ router.post("/donations/create-payment", async (req, res) => {
       });
     }
 
-    const donations = readJsonArray(DATA_FILES.donations);
+    const donations = await readJsonArray(COLLECTIONS.donations);
     const now = new Date().toISOString();
 
     donations.push({
@@ -100,7 +100,7 @@ router.post("/donations/create-payment", async (req, res) => {
       updatedAt: now,
     });
 
-    writeJsonArray(DATA_FILES.donations, donations);
+    await writeJsonArray(COLLECTIONS.donations, donations);
 
     return res.status(201).json({
       status: "success",
@@ -149,7 +149,7 @@ router.post("/donations/bank-transfer", upload.single("proof"), async (req, res)
       });
     }
 
-    const donations = readJsonArray(DATA_FILES.donations);
+    const donations = await readJsonArray(COLLECTIONS.donations);
     const reference = transferReference || buildReference("BANK");
     const isAnonymous = parseBoolean(anonymousDonation);
     const now = new Date().toISOString();
@@ -171,19 +171,19 @@ router.post("/donations/bank-transfer", upload.single("proof"), async (req, res)
       deliveryMethod: deliveryMethod || "",
       proofFileName: req.file.filename,
       proofOriginalName: req.file.originalname,
-      proofUrl: `/uploads/proofs/${req.file.filename}`,
+      proofUrl: req.file.path,
       createdAt: now,
       updatedAt: now,
     });
 
-    writeJsonArray(DATA_FILES.donations, donations);
+    await writeJsonArray(COLLECTIONS.donations, donations);
 
     return res.status(201).json({
       status: "success",
       message: "Proof of transfer submitted successfully.",
       data: {
         reference,
-        proofUrl: `/uploads/proofs/${req.file.filename}`,
+        proofUrl: req.file.path,
       },
     });
   } catch (error) {
@@ -207,7 +207,7 @@ router.post("/donations/non-money", async (req, res) => {
       deliveryMethod,
     } = req.body;
 
-    const donations = readJsonArray(DATA_FILES.donations);
+    const donations = await readJsonArray(COLLECTIONS.donations);
     const reference = buildReference("SUP");
     const now = new Date().toISOString();
 
@@ -227,7 +227,7 @@ router.post("/donations/non-money", async (req, res) => {
       updatedAt: now,
     });
 
-    writeJsonArray(DATA_FILES.donations, donations);
+    await writeJsonArray(COLLECTIONS.donations, donations);
 
     return res.status(201).json({
       status: "success",

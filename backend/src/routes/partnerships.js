@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const express = require("express");
-const { DATA_FILES } = require("../config");
+const { COLLECTIONS } = require("../config");
 const { readJsonArray, writeJsonArray } = require("../storage/jsonStore");
 const { buildReference } = require("../utils");
 
@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/partnerships", async (req, res) => {
   try {
     const data = req.body;
-    const partnerships = readJsonArray(DATA_FILES.partnerships);
+    const partnerships = await readJsonArray(COLLECTIONS.partnerships);
     const reference = buildReference("PAR");
     const now = new Date().toISOString();
 
@@ -21,7 +21,7 @@ router.post("/partnerships", async (req, res) => {
       updatedAt: now,
     });
 
-    writeJsonArray(DATA_FILES.partnerships, partnerships);
+    await writeJsonArray(COLLECTIONS.partnerships, partnerships);
 
     return res.status(201).json({
       status: "success",

@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const express = require("express");
-const { DATA_FILES, PAYSUITE } = require("../config");
+const { COLLECTIONS, PAYSUITE } = require("../config");
 const { readJsonArray, writeJsonArray } = require("../storage/jsonStore");
 const { safeTimingEqual } = require("../utils");
 
@@ -34,7 +34,7 @@ router.post(
       }
 
       const payload = JSON.parse(payloadBuffer.toString("utf8"));
-      const webhookEntries = readJsonArray(DATA_FILES.webhooks);
+      const webhookEntries = await readJsonArray(COLLECTIONS.webhooks);
       const alreadyProcessed = webhookEntries.some(
         (item) => item.request_id === payload.request_id
       );
@@ -44,8 +44,8 @@ router.post(
           received_at: new Date().toISOString(),
           ...payload,
         });
-        writeJsonArray(DATA_FILES.webhooks, webhookEntries);
-        updateDonationStatus(payload);
+        await writeJsonArray(COLLECTIONS.webhooks, webhookEntries);
+        await updateDonationStatus(payload);
       }
 
       return res.status(200).json({ status: "success" });
@@ -59,8 +59,8 @@ router.post(
   }
 );
 
-function updateDonationStatus(payload) {
-  const donations = readJsonArray(DATA_FILES.donations);
+async function updateDonationStatus(payload) {
+  const donations = await readJsonArray(COLLECTIONS.donations);
   const donationIndex = donations.findIndex(
     (item) => item.reference === payload?.data?.reference
   );
@@ -77,7 +77,7 @@ function updateDonationStatus(payload) {
 
   donations[donationIndex].paymentDetails = payload.data;
   donations[donationIndex].updatedAt = new Date().toISOString();
-  writeJsonArray(DATA_FILES.donations, donations);
+  await writeJsonArray(COLLECTIONS.donations, donations);
 }
 
 module.exports = router;

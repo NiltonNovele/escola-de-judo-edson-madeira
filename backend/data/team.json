@@ -1,0 +1,35 @@
+[
+  {
+    "id": "b1e6f5d0-1a2b-4c3d-8e4f-000000000001",
+    "name": "Kevin Loforte",
+    "role": "Professor de Judo",
+    "image": "/images/sucesso/kevin.jpg",
+    "description": "Especialista em ensino técnico e preparação de jovens atletas.",
+    "email": "",
+    "phone": "",
+    "createdAt": "2026-07-04T00:00:00.000Z",
+    "updatedAt": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "id": "b1e6f5d0-1a2b-4c3d-8e4f-000000000002",
+    "name": "Jacira Ferreira",
+    "role": "Professora de Judo",
+    "image": "/images/sucesso/jacira.jpg",
+    "description": "Focada no desenvolvimento de atletas femininas e inclusão social.",
+    "email": "",
+    "phone": "",
+    "createdAt": "2026-07-04T00:00:00.000Z",
+    "updatedAt": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "id": "b1e6f5d0-1a2b-4c3d-8e4f-000000000003",
+    "name": "Edson Madeira",
+    "role": "Treinador Olímpico",
+    "image": "/images/edson.jpg",
+    "description": "Treinador com experiência internacional e formação de atletas de alto rendimento.",
+    "email": "",
+    "phone": "",
+    "createdAt": "2026-07-04T00:00:00.000Z",
+    "updatedAt": "2026-07-04T00:00:00.000Z"
+  }
+]

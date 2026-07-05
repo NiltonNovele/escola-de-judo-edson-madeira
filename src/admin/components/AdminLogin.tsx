@@ -45,7 +45,7 @@ const AdminLogin = () => {
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (email === "admin@db.com" && password === "2026") {
+    if (email === "admin@ejem.org.mz" && password === "usuarioejem0") {
       localStorage.setItem("adminAuth", "true");
       router.push("/admin/dashboard");
     } else {

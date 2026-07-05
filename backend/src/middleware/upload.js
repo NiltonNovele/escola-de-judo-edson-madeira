@@ -1,7 +1,6 @@
-const crypto = require("crypto");
-const path = require("path");
 const multer = require("multer");
-const { PROOFS_DIR } = require("../config");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../lib/cloudinary");
 
 const allowedMimeTypes = new Set([
   "image/jpeg",
@@ -10,21 +9,16 @@ const allowedMimeTypes = new Set([
   "application/pdf",
 ]);
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (_req, _file, cb) {
-      cb(null, PROOFS_DIR);
-    },
-    filename: function (_req, file, cb) {
-      const ext = path.extname(file.originalname).toLowerCase();
-      const safeBase = path
-        .basename(file.originalname, ext)
-        .replace(/[^a-zA-Z0-9-_]/g, "_")
-        .slice(0, 80);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "ejem/proofs",
+    resource_type: "auto",
+  },
+});
 
-      cb(null, `${Date.now()}-${crypto.randomUUID()}-${safeBase}${ext}`);
-    },
-  }),
+const upload = multer({
+  storage,
   limits: {
     fileSize: 8 * 1024 * 1024,
   },

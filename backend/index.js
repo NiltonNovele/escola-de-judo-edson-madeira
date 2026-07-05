@@ -1,8 +1,17 @@
 const { createApp } = require("./src/app");
 const { PORT } = require("./src/config");
+const { connectDb } = require("./src/db/mongo");
 
-const app = createApp();
+async function start() {
+  await connectDb();
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  const app = createApp();
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+start().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
 });
