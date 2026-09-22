@@ -56,7 +56,7 @@ export const NAV_SECTIONS: NavigationSection[] = [
       { href: "/galeria", label: "Galeria" },
       { href: "/eventos", label: "Eventos" },
       { href: "/graduacoes", label: "Graduações" },
-      { href: "/novidades", label: "Informações e Novidades" },
+      { href: "/novidades", label: "Novidades" },
     ],
   },
 ];
