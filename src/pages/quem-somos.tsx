@@ -84,30 +84,50 @@ return () => clearInterval(interval);
         </div>
 
         {/* TEXT */}
-        <div className="min-w-0">
-          <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
-            Quem Somos
-          </h1>
-          <p className="text-gray-700 leading-relaxed">
-            Mais do que ensinar técnicas desportivas, promovemos o desenvolvimento
-            humano e a integração social através do Judo, da educação e da cultura.
-            Formamos faixas-pretas dentro e fora do tatami.
-          </p>
-          <p className="text-gray-700 leading-relaxed mt-4">
-            Acreditamos que o verdadeiro sucesso vai além das medalhas
-            e das competições. O nosso objectivo é formar cidadãos disciplinados,
-            responsáveis, respeitadores e preparados para enfrentar os desafios
-            da vida com confiança, determinação e espírito de superação.
-          </p>
-          <p className="text-gray-700 leading-relaxed mt-4">
-            Com professores experientes, projectos sociais e uma forte ligação
-            à comunidade, trabalhamos diariamente para transmitir valores que
-            perduram para toda a vida e para cumprir o nosso lema:
-          </p>
-          <strong className="block mt-4 text-blue-800 text-xl">
-            FORMANDO CAMPEÕES PARA A VIDA
-          </strong>
-        </div>
+<div className="min-w-0">
+  <h1 className="text-5xl font-extrabold text-blue-900 mb-6">
+    Quem Somos
+  </h1>
+
+  <p className="text-gray-700 leading-relaxed">
+    Na <strong>Escola de Judo Edson Madeira</strong>, acreditamos que o Judo
+    é muito mais do que uma modalidade desportiva. É uma escola de vida que
+    ensina disciplina, respeito, responsabilidade, coragem e perseverança.
+  </p>
+
+  <p className="text-gray-700 leading-relaxed mt-4">
+    Através do Judo, da educação e da cultura, trabalhamos para desenvolver
+    não apenas atletas, mas sobretudo <strong>pessoas melhores, mais confiantes
+    e preparadas para enfrentar os desafios da vida</strong>. No nosso tatami,
+    cada treino é uma oportunidade para aprender, superar limites, construir
+    carácter e crescer.
+  </p>
+
+  <p className="text-gray-700 leading-relaxed mt-4">
+    Acreditamos que o verdadeiro sucesso não se mede apenas por medalhas,
+    títulos ou vitórias nas competições. Mede-se também pela capacidade de
+    respeitar o próximo, assumir responsabilidades, saber superar as derrotas,
+    valorizar as conquistas e nunca desistir perante as dificuldades.
+  </p>
+
+  <p className="text-gray-700 leading-relaxed mt-4">
+    Com uma equipa dedicada e experiente, desenvolvemos um trabalho focado na
+    formação integral dos nossos alunos, desde a iniciação até ao alto
+    rendimento, valorizando sempre o esforço, a disciplina e o espírito de
+    equipa. Ao mesmo tempo, procuramos contribuir para a comunidade através
+    de iniciativas que promovem a inclusão, a educação e o desenvolvimento
+    social.
+  </p>
+
+  <p className="text-gray-700 leading-relaxed mt-4">
+    Na <strong>Escola de Judo Edson Madeira</strong>, formamos atletas para o
+    tatami e cidadãos para a vida.
+  </p>
+
+  <strong className="block mt-6 text-blue-800 text-xl font-bold">
+    FORMANDO CAMPEÕES PARA A VIDA
+  </strong>
+</div>
       </motion.div>
     </section>
 
