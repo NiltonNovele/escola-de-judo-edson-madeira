@@ -39,7 +39,7 @@ export default function NovidadesPage() {
       <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 px-4 bg-gradient-to-b from-blue-50 to-white">
         <div className="mt-8 max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-blue-900 tracking-tight mb-4">
-            Informações Importantes e Novidades
+            Novidades
           </h1>
 
           <p className="text-gray-700 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
