@@ -1,4 +1,5 @@
-"use client";
+```tsx
+use client";
 
 import Image from "next/image";
 import Navbar from "../components/Navbar";
@@ -19,7 +20,6 @@ import {
   ShieldCheck,
   Loader2,
   Landmark,
-  Construction,
 } from "lucide-react";
 import { PARTNER_IDS } from "@/data/site";
 import { useHorizontalLoop } from "@/hooks/useHorizontalLoop";
@@ -38,9 +38,6 @@ type BankDetails = {
 };
 
 const QUICK_AMOUNTS = [250, 500, 1000, 2500, 5000];
-
-// TODO: remove this flag and the overlay block in the JSX below once the donations page is finished
-const PAGE_UNDER_CONSTRUCTION = true;
 
 const initialForm = {
   name: "",
@@ -84,17 +81,6 @@ export default function DonatePage() {
   });
 
   const [form, setForm] = useState(initialForm);
-
-  useEffect(() => {
-    if (!PAGE_UNDER_CONSTRUCTION) return;
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
 
   const donationGoodsOptions = [
     { label: "Transporte", icon: Truck },
@@ -375,30 +361,6 @@ export default function DonatePage() {
     <div className="w-full min-h-screen bg-white text-gray-900 antialiased">
       <Navbar />
 
-      {/* TODO: remove this overlay once the donations page is finished */}
-      {PAGE_UNDER_CONSTRUCTION && (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 flex items-center justify-center bg-blue-950/80 backdrop-blur-md px-6">
-          <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-3xl bg-blue-500/20 blur-2xl animate-pulse"
-            />
-            <div className="relative">
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-900/70 text-white">
-                <Construction size={30} className="animate-bounce" />
-              </div>
-              <h2 className="text-2xl font-extrabold text-white">
-                Em Desenvolvimento
-              </h2>
-              <p className="mt-3 text-sm text-blue-100 leading-relaxed">
-                Esta página está a ser construída. Volte em breve para poder
-                apoiar a Escola de Judo Edson Madeira.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       <main className="pt-16">
         {/* HERO */}
         <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-red-50 border-b border-blue-100">
@@ -407,7 +369,6 @@ export default function DonatePage() {
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
-
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-blue-900">
                 Faça parte desta
                 <br />
@@ -467,7 +428,6 @@ export default function DonatePage() {
                   </button>
                 </div>
               </div>
-
             </div>
 
             <div className="lg:col-span-5">
@@ -504,20 +464,22 @@ export default function DonatePage() {
                     <button
                       type="button"
                       onClick={() => setType("donate")}
-                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${type === "donate"
-                        ? "border-white text-white"
-                        : "border-transparent text-blue-200 hover:text-white"
-                        }`}
+                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${
+                        type === "donate"
+                          ? "border-white text-white"
+                          : "border-transparent text-blue-200 hover:text-white"
+                      }`}
                     >
                       Doar
                     </button>
                     <button
                       type="button"
                       onClick={() => setType("partner")}
-                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${type === "partner"
-                        ? "border-white text-white"
-                        : "border-transparent text-blue-200 hover:text-white"
-                        }`}
+                      className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition ${
+                        type === "partner"
+                          ? "border-white text-white"
+                          : "border-transparent text-blue-200 hover:text-white"
+                      }`}
                     >
                       Ser parceiro
                     </button>
@@ -527,10 +489,11 @@ export default function DonatePage() {
                 <div className="p-6 sm:p-8">
                   {alertState.message && (
                     <div
-                      className={`mb-6 rounded-xl border px-4 py-3 text-sm ${alertState.type === "success"
-                        ? "border-green-200 bg-green-50 text-green-700"
-                        : "border-red-200 bg-red-50 text-red-700"
-                        }`}
+                      className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
+                        alertState.type === "success"
+                          ? "border-green-200 bg-green-50 text-green-700"
+                          : "border-red-200 bg-red-50 text-red-700"
+                      }`}
                     >
                       {alertState.message}
                     </div>
@@ -556,10 +519,11 @@ export default function DonatePage() {
                               key={option.key}
                               type="button"
                               onClick={() => setDonationMode(option.key)}
-                              className={`flex items-center justify-center gap-1.5 rounded-lg px-2 py-2.5 text-sm font-medium transition ${donationMode === option.key
-                                ? "bg-white text-blue-900 shadow-sm"
-                                : "text-gray-500 hover:text-gray-800"
-                                }`}
+                              className={`flex items-center justify-center gap-1.5 rounded-lg px-2 py-2.5 text-sm font-medium transition ${
+                                donationMode === option.key
+                                  ? "bg-white text-blue-900 shadow-sm"
+                                  : "text-gray-500 hover:text-gray-800"
+                              }`}
                             >
                               <option.icon size={15} />
                               {option.label}
@@ -643,10 +607,11 @@ export default function DonatePage() {
                                       amount: String(value),
                                     }))
                                   }
-                                  className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${String(value) === form.amount
-                                    ? "bg-blue-900 text-white border-blue-900"
-                                    : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
-                                    }`}
+                                  className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
+                                    String(value) === form.amount
+                                      ? "bg-blue-900 text-white border-blue-900"
+                                      : "bg-white border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                                  }`}
                                 >
                                   {value.toLocaleString("pt-PT")}
                                 </button>
@@ -808,10 +773,11 @@ export default function DonatePage() {
                                     key={item.label}
                                     type="button"
                                     onClick={() => toggleGood(item.label)}
-                                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${active
-                                      ? "border-red-600 bg-red-600 text-white"
-                                      : "border-gray-300 text-gray-700 hover:border-red-300 hover:bg-red-50"
-                                      }`}
+                                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${
+                                      active
+                                        ? "border-red-600 bg-red-600 text-white"
+                                        : "border-gray-300 text-gray-700 hover:border-red-300 hover:bg-red-50"
+                                    }`}
                                   >
                                     <Icon size={15} />
                                     {item.label}
@@ -900,10 +866,11 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setIsCompany(false)}
-                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${!isCompany
-                              ? "bg-blue-900 text-white border-blue-900"
-                              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                              }`}
+                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${
+                              !isCompany
+                                ? "bg-blue-900 text-white border-blue-900"
+                                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                            }`}
                           >
                             <User size={17} />
                             Indivíduo
@@ -912,10 +879,11 @@ export default function DonatePage() {
                           <button
                             type="button"
                             onClick={() => setIsCompany(true)}
-                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${isCompany
-                              ? "bg-blue-900 text-white border-blue-900"
-                              : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                              }`}
+                            className={`inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium border transition ${
+                              isCompany
+                                ? "bg-blue-900 text-white border-blue-900"
+                                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                            }`}
                           >
                             <Building2 size={17} />
                             Empresa / Organização
@@ -1203,7 +1171,6 @@ export default function DonatePage() {
         {/* PARTNERS */}
         <section className="bg-gray-50">
           <div className="max-w-7xl mx-auto px-6 text-center">
-
             <h2 className="text-4xl font-extrabold text-blue-900 mb-6">
               Parceiros & Apoiantes
             </h2>
@@ -1237,7 +1204,9 @@ export default function DonatePage() {
             </div>
 
             <p className="text-gray-600 mt-14 text-sm">
-              Agradecemos cada parceiro que acredita na nossa missão.<br /><br />
+              Agradecemos cada parceiro que acredita na nossa missão.
+              <br />
+              <br />
             </p>
           </div>
         </section>
@@ -1285,3 +1254,4 @@ export default function DonatePage() {
     </div>
   );
 }
+```
