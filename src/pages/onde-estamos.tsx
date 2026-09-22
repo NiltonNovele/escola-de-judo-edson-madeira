@@ -52,7 +52,7 @@ export default function WhereWeAre() {
       address: "Av. para o Palmar, nº 562 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "portuguesa.jfif",
+      image: "portuguesa.jpg",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Escola+Portuguesa+de+Mo%C3%A7ambique+Maputo",
       type: "location",
@@ -65,7 +65,7 @@ export default function WhereWeAre() {
       address: "Rua do Rio Raraga, 266 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "/aism.jfif",
+      image: "/aism.webp",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=American+International+School+of+Mozambique+Maputo",
       type: "location",
@@ -79,7 +79,7 @@ export default function WhereWeAre() {
         "Av. Eduardo Mondlane, nº 130 – Praceta Heróis de Mocuba, Maputo",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "/arcoiris.jfif",
+      image: "/arco.jpg",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Colegio+Arco-Iris+Maputo",
       type: "location",
@@ -92,7 +92,7 @@ export default function WhereWeAre() {
       address: "Av. Kenneth Kaunda, 940 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "/canadian.jfif",
+      image: "/canadian.jpg",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Canadian+Montessori+Academy+Maputo",
       type: "location",
@@ -105,7 +105,7 @@ export default function WhereWeAre() {
       address: "Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "/casacolorida.jfif",
+      image: "/casa.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Casa+Colorida+Maputo+Mo%C3%A7ambique",
       type: "location",
