@@ -24,7 +24,7 @@ import { PARTNER_IDS } from "@/data/site";
 import { useHorizontalLoop } from "@/hooks/useHorizontalLoop";
 
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations.onrender.com";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://ejem-donations-nbrz.onrender.com";
 
 type BankDetails = {
   bankName: string;
