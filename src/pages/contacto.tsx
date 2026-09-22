@@ -118,10 +118,10 @@ export default function ContactPage() {
                 <div>
                   <p className="font-semibold text-neutral-900">Telefone</p>
                   <a
-                    href="tel:+258844002050"
+                    href="tel:+258871538427"
                     className="text-neutral-600 hover:text-blue-700 transition"
                   >
-                    +258 84 400 2050
+                    +258 87 153 8427
                   </a>
                 </div>
               </div>
@@ -200,11 +200,6 @@ export default function ContactPage() {
               Enviar pelo WhatsApp
               <ArrowUpRight size={19} />
             </button>
-
-            <div className="flex items-center justify-center gap-2 mt-5 text-sm text-neutral-500">
-              <span className="w-2 h-2 rounded-full bg-green-500"></span>
-              <span>WhatsApp: +258 84 400 2050</span>
-            </div>
           </div>
         </div>
       </div>
