@@ -145,7 +145,7 @@ export default function TeamBuildingPage() {
           <div className="lg:col-span-5">
             <div className="relative w-full h-[320px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-white/70 bg-white">
               <Image
-                src="/images/team-building/team-building.webp"
+                src="/team.jpg"
                 alt="Team Building EJEM"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
