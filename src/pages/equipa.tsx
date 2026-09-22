@@ -4,8 +4,6 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
-import { Mail, Phone } from "lucide-react";
-import { useState } from "react";
 import type { GetStaticProps } from "next";
 import { API_BASE, resolveUploadedImage } from "../lib/api";
 
@@ -13,38 +11,43 @@ type Member = {
   name: string;
   role: string;
   image: string;
-  description: string;
-  email?: string;
-  phone?: string;
 };
 
 const FALLBACK_TEAM: Member[] = [
   {
-    name: "Kevin Loforte",
+    name: "Edson Madeira OLY",
+    role: "Fundador e Professor",
+    image: "/edson.jpeg",
+  },
+  {
+    name: "Antonio Muhai",
+    role: "Monitor de Judo",
+    image: "/antonio.jpeg",
+  },
+  {
+    name: "Kevin Loforte OLY",
     role: "Professor de Judo",
-    image: "/images/sucesso/kevin.jpg",
-    description:
-      "Especialista em ensino técnico e preparação de jovens atletas.",
-    email: "",
-    phone: "",
+    image: "/kevin.jpeg",
   },
   {
-    name: "Jacira Ferreira",
-    role: "Professora de Judo",
-    image: "/images/sucesso/jacira.jpg",
-    description:
-      "Focada no desenvolvimento de atletas femininas e inclusão social.",
-    email: "",
-    phone: "",
+    name: "Marcelino Manjate",
+    role: "Professor de Judo",
+    image: "/marcelino.jpeg",
   },
   {
-    name: "Edson Madeira",
-    role: "Treinador Olímpico",
-    image: "/images/edson.jpg",
-    description:
-      "Treinador com experiência internacional e formação de atletas de alto rendimento.",
-    email: "",
-    phone: "",
+    name: "Ayton Siquir",
+    role: "Professor de Judo",
+    image: "/ayton.jpeg",
+  },
+  {
+    name: "Nicolau Boudou",
+    role: "Professor de Judo",
+    image: "/nicolau.jpeg",
+  },
+  {
+    name: "Mariano Cassiano",
+    role: "Monitor de Judo",
+    image: "/mariano.jpeg",
   },
 ];
 
@@ -71,12 +74,6 @@ export const getStaticProps: GetStaticProps<{ team: Member[] }> = async () => {
 };
 
 export default function Equipe({ team }: { team: Member[] }) {
-  const [active, setActive] = useState<number | null>(null);
-
-  const toggleDescription = (idx: number) => {
-    setActive(active === idx ? null : idx);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -91,6 +88,7 @@ export default function Equipe({ team }: { team: Member[] }) {
         <h1 className="text-5xl font-extrabold text-blue-900 mb-4">
           A Nossa Equipa
         </h1>
+
         <p className="text-lg text-gray-700 max-w-3xl mx-auto">
           Conheça os profissionais que dedicam o seu trabalho ao desenvolvimento
           humano, educativo e desportivo através do Judo.
@@ -104,9 +102,9 @@ export default function Equipe({ team }: { team: Member[] }) {
             key={idx}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: idx * 0.1 }}
-            className="relative bg-white rounded-3xl shadow-xl overflow-hidden cursor-pointer group hover:shadow-2xl transition-shadow duration-500"
-            onClick={() => toggleDescription(idx)}
+            className="relative bg-white rounded-3xl shadow-xl overflow-hidden group hover:shadow-2xl transition-shadow duration-500"
           >
             {/* Imagem */}
             <div className="relative h-96 w-full overflow-hidden rounded-t-3xl">
@@ -120,34 +118,15 @@ export default function Equipe({ team }: { team: Member[] }) {
             </div>
 
             {/* Nome e função */}
-            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 via-black/30 to-transparent p-5 rounded-b-3xl">
-              <h2 className="text-2xl font-bold text-white">{m.name}</h2>
-              <p className="text-gray-200 text-sm">{m.role}</p>
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 rounded-b-3xl">
+              <h2 className="text-2xl font-bold text-white">
+                {m.name}
+              </h2>
+
+              <p className="text-gray-200 text-sm mt-1">
+                {m.role}
+              </p>
             </div>
-
-            {/* Descrição deslizante */}
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{
-                y: active === idx ? 0 : "100%",
-              }}
-              whileHover={{ y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="absolute bottom-0 left-0 w-full bg-white p-6 shadow-lg text-gray-800 h-52 flex flex-col justify-between rounded-t-3xl"
-            >
-              <p className="text-sm leading-relaxed">{m.description}</p>
-
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mt-3">
-                <div className="flex items-center gap-2 text-sm">
-                  <Mail className="w-4 h-4 text-blue-800" />
-                  <span>{m.email}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Phone className="w-4 h-4 text-blue-800" />
-                  <span>{m.phone}</span>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         ))}
       </section>
