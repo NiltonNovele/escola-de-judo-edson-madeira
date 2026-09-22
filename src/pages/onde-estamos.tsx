@@ -52,7 +52,7 @@ export default function WhereWeAre() {
       address: "Av. para o Palmar, nº 562 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/J43GX1mZ/images.jpg",
+      image: "portuguesa.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Escola+Portuguesa+de+Mo%C3%A7ambique+Maputo",
       type: "location",
@@ -65,7 +65,7 @@ export default function WhereWeAre() {
       address: "Rua do Rio Raraga, 266 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/CK9FttYt/images-(1).jpg",
+      image: "/aism.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=American+International+School+of+Mozambique+Maputo",
       type: "location",
@@ -79,7 +79,7 @@ export default function WhereWeAre() {
         "Av. Eduardo Mondlane, nº 130 – Praceta Heróis de Mocuba, Maputo",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/ncnn6qb8/images-(2).jpg",
+      image: "/arcoiris.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Colegio+Arco-Iris+Maputo",
       type: "location",
@@ -92,7 +92,7 @@ export default function WhereWeAre() {
       address: "Av. Kenneth Kaunda, 940 – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/fbSsxKXm/images-(3).jpg",
+      image: "/canadian.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Canadian+Montessori+Academy+Maputo",
       type: "location",
@@ -105,7 +105,7 @@ export default function WhereWeAre() {
       address: "Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/tCrGwfNS/images-(4).jpg",
+      image: "/casacolorida.jfif",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Casa+Colorida+Maputo+Mo%C3%A7ambique",
       type: "location",
@@ -118,7 +118,7 @@ export default function WhereWeAre() {
       address: "Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/h4pYtmzH/images.png",
+      image: "/vivamelhor.png",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Viva+Melhor+Maputo+Mo%C3%A7ambique",
       type: "location",
@@ -131,7 +131,7 @@ export default function WhereWeAre() {
       address: "Mafalala – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/W3S5tRzT/mafalala-walking-tour-maputo-870x555.webp",
+      image: "/mafalala.webp",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Mafalala+Maputo+Mo%C3%A7ambique",
       type: "location",
@@ -144,7 +144,7 @@ export default function WhereWeAre() {
       address: "Vila Nova – Maputo, Moçambique",
       phone: "+258 84 400 2050",
       hours: "Seg a Sex – 08h00 às 20h30 | Sáb – 08h00 às 10h00",
-      image: "https://i.postimg.cc/HxWtqS2j/Cinema-Montalto-Chimoio-JPG.webp",
+      image: "/vilanova.webp",
       mapsUrl:
         "https://www.google.com/maps/search/?api=1&query=Vila+Nova+Maputo+Mo%C3%A7ambique",
       type: "branch",
