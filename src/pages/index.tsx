@@ -446,27 +446,46 @@ export default function Home() {
             </p>
 
             <div
-              ref={partnersRef}
-              onMouseEnter={pausePartners}
-              onMouseLeave={resumePartners}
-              className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
-            >
-              {[...PARTNER_IDS, ...PARTNER_IDS].map((id, index) => (
-                <div
-                  key={`${id}-${index}`}
-                  className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
-                >
-                  <Image
-                    src={`/images/parceiros/partner${id}.png`}
-                    alt={`Parceiro ${id}`}
-                    width={160}
-                    height={96}
-                    sizes="160px"
-                    className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
-                  />
-                </div>
-              ))}
-            </div>
+  ref={partnersRef}
+  onMouseEnter={pausePartners}
+  onMouseLeave={resumePartners}
+  className="flex gap-6 overflow-hidden whitespace-nowrap py-4"
+>
+  {[
+    "partner1.png",
+    "partner2.png",
+    "partner3.png",
+    "partner4.png",
+    "partner5.png",
+    "partner6.png",
+    "partner7.png",
+    "partner8.png",
+    "partner9.png",
+    "partner1.png",
+    "partner2.png",
+    "partner3.png",
+    "partner4.png",
+    "partner5.png",
+    "partner6.png",
+    "partner7.png",
+    "partner8.png",
+    "partner9.png",
+  ].map((file, index) => (
+    <div
+      key={`${file}-${index}`}
+      className="min-w-[220px] h-44 flex-none rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:shadow-lg flex items-center justify-center"
+    >
+      <Image
+        src={`/images/parceiros/${file}`}
+        alt={`Parceiro ${(index % 9) + 1}`}
+        width={160}
+        height={96}
+        sizes="160px"
+        className="max-h-24 w-auto opacity-80 transition duration-300 hover:opacity-100 object-contain"
+      />
+    </div>
+  ))}
+</div>
 
             <p className="text-gray-600 mt-14 text-sm">
               Agradecemos cada parceiro que acredita na nossa missão.
