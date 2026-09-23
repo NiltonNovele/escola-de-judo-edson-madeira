@@ -56,8 +56,13 @@ export const NAV_SECTIONS: NavigationSection[] = [
       { href: "/galeria", label: "Galeria" },
       { href: "/eventos", label: "Eventos" },
       { href: "/graduacoes", label: "Graduações" },
-      { href: "/novidades", label: "Novidades" },
+      { href: "/novidades", label: "Informacoes e Novidades" },
     ],
+  },
+  {
+    title: "Novidades",
+    items: [
+      { href: "/novidades", label: "Informacoes e Novidades" },
   },
 ];
 
