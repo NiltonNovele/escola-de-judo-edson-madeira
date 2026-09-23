@@ -103,7 +103,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-semibold text-neutral-900">Morada</p>
                   <p className="text-neutral-600 mt-1">
-                    Rua de Mukumbura, 387, R/c
+                    Av. Patrice Lumumba, Prédio Vila Nova, nº 1177, rés do chão, porta à direita.
                     <br />
                     Maputo, Moçambique
                   </p>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                     href="tel:+258871538427"
                     className="text-neutral-600 hover:text-blue-700 transition"
                   >
-                    +258 87 153 8427
+                    +258 84 400 2050 | +258 87 153 8427
                   </a>
                 </div>
               </div>
