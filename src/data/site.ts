@@ -63,6 +63,7 @@ export const NAV_SECTIONS: NavigationSection[] = [
     title: "Novidades",
     items: [
       { href: "/novidades", label: "Informacoes e Novidades" },
+      ]
   },
 ];
 
