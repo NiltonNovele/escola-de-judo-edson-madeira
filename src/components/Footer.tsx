@@ -25,7 +25,7 @@ export default function Footer() {
           <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex gap-3 items-start">
               <MapPin size={20} className="text-blue-600" />
-              <span>Rua de Mukumbura, 387, R/c, Maputo, Moçambique</span>
+              <span>Av. Patrice Lumumba, Prédio Vila Nova, nº 1177, rés do chão, porta à direita</span>
             </li>
             <li className="flex gap-3 items-center">
               <Mail size={20} className="text-blue-600" />
@@ -38,7 +38,7 @@ export default function Footer() {
             </li>
             <li className="flex gap-3 items-center">
               <Phone size={20} className="text-blue-600" />
-              +258 87 153 8427
+              +258 84 400 2050 | +258 87 153 8427
             </li>
           </ul>
         </div>
